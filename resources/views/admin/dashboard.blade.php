@@ -5,7 +5,7 @@ Dashboard
 @endsection
 
 @section('content')
-<div class="row">
+{{-- <div class="row">
     <div class="col-xl-2 col-6">
         <div class="box overflow-hidden pull-up">
             <div class="box-body">
@@ -546,6 +546,13 @@ Dashboard
                 </div>
             </div>
         </div>
+    </div>
+</div> --}}
+<div class="row">
+    <div class="col-sm-12 m-auto">
+        <h2 class="text-center">
+            Dashboard
+        </h2>
     </div>
 </div>
 
