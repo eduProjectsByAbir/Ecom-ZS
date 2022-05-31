@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 });
 
 Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 });
 

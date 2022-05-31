@@ -21,6 +21,6 @@ class IsAdmin
             return $next($request);
         }
 
-        return back()->with('error', 'You have not admin access');
+        abort('403');
     }
 }
