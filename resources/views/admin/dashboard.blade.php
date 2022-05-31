@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 
+@section('title')
+    Dashboard - Abir's E-Commerce
+@endsection
+
 @section('content')
 <div class="content-wrapper">
     <div class="container-full">
@@ -9,7 +13,7 @@
           <div class="row">
               <div class="col-xl-2 col-6">
                   <div class="box overflow-hidden pull-up">
-                      <div class="box-body">							
+                      <div class="box-body">
                           <div class="icon bg-primary-light rounded w-60 h-60">
                               <i class="text-primary mr-0 font-size-24 mdi mdi-account-multiple"></i>
                           </div>
@@ -22,7 +26,7 @@
               </div>
               <div class="col-xl-2 col-6">
                   <div class="box overflow-hidden pull-up">
-                      <div class="box-body">							
+                      <div class="box-body">
                           <div class="icon bg-warning-light rounded w-60 h-60">
                               <i class="text-warning mr-0 font-size-24 mdi mdi-car"></i>
                           </div>

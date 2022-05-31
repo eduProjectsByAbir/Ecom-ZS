@@ -9,9 +9,10 @@
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('backend/images/favicon.ico') }}">
 
-    <title>Sunny Admin - Dashboard</title>
+    <title>@yield('title', 'Abir-Ecommerce')</title>
     <!-- Vendors Style-->
     @include('admin.layouts.partial.styles')
+    @yield('styles')
 </head>
 
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
