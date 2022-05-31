@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('backend/images/favicon.ico') }}">
 
-    <title>@yield('title', 'Abir-Ecommerce')</title>
+    <title>@yield('title', 'Abir-Ecommerce') - Abir's E-Commerce</title>
     <!-- Vendors Style-->
     @include('admin.layouts.partial.styles')
     @yield('styles')
@@ -23,7 +23,15 @@
         @include('admin.layouts.partial.left-sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        @yield('content')
+        <div class="content-wrapper">
+            <div class="container-full">
+                <!-- Main content -->
+                <section class="content">
+                    @yield('content')
+                </section>
+                <!-- /.content -->
+            </div>
+        </div>
         <!-- /.content-wrapper -->
         @include('admin.layouts.partial.footer')
 
