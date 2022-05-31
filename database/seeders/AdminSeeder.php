@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -16,7 +17,8 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
+        $role = Role::first();
+        $admin = Admin::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'email_verified_at' => now(),
@@ -24,7 +26,9 @@ class AdminSeeder extends Seeder
             'remember_token' => Str::random(10),
             'type' => 'admin',
         ]);
-        
+
+        $admin->assignRole($role);
+
         User::create([
             'name' => 'User',
             'email' => 'user@mail.com',
