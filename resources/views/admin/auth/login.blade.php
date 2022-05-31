@@ -33,6 +33,7 @@
                             <p class="text-white-50">Sign in to start your session</p>
                         </div>
                         <div class="p-30 rounded30 box-shadowed b-2 b-dashed">
+                            <x-jet-validation-errors class="mb-4 text-white" />
                             <form action="{{ route('admin.login') }}" method="post">
                                 @csrf
                                 <div class="form-group">
