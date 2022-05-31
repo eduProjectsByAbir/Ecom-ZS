@@ -21,17 +21,12 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::get('/login', [AdminController::class, 'loginForm'])->name('admin.login.form');
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
-    Route::post('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+    // Route::post('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 });
 
-Route::middleware([
-    'auth:sanctum,admin',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 });
 
 
