@@ -22,7 +22,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::get('/login', [AdminController::class, 'loginForm'])->name('admin.login.form');
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
-    // Route::post('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 });
 
 Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
