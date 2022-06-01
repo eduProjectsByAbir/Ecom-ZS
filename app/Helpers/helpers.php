@@ -23,3 +23,19 @@ function deleteImage(?string $image)
         }
     }
 }
+
+function flashSuccess(string $msg)
+{
+    session()->flash('success', $msg);
+}
+
+function flashWarning(string $msg)
+{
+    session()->flash('success', $msg);
+}
+
+function flashError(string $msg)
+{
+    session()->flash('success', $msg);
+}
+

@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group @error('email') has-error @enderror">
-                                    <label>E-mail</label>
+                                    <label class="tst1">E-mail</label>
                                     <input type="email" class="form-control" placeholder="E-mail" name="email" value="{{ old('email', $admin->email) }}">
                                     @error('email')
                                     <span class="help-block">{{ $message }}</span>

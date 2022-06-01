@@ -41,6 +41,7 @@ class AdminProfileController extends Controller
             $admin->profile_photo_path = $url;
         }
         $admin->save();
+        flashSuccess('Profile Updated Successfully!');
         return back();
     }
 }
