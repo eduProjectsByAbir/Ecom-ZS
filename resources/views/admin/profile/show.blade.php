@@ -55,8 +55,8 @@ Profile
                     <div class="row">
                         <div class="col-12">
                             <div>
-                                <p>Name :<span class="text-gray pl-10">{{ $admin->name }}</span> </p>
-                                <p>Phone :<span class="text-gray pl-10">{{ $admin->email }}</span></p>
+                                <p><b>Name</b> :<span class="text-gray pl-10">{{ $admin->name }}</span> </p>
+                                <p><b>Email</b> :<span class="text-gray pl-10">{{ $admin->email }}</span></p>
                             </div>
                         </div>
                         {{-- <div class="col-12">
@@ -92,15 +92,26 @@ Profile
                 <div class="box-body box-profile">
                     <div class="row d-flex justify-content-center">
                         @if(userCan('admin_profile.update'))
-                        <div class="col-6 d-flex justify-content-center">
+                        <div class="col-4 d-flex justify-content-center">
                             <a href="{{ route('admin.profile.edit') }}">
                             <button type="button" class="btn btn-info m-2"><i class="fa fa-pencil"></i> Edit Profile</button>
                         </a>
                         </div>
                         @endif
+                        @if(userCan('admin_profile.update'))
+                        <div class="col-4 d-flex justify-content-center">
+                            <a href="{{ route('admin.profile.edit.password') }}">
+                            <button type="button" class="btn btn-warning m-2"><i class="fa fa-key"></i> Change Password</button>
+                        </a>
+                        </div>
+                        @endif
                         @if(userCan('admin_profile.delete'))
-                        <div class="col-6 d-flex justify-content-center">
-                            <button type="button" class="btn btn-danger m-2"><i class="fa fa-trash"></i> Delete Profile</button>
+                        <div class="col-4 d-flex justify-content-center">
+                            <form action="{{ route('admin.profile.delete') }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger m-2"><i class="fa fa-trash"></i> Delete Profile</button>
+                        </form>
                         </div>
                         @endif
                     </div>

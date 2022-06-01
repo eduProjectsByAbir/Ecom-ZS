@@ -31,11 +31,11 @@ function flashSuccess(string $msg)
 
 function flashWarning(string $msg)
 {
-    session()->flash('success', $msg);
+    session()->flash('warning', $msg);
 }
 
 function flashError(string $msg)
 {
-    session()->flash('success', $msg);
+    session()->flash('error', $msg);
 }
 

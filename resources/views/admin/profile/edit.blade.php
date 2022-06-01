@@ -53,7 +53,7 @@
                             <i class="ti-trash"></i> Cancel
                         </a>
                         <button type="submit" class="btn btn-rounded btn-primary btn-outline">
-                            <i class="ti-save-alt"></i> Save
+                            <i class="ti-save-alt"></i> Update
                         </button>
                     </div>
                 </form>

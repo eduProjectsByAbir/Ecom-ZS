@@ -25,6 +25,8 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
     Route::get('/', [AdminProfileController::class, 'show'])->name('show');
     Route::get('/edit', [AdminProfileController::class, 'edit'])->name('edit');
     Route::put('/update', [AdminProfileController::class, 'update'])->name('update');
+    Route::get('/edit/password', [AdminProfileController::class, 'editPassword'])->name('edit.password');
+    Route::put('/update/password', [AdminProfileController::class, 'updatePassword'])->name('update.password');
     Route::delete('/delete', [AdminProfileController::class, 'distroy'])->name('delete');
 });
 
