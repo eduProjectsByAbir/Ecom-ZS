@@ -562,6 +562,5 @@ Dashboard
 
 @section('scripts')
 <!-- Sunny Admin App -->
-<script src="{{ asset('backend/js/template.js') }}"></script>
 <script src="{{ asset('backend/js/pages/dashboard.js') }}"></script>
 @endsection

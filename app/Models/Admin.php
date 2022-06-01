@@ -63,7 +63,7 @@ class Admin extends Authenticatable
     public function getProfilePhotoUrlAttribute()
     {
         if (!$this->profile_photo_path) {
-            return asset('backend/images/avatar/avatar-1.png');
+            return asset('backend/images/default-image.jpg');
         }
 
         return asset($this->profile_photo_path);

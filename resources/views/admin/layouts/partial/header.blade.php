@@ -112,7 +112,7 @@
                     </a>
                     <ul class="dropdown-menu animated flipInX">
                         <li class="user-body">
-                            <a class="dropdown-item {{ request()->routeIs('admin.profile.show') ? 'active' : '' }}" href="{{ route('admin.profile.show') }}"><i class="ti-user text-muted mr-2"></i> Profile</a>
+                            <a class="dropdown-item {{ request()->routeIs('admin.profile.show') || request()->routeIs('admin.profile.edit') ? 'active' : '' }}" href="{{ route('admin.profile.show') }}"><i class="ti-user text-muted mr-2"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> My Wallet</a>
                             <a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i> Settings</a>
                             <div class="dropdown-divider"></div>

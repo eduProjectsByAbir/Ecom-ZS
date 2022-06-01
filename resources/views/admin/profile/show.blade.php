@@ -93,7 +93,9 @@ Profile
                     <div class="row d-flex justify-content-center">
                         @if(userCan('admin_profile.update'))
                         <div class="col-6 d-flex justify-content-center">
+                            <a href="{{ route('admin.profile.edit') }}">
                             <button type="button" class="btn btn-info m-2"><i class="fa fa-pencil"></i> Edit Profile</button>
+                        </a>
                         </div>
                         @endif
                         @if(userCan('admin_profile.delete'))

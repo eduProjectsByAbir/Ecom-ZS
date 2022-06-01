@@ -1,6 +1,6 @@
 <?php
 
-function userCan($permission)
+function userCan($permission) :bool
 {
     return auth()->user()->can($permission);
 }
