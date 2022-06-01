@@ -18,7 +18,7 @@ function deleteImage(?string $image)
     $imageExists = file_exists($image);
 
     if ($imageExists) {
-        if ($imageExists != 'backend/image/default.png') {
+        if ($image != 'backend/image/default.png') {
             @unlink($image);
         }
     }
