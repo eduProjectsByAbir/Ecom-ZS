@@ -34,21 +34,11 @@ class AdminProfileController extends Controller
 
         $admin->name = $request->name;
         $admin->email = $request->email;
-        $file = $request->file('profile_photo_path');
-        $path = 'admin';
 
         if($request->hasFile('profile_photo_path')){
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/uploads/' . $path . '/'), $fileName);
-            $url = "uploads/$path/" . $fileName;
+            deleteImage($admin->profile_photo_path);
+            $url = updateImage($request->file('profile_photo_path'), 'admin/image');
             $admin->profile_photo_path = $url;
-
-            $imageExists = file_exists($file);
-            if ($imageExists) {
-                if ($imageExists != 'backend/images/default-image.jpg') {
-                    @unlink($file);
-                }
-            }
         }
         $admin->save();
         return back();
