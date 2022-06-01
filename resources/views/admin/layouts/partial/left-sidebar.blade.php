@@ -40,7 +40,7 @@
 
             <li class="header nav-small-cap">EXTRA</li>
             <li>
-                <a href="{{ route('admin.logout') }}">
+                <a href="{{ route('admin.profile.logout') }}">
                     <i data-feather="lock"></i>
                     <span>Log Out</span>
                 </a>
@@ -57,7 +57,7 @@
         <a href="mailbox_inbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
                 class="ti-email"></i></a>
         <!-- item-->
-        <a href="{{ route('admin.logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+        <a href="{{ route('admin.profile.logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
                 class="ti-lock"></i></a>
     </div>
 </aside>

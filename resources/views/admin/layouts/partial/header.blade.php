@@ -116,7 +116,7 @@
                             <a class="dropdown-item {{ request()->routeIs('admin.profile.edit.password') || request()->routeIs('admin.profile.update.password') ? 'active' : '' }}" href="{{ route('admin.profile.edit.password') }}"><i class="ti-wallet text-muted mr-2"></i> Manage Password</a>
                             <a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i> Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ti-lock text-muted mr-2"></i> Logout</a>
+                            <a class="dropdown-item" href="{{ route('admin.profile.logout') }}"><i class="ti-lock text-muted mr-2"></i> Logout</a>
                         </li>
                     </ul>
                 </li>
