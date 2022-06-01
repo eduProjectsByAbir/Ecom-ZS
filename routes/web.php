@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\DashboardController;
 include(base_path('routes/commands.php'));
 
 Route::get('/', function () {
-    return view( 'welcome');
+    return view('frontend.home');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
