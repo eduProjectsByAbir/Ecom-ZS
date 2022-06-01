@@ -19,7 +19,7 @@
 
             <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">
-                    <i data-feather="pie-chart"></i>
+                    <i data-feather="pie-chart" class="fa fa-tachometer"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -40,8 +40,14 @@
 
             <li class="header nav-small-cap">EXTRA</li>
             <li>
+                <a href="{{ route('home') }}">
+                    <i data-feather="lock" class="fa fa-home"></i>
+                    <span>Visit Website</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.profile.logout') }}">
-                    <i data-feather="lock"></i>
+                    <i data-feather="lock" class="fa fa-power-off"></i>
                     <span>Log Out</span>
                 </a>
             </li>
