@@ -45,13 +45,6 @@
                     <span>Visit Website</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.profile.logout') }}">
-                    <i data-feather="lock" class="fa fa-power-off"></i>
-                    <span>Log Out</span>
-                </a>
-            </li>
-
         </ul>
     </section>
 
