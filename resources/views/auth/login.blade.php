@@ -17,7 +17,7 @@
         <div class="sign-in-page">
             <div class="row justify-content-md-center">
                 <!-- Sign-in -->
-                <div class="col-sm-12 sign-in">
+                <div class="col-md-offset-3 col-md-6 col-sm-12 sign-in">
                     <h4 class="">Sign in</h4>
                     <p class="">Hello, Welcome to your account.</p>
                     {{-- <div class="social-sign-in outer-top-xs">

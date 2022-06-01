@@ -17,7 +17,7 @@
         <div class="sign-in-page">
             <div class="row">
                 <!-- create a new account -->
-                <div class="col-sm-12 create-new-account m-auto">
+                <div class="col-md-offset-3 col-md-6 col-sm-12 create-new-account">
                     <form class="register-form outer-top-xs" role="form" action="{{ route('password.update') }}" method="post">
                         @csrf
                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
