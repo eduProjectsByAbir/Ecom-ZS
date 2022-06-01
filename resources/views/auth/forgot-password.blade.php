@@ -19,7 +19,7 @@
                 <!-- Sign-in -->
                 <div class="col-sm-12 sign-in">
                     <h4 class="">Forget Password</h4>
-                    <p class="">Enter Email to reset your password.</p>
+                    <p class="">            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</p>
                     <form class="register-form outer-top-xs" role="form" action="{{ route('password.email') }}" method="post">
                         @csrf
                         <x-jet-validation-errors class="mb-4 text-center text-red" />
