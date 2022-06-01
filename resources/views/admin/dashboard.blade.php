@@ -548,18 +548,20 @@ Dashboard
         </div>
     </div>
 </div> --}}
-<div class="row">
-    <div class="col-sm-12 m-auto">
-        <h2 class="text-center">
-            Dashboard
-        </h2>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12 m-auto">
+            <h2 class="text-center">
+                Dashboard
+            </h2>
+        </div>
     </div>
-</div>
+</section>
 
 @endsection
 
 @section('scripts')
 <!-- Sunny Admin App -->
 <script src="{{ asset('backend/js/template.js') }}"></script>
-<script src="{{ asset('backend/js/pages/dashboard.js') }}"></script>')
+<script src="{{ asset('backend/js/pages/dashboard.js') }}"></script>
 @endsection

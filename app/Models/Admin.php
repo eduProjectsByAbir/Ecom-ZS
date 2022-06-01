@@ -27,8 +27,7 @@ class Admin extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+        'email'
     ];
 
     /**
@@ -60,4 +59,13 @@ class Admin extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    public function getProfilePhotoUrlAttribute()
+    {
+        if (!$this->profile_photo_path) {
+            return asset('backend/images/avatar/avatar-1.png');
+        }
+
+        return asset($this->profile_photo_path);
+    }
 }

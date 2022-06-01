@@ -26,18 +26,12 @@
         <div class="content-wrapper">
             <div class="container-full">
                 <!-- Main content -->
-                <section class="content">
                     @yield('content')
-                </section>
                 <!-- /.content -->
             </div>
         </div>
         <!-- /.content-wrapper -->
         @include('admin.layouts.partial.footer')
-
-        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-
     </div>
     <!-- ./wrapper -->
     <!-- Vendor JS -->

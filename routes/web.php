@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\DashboardController;
 
 include(base_path('routes/commands.php'));
@@ -18,6 +19,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+});
+
+Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->prefix('admin/profile')->name('admin.profile.')->group(function () {
+    Route::get('/', [AdminProfileController::class, 'show'])->name('show');
+    Route::get('/edit', [AdminProfileController::class, 'edit'])->name('edit');
+    Route::put('/update', [AdminProfileController::class, 'update'])->name('update');
+    Route::delete('/delete', [AdminProfileController::class, 'distroy'])->name('delete');
 });
 
 

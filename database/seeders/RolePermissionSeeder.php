@@ -38,11 +38,12 @@ class RolePermissionSeeder extends Seeder
                 ]
             ],
             [
-                'group_name' => 'profile',
+                'group_name' => 'admin_profile',
                 'permissions' => [
                     // Profile permission
-                    'profile.view',
-                    'profile.edit',
+                    'admin_profile.view',
+                    'admin_profile.update',
+                    'admin_profile.delete',
                 ]
             ],
         ];
