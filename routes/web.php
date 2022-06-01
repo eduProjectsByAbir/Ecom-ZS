@@ -12,16 +12,7 @@ include(base_path('routes/admin.php'));
 include(base_path('routes/backend.php'));
 
 Route::any('/test', function(){
-    dd(Auth::guard('user')->user());
+    dd(Auth::guard('web')->user());
 });
 
 
-Route::middleware([
-    'auth:sanctum,web',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
