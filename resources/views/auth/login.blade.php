@@ -26,16 +26,21 @@
                     </div> --}}
                     <form class="register-form outer-top-xs" role="form" action="{{ route('login') }}" method="post">
                         @csrf
-                        <x-jet-validation-errors class="mb-4 text-center text-red" />
                         <div class="form-group">
                             <label class="info-title" for="email">Email Address <span>*</span></label>
                             <input type="email" name="email" value="{{ old('email') }}" class="form-control unicase-form-control text-input"
                             id="email" autofocus>
+                            @error('email')
+                            <p class="red">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="info-title" for="password">Password <span>*</span></label>
                             <input type="password" name="password" class="form-control unicase-form-control text-input"
                                 id="password">
+                                @error('password')
+                                <p class="red">{{ $message }}</p>
+                                @enderror
                         </div>
                         <div class="checkbox outer-xs">
                             <label>
@@ -65,4 +70,12 @@
     </div><!-- /.container -->
 </div><!-- /.body-content -->
 <div class="p-5">  s</div>
+@endsection
+
+@section('styles')
+    <style>
+        .red {
+            color: red !important;
+        }
+    </style>
 @endsection

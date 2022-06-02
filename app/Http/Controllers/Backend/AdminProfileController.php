@@ -56,7 +56,7 @@ class AdminProfileController extends Controller
             $admin->password = Hash::make($request->password);
             $admin->save();
             auth()->logout();
-            flashSuccess('Current Password Doesn\'t Match!');
+            flashSuccess('Password Changed Successfully!');
             return app(LogoutResponse::class);
         }
 

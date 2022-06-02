@@ -26,21 +26,33 @@
                             <label class="info-title" for="email">Email Address <span>*</span></label>
                             <input type="email" name="email" value="{{ old('email') }}" class="form-control unicase-form-control text-input"
                                 id="email">
+                                @error('email')
+                                <p class="red">{{ $message }}</p>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <label class="info-title" for="name">Name <span>*</span></label>
                             <input type="text" name="name" value="{{ old('name') }}" class="form-control unicase-form-control text-input"
                                 id="name">
+                                @error('name')
+                                <p class="red">{{ $message }}</p>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <label class="info-title" for="password">Password <span>*</span></label>
                             <input type="password" name="password" class="form-control unicase-form-control text-input"
                                 id="password">
+                                @error('password')
+                                <p class="red">{{ $message }}</p>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <label class="info-title" for="password_confirmation">Confirm Password <span>*</span></label>
                             <input type="password" name="password_confirmation" class="form-control unicase-form-control text-input"
                                 id="password_confirmation">
+                                @error('password_confirmation')
+                                <p class="red">{{ $message }}</p>
+                                @enderror
                         </div>
                         <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
                     </form>
@@ -57,4 +69,13 @@
     </div><!-- /.container -->
 </div><!-- /.body-content -->
 <div class="p-5">  s</div>
+@endsection
+
+
+@section('styles')
+    <style>
+        .red {
+            color: red !important;
+        }
+    </style>
 @endsection
