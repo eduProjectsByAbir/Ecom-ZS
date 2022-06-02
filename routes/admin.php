@@ -12,21 +12,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 
 Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->prefix('admin')->name('admin.')->group(function () {
     // Admin Profile Routes
-    Route::prefix('profile')->name('profile.')->group(function () {
-    Route::get('/', [AdminProfileController::class, 'show'])->name('show');
-    Route::get('/edit', [AdminProfileController::class, 'edit'])->name('edit');
-    Route::put('/update', [AdminProfileController::class, 'update'])->name('update');
-    Route::get('/edit/password', [AdminProfileController::class, 'editPassword'])->name('edit.password');
-    Route::put('/update/password', [AdminProfileController::class, 'updatePassword'])->name('update.password');
-    Route::delete('/delete', [AdminProfileController::class, 'distroy'])->name('delete');
+    Route::controller(AdminProfileController::class)->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', 'show')->name('show');
+    Route::get('/edit', 'edit')->name('edit');
+    Route::put('/update', 'update')->name('update');
+    Route::get('/edit/password', 'editPassword')->name('edit.password');
+    Route::put('/update/password', 'updatePassword')->name('update.password');
+    Route::delete('/delete', 'distroy')->name('delete');
     Route::get('admin/logout', [AdminController::class, 'destroy'])->name('logout');
     });
 
-    Route::prefix('brand')->name('brand.')->group(function () {
-        Route::get('/', [AdminProfileController::class, 'index'])->name('index');
-        Route::put('/create', [AdminProfileController::class, 'store'])->name('store');
-        Route::get('/edit', [AdminProfileController::class, 'edit'])->name('edit');
-        Route::put('/update', [AdminProfileController::class, 'update'])->name('update');
-        Route::delete('/delete', [AdminProfileController::class, 'distroy'])->name('delete');
+    Route::controller(BrandController::class)->prefix('brand')->name('brand.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/create', 'store')->name('store');
+        Route::get('/edit', 'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/delete', 'distroy')->name('delete');
     });
 });
