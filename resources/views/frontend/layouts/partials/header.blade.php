@@ -1,5 +1,4 @@
 <header class="header-style-1">
-        
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
         <div class="container">
@@ -10,7 +9,11 @@
                         <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                         <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @auth('web')
-                        <li><a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>My Account</a></li>
+                        <li><a href="{{ route('user.dashboard') }}"><i class="icon fa fa-user"></i>My Account</a></li>
+                        <li><a href="{{ route('logout') }}" id="logoutButton"><i class="icon fa fa-power-off"></i>Logout</a></li>
+                        <form method="POST" action="{{ route('logout') }}" id="logout">
+                            @csrf
+                        </form>
                         @else
                         <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login</a></li>
                         @endauth

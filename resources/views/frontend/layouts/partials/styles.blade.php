@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{ asset('frontend') }}/css/animate.min.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/css/rateit.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="{{ asset('backend/js/toastr/toastr.min.css') }}">
 
 <!-- Icons/Glyphs -->
 <link rel="stylesheet" href="{{ asset('frontend') }}/css/font-awesome.css">
