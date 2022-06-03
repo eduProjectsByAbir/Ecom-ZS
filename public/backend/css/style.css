@@ -24039,3 +24039,11 @@ img.away, img.busy, img.offline, img.online {
   z-index: -1; }
 
 /*# sourceMappingURL=style.css.map */
+
+.color-red {
+  color: red;
+}
+
+.color-white {
+  color: white;
+}

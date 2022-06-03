@@ -19,22 +19,35 @@
 
             <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">
-                    <i data-feather="pie-chart" class="fa fa-tachometer"></i>
+                    <i class="fa fa-tachometer {{ request()->routeIs('admin.dashboard') ? 'text-white' : '' }}"></i>
                     <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="header nav-small-cap">eCommarce</li>
+            <li class="{{  Request::is('admin/brand*') ? 'active' : '' }}">
+                <a href="{{ route('admin.brand.index') }}">
+                    <i class="fa fa-bandcamp {{  Request::is('admin/brand*') ? 'text-white' : '' }}"></i>
+                    <span>Brand</span>
+                </a>
+            </li>
+            <li class="{{  Request::is('admin/category*') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}">
+                    <i class="fa fa-th-large {{  Request::is('admin/category*') ? 'text-white' : '' }}"></i>
+                    <span>Category</span>
                 </a>
             </li>
 
             <li class="treeview">
-                <a href="#">
-                    <i data-feather="message-circle"></i>
-                    <span>Application</span>
+                <a href="">
+                    <i class="fa fa-th-large"></i>
+                    <span>Helpers</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="chat.html"><i class="ti-more"></i>Chat</a></li>
-                    <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
+                    <li><a href=""><i class="ti-more"></i> Brands</a></li>
+                    <li><a href="calendar.html"><i class="fa fa-th"></i>Category</a></li>
                 </ul>
             </li>
 
