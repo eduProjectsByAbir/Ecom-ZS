@@ -25,9 +25,9 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
 
     Route::controller(BrandController::class)->prefix('brand')->name('brand.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::put('/create', 'store')->name('store');
-        Route::get('/edit', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
-        Route::delete('/delete', 'distroy')->name('delete');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{brand:slug}', 'edit')->name('edit');
+        Route::put('/update/{brand:slug}', 'update')->name('update');
+        Route::delete('/delete/{brand:slug}', 'destroy')->name('delete');
     });
 });

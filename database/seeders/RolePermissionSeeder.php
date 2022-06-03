@@ -46,6 +46,30 @@ class RolePermissionSeeder extends Seeder
                     'admin_profile.delete',
                 ]
             ],
+            [
+                'group_name' => 'brand',
+                'permissions' => [
+                    // Brand permission
+                    'brand.view',
+                    'brand.create',
+                    'brand.store',
+                    'brand.edit',
+                    'brand.update',
+                    'brand.delete',
+                ]
+            ],
+            [
+                'group_name' => 'category',
+                'permissions' => [
+                    // Category permission
+                    'category.view',
+                    'category.create',
+                    'category.store',
+                    'category.edit',
+                    'category.update',
+                    'category.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission

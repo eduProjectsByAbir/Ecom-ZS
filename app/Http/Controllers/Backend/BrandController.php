@@ -15,18 +15,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::latest()->paginate(10);
+        $brands = Brand::latest('id')->paginate(10);
         return view('admin.brand.index', compact('brands'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -35,20 +25,27 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:40|unique:brands,name',
+            'image' => 'nullable|image|max:1024',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $brand = Brand::create($request->except('csrf_token'));
+
+        if($request->hasFile('image')){
+            $url = updateImage($request->file('image'), 'brands');
+            $brand->image = $url;
+            $brand->save();
+        }
+
+        if($brand){
+            flashSuccess('Brand created successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
     }
 
     /**
@@ -57,9 +54,11 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        //
+       $brandData = $brand;
+       $brands = Brand::latest('id')->paginate(10);
+       return view('admin.brand.index', compact('brands', 'brandData'));
     }
 
     /**
@@ -69,9 +68,29 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:40|unique:brands,name,'.$brand->id,
+            'image' => 'required|image|max:1024',
+        ]);
+
+        $brand->name = $request->name;
+
+        if($request->hasFile('image')){
+            deleteImage($brand->image);
+            $url = updateImage($request->file('image'), 'brands');
+            $brand->image = $url;
+        }
+
+        $brand->save();
+        if($brand){
+            flashSuccess('Brand Updated successfully!');
+            return redirect()->route('admin.brand.edit', $brand->slug);
+        }
+
+        flashError('Something went wrong...');
+        return back();
     }
 
     /**
@@ -80,8 +99,14 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
-        //
+        if($brand->image !== null){
+            deleteImage($brand->image);
+        }
+
+        $brand->delete();
+        flashSuccess('Brand Deleted successfully!');
+        return redirect()->route('admin.brand.index');
     }
 }
