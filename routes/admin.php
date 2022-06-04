@@ -44,6 +44,14 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
     Route::controller(SubCategoryController::class)->prefix('subcategory')->name('subcategory.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{subCategory:slug}', 'edit')->name('edit');
+        Route::put('/update/{subCategory:slug}', 'update')->name('update');
+        Route::delete('/delete/{subCategory:slug}', 'destroy')->name('delete');
+    });
+
+    Route::controller(SubCategoryController::class)->prefix('subcategory/subcategory')->name('sub.subcategory.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'store')->name('store');
         Route::get('/edit/{subcategory:slug}', 'edit')->name('edit');
         Route::put('/update/{subcategory:slug}', 'update')->name('update');
         Route::delete('/delete/{subcategory:slug}', 'destroy')->name('delete');

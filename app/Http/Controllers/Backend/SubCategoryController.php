@@ -3,29 +3,20 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if(!userCan('subcategory.view')){
+            abort('403');
+        }
+        $categories = Category::all();
+        $subcategories = SubCategory::with('category:id,name')->latest('id')->paginate(10);
+        return view('admin.subcategory.index', compact('categories', 'subcategories'));
     }
 
     /**
@@ -36,18 +27,23 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        if(!userCan('subcategory.store')){
+            abort('403');
+        }
+        $request->validate([
+            'name' => 'required|string|max:40|unique:brands,name',
+            'category_id' => 'required|integer',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\SubCategory  $subCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SubCategory $subCategory)
-    {
-        //
+        $subcategory = SubCategory::create($request->except('csrf_token'));
+
+        if($subcategory){
+            flashSuccess('Subcategory created successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
     }
 
     /**
@@ -58,7 +54,13 @@ class SubCategoryController extends Controller
      */
     public function edit(SubCategory $subCategory)
     {
-        //
+        if(!userCan('subcategory.edit')){
+            abort('403');
+        }
+        $subcategoryData = $subCategory;
+        $categories = Category::all();
+        $subcategories = SubCategory::with('category:id,name')->latest('id')->paginate(10);
+        return view('admin.subcategory.index', compact('subcategoryData', 'categories', 'subcategories'));
     }
 
     /**
@@ -70,7 +72,19 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory)
     {
-        //
+        if(!userCan('subcategory.update')){
+            abort('403');
+        }
+        $request->validate([
+            'name' => 'required|string|max:40|unique:categories,name,'.$subCategory->id,
+            'category_id' => 'required|integer',
+        ]);
+
+        $subCategory->name = $request->name;
+        $subCategory->save();
+
+        flashSuccess('Subcategory Updated successfully!');
+        return redirect()->route('admin.subcategory.edit', $subCategory->slug);
     }
 
     /**
@@ -81,6 +95,12 @@ class SubCategoryController extends Controller
      */
     public function destroy(SubCategory $subCategory)
     {
-        //
+        if(!userCan('subcategory.delete')){
+            abort('403');
+        }
+
+        $subCategory->delete();
+        flashSuccess('Subcategory Deleted successfully!');
+        return redirect()->route('admin.subcategory.index');
     }
 }

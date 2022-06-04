@@ -30,24 +30,34 @@
                     <span>Brand</span>
                 </a>
             </li>
-            <li class="{{  Request::is('admin/category*') ? 'active' : '' }}">
-                <a href="{{ route('admin.category.index') }}">
-                    <i class="fa fa-th-large {{  Request::is('admin/category*') ? 'text-white' : '' }}"></i>
-                    <span>Category</span>
-                </a>
-            </li>
 
-            <li class="treeview">
+            <li class="treeview {{  Request::is('admin/category*') || Request::is('admin/subcategory*') ? 'active menu-open' : '' }}">
                 <a href="">
                     <i class="fa fa-th-large"></i>
-                    <span>Helpers</span>
+                    <span>Category</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="ti-more"></i> Brands</a></li>
-                    <li><a href="calendar.html"><i class="fa fa-th"></i>Category</a></li>
+                    <li class="{{  Request::is('admin/category*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.category.index') }}">
+                            <i class="ti-more {{  Request::is('admin/category*') ? 'text-white' : '' }}"></i>
+                            <span>Category</span>
+                        </a>
+                    </li>
+                    <li class="{{  Request::is('admin/subcategory*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.subcategory.index') }}">
+                            <i class="ti-more {{  Request::is('admin/subcategory*') ? 'text-white' : '' }}"></i>
+                            <span>Subcategory</span>
+                        </a>
+                    </li>
+                    <li class="{{  Request::is('admin/subcategory/subcategory*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.sub.subcategory.index') }}">
+                            <i class="ti-more {{  Request::is('admin/subcategory/subcategory*') ? 'text-white' : '' }}"></i>
+                            <span>Sub Subcategory</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

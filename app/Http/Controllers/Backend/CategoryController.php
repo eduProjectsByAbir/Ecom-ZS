@@ -18,7 +18,7 @@ class CategoryController extends Controller
         if(!userCan('category.view')){
             abort('403');
         }
-        $categories = Category::latest('id')->paginate(10);
+        $categories = Category::withCount('subcategories')->latest('id')->paginate(10);
         return view('admin.category.index', compact('categories'));
     }
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
             abort('403');
         }
         $categoryData = $category;
-        $categories = Category::latest('id')->paginate(10);
+        $categories = Category::withCount('subcategories')->latest('id')->paginate(10);
         return view('admin.category.index', compact('categories', 'categoryData'));
     }
 

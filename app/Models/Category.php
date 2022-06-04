@@ -39,4 +39,9 @@ class Category extends Model
 
         return asset($this->icon);
     }
+
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
 }

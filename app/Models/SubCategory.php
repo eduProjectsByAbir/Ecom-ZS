@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class SubCategory extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'category_id'
@@ -25,5 +25,10 @@ class SubCategory extends Model
         static::updating(function ($subcategory) {
             $subcategory->slug = Str::slug($subcategory->name);
         });
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
