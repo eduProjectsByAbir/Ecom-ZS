@@ -70,6 +70,30 @@ class RolePermissionSeeder extends Seeder
                     'category.delete',
                 ]
             ],
+            [
+                'group_name' => 'subcategory',
+                'permissions' => [
+                    // Category permission
+                    'subcategory.view',
+                    'subcategory.create',
+                    'subcategory.store',
+                    'subcategory.edit',
+                    'subcategory.update',
+                    'subcategory.delete',
+                ]
+            ],
+            [
+                'group_name' => 'subsubcategory',
+                'permissions' => [
+                    // Category permission
+                    'subsubcategory.view',
+                    'subsubcategory.create',
+                    'subsubcategory.store',
+                    'subsubcategory.edit',
+                    'subsubcategory.update',
+                    'subsubcategory.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission
