@@ -15,6 +15,9 @@ class BrandController extends Controller
      */
     public function index()
     {
+        if(!userCan('brand.view')){
+            abort('403');
+        }
         $brands = Brand::latest('id')->paginate(10);
         return view('admin.brand.index', compact('brands'));
     }
@@ -26,6 +29,9 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        if(!userCan('brand.store')){
+            abort('403');
+        }
         $request->validate([
             'name' => 'required|string|max:40|unique:brands,name',
             'image' => 'nullable|image|max:1024',
@@ -56,9 +62,12 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-       $brandData = $brand;
-       $brands = Brand::latest('id')->paginate(10);
-       return view('admin.brand.index', compact('brands', 'brandData'));
+        if(!userCan('brand.edit')){
+            abort('403');
+        }
+        $brandData = $brand;
+        $brands = Brand::latest('id')->paginate(10);
+        return view('admin.brand.index', compact('brands', 'brandData'));
     }
 
     /**
@@ -70,10 +79,14 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
+        if(!userCan('brand.update')){
+            abort('403');
+        }
         $request->validate([
             'name' => 'required|string|max:40|unique:brands,name,'.$brand->id,
-            'image' => 'required|image|max:1024',
         ]);
+        
+        $brand->image !== null ? $request->validate(['image' => 'nullable|image|max:1024']) : $request->validate(['image' => 'required|image|max:1024']);
 
         $brand->name = $request->name;
 
@@ -101,6 +114,10 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        if(!userCan('brand.delete')){
+            abort('403');
+        }
+
         if($brand->image !== null){
             deleteImage($brand->image);
         }
