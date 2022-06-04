@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,5 +30,13 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::get('/edit/{brand:slug}', 'edit')->name('edit');
         Route::put('/update/{brand:slug}', 'update')->name('update');
         Route::delete('/delete/{brand:slug}', 'destroy')->name('delete');
+    });
+
+    Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{category:slug}', 'edit')->name('edit');
+        Route::put('/update/{category:slug}', 'update')->name('update');
+        Route::delete('/delete/{category:slug}', 'destroy')->name('delete');
     });
 });

@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li class="{{  Request::is('admin/category*') ? 'active' : '' }}">
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ route('admin.category.index') }}">
                     <i class="fa fa-th-large {{  Request::is('admin/category*') ? 'text-white' : '' }}"></i>
                     <span>Category</span>
                 </a>
