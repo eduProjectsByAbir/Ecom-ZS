@@ -115,7 +115,8 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         if(!userCan('brand.delete')){
-            abort('403');
+            flashError('Your Don\'t Have Permission to Deleted!');
+            return back();
         }
 
         if($brand->image !== null){

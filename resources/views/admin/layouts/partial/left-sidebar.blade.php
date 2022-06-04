@@ -31,7 +31,7 @@
                 </a>
             </li>
 
-            <li class="treeview {{  Request::is('admin/category*') || Request::is('admin/subcategory*') ? 'active menu-open' : '' }}">
+            <li class="treeview {{  Request::is('admin/category*') || Request::is('admin/subcategory*') || Request::is('admin/sub/subcategory*') ? 'active menu-open' : '' }}">
                 <a href="">
                     <i class="fa fa-th-large"></i>
                     <span>Category</span>
@@ -52,9 +52,9 @@
                             <span>Subcategory</span>
                         </a>
                     </li>
-                    <li class="{{  Request::is('admin/subcategory/subcategory*') ? 'active' : '' }}">
+                    <li class="{{  Request::is('admin/sub/subcategory*') ? 'active' : '' }}">
                         <a href="{{ route('admin.sub.subcategory.index') }}">
-                            <i class="ti-more {{  Request::is('admin/subcategory/subcategory*') ? 'text-white' : '' }}"></i>
+                            <i class="ti-more {{  Request::is('admin/sub/subcategory*') ? 'text-white' : '' }}"></i>
                             <span>Sub Subcategory</span>
                         </a>
                     </li>

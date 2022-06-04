@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\SubSubcategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,11 +50,11 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::delete('/delete/{subCategory:slug}', 'destroy')->name('delete');
     });
 
-    Route::controller(SubCategoryController::class)->prefix('subcategory/subcategory')->name('sub.subcategory.')->group(function () {
+    Route::controller(SubSubcategoryController::class)->prefix('sub/subcategory')->name('sub.subcategory.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/create', 'store')->name('store');
-        Route::get('/edit/{subcategory:slug}', 'edit')->name('edit');
-        Route::put('/update/{subcategory:slug}', 'update')->name('update');
-        Route::delete('/delete/{subcategory:slug}', 'destroy')->name('delete');
+        Route::get('/edit/{subSubcategory:slug}', 'edit')->name('edit');
+        Route::put('/update/{subSubcategory:slug}', 'update')->name('update');
+        Route::delete('/delete/{subSubcategory:slug}', 'destroy')->name('delete');
     });
 });
