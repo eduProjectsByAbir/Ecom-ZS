@@ -20,7 +20,7 @@ Subcategory
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col" width="2%">#</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">Name (Sub Subcategory Count)</th>
                                     <th scope="col">Category</th>
                                     <th scope="col" width="5%">Actions</th>
                                 </tr>
@@ -29,7 +29,7 @@ Subcategory
                                 @forelse ($subcategories as $subcategory)
                                 <tr>
                                     <th scope="row">{{ $subcategory->id }}</th>
-                                    <td>{{ $subcategory->name }}</td>
+                                    <td>{{ $subcategory->name }} ({{ $subcategory->sub_subcategories_count }})</td>
                                     <td>{{ $subcategory->category->name }}</td>
                                     <td>
                                         <div class="btn-group">

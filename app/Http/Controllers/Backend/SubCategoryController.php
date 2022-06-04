@@ -15,7 +15,7 @@ class SubCategoryController extends Controller
             abort('403');
         }
         $categories = Category::all();
-        $subcategories = SubCategory::with('category:id,name')->latest('id')->paginate(10);
+        $subcategories = SubCategory::with('category:id,name')->withCount('subSubcategories')->latest('id')->paginate(10);
         return view('admin.subcategory.index', compact('categories', 'subcategories'));
     }
 
