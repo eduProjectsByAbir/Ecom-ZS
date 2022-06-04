@@ -36,6 +36,9 @@ class AdminProfileController extends Controller
     }
 
     public function updatePassword(Request $request){
+        if(!userCan('admin_profile.update')){
+            abort('403');
+        }
         $request->validate([
             'current_password' => ['required', function ($attribute, $value, $fail) {
                 if (!Hash::check($value, auth()->user()->password)) {
@@ -65,6 +68,9 @@ class AdminProfileController extends Controller
     }
 
     public function update(Request $request){
+        if(!userCan('admin_profile.update')){
+            abort('403');
+        }
         $admin = Admin::findOrFail(auth()->user()->id);
         $request->validate([
             'name' => 'required|string|max:50|min:2',
@@ -86,6 +92,9 @@ class AdminProfileController extends Controller
     }
 
     public function distroy(){
+        if(!userCan('admin_profile.delete')){
+            abort('403');
+        }
         flashError('Admin Profile can\'t be deleted.');
         return back();
     }
