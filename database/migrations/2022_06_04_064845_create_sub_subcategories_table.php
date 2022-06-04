@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubCategoriesTable extends Migration
+class CreateSubSubcategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateSubCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_categories', function (Blueprint $table) {
+        Schema::create('sub_subcategories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('slug');
-            $table->foreignIdFor(Category::class, 'category_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(SubCategory::class, 'sub_category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSubCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_categories');
+        Schema::dropIfExists('sub_subcategories');
     }
 }

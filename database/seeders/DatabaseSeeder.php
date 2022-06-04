@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Brand::factory(15)->create();
         \App\Models\Category::factory(15)->create();
         \App\Models\SubCategory::factory(15)->create();
+        \App\Models\SubSubcategory::factory(15)->create();
         // \App\Models\Admin::factory()->create();
 
         $this->call([
