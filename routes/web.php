@@ -1,28 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\DashboardController;
+use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+include(base_path('routes/commands.php'));
+include(base_path('routes/frontend.php'));
+include(base_path('routes/admin.php'));
+include(base_path('routes/backend.php'));
+include(base_path('routes/user.php'));
 
-Route::get('/', function () {
-    return view('welcome');
+Route::any('/test', function(){
+    dd(Auth::guard('web')->user());
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+

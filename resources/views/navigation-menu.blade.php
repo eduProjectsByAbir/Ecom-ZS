@@ -5,14 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('user.dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('user.dashboard') }}" :active="request()->routeIs('user.dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
@@ -109,10 +109,10 @@
                             <div class="border-t border-gray-100"></div>
 
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
+                            <form method="POST" action="{{ isset($guard) ? route('admin.logout') : route('logout') }}" x-data>
                                 @csrf
 
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                <x-jet-dropdown-link href="{{ isset($guard) ? route('admin.logout') : route('logout') }}"
                                          @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
@@ -170,10 +170,10 @@
                 @endif
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
+                <form method="POST" action="{{ isset($guard) ? route('admin.logout') : route('logout') }}" x-data>
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                    <x-jet-responsive-nav-link href="{{ isset($guard) ? route('admin.logout') : route('logout') }}"
                                    @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
