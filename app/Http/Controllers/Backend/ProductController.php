@@ -19,6 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(!userCan('product.view')){
+            abort('403');
+        }
         $products = Product::with('brand','category', 'subcategory', 'sub_subcategory', 'product_images')->latest('id')->paginate(15);
 
         return view('admin.product.index', compact('products'));
@@ -31,6 +34,10 @@ class ProductController extends Controller
      */
     public function create()
     {
+        if(!userCan('product.create')){
+            flashError('Your don\'t have permission for this action!');
+            return back();
+        }
         $brands = Brand::all();
         $categories = Category::all();
         return view('admin.product.create', compact('brands', 'categories'));
@@ -44,6 +51,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        if(!userCan('product.store')){
+            abort('403');
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'brand_id' => 'required|integer',
@@ -63,15 +73,15 @@ class ProductController extends Controller
             'special_offer' => 'nullable',
             'special_deals' => 'nullable',
         ]);
-        
+
         $product = Product::create($request->except('csrf_token', 'product_thumbnail'));
-        
+
         if($request->hasFile('product_thumbnail')){
             $url = updateImage($request->file('product_thumbnail'), 'product/thumbnails');
             $product->product_thumbnail = $url;
             $product->save();
         }
-        
+
         if($product){
             flashSuccess('Product added successfully!');
             return back();
@@ -89,7 +99,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        
     }
 
     /**
@@ -100,7 +110,15 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if(!userCan('product.edit')){
+            flashError('Your don\'t have permission for this action!');
+            return back();
+        }
+        $brands = Brand::all();
+        $categories = Category::all();
+        $subcategory = SubCategory::where('id', $product->sub_category_id)->get();
+        $sub_subcategory = SubSubcategory::where('id', $product->sub_subcategory_id)->get();
+        return view('admin.product.edit', compact('brands', 'categories', 'subcategory', 'sub_subcategory', 'product'));
     }
 
     /**
@@ -112,7 +130,67 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if(!userCan('product.update')){
+            abort('403');
+        }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'brand_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'sub_category_id' => 'nullable|integer',
+            'sub_subcategory_id' => 'nullable|integer',
+            'code' => 'required',
+            'qty' => 'required',
+            'tags' => 'required',
+            'price' => 'required',
+            'color' => 'nullable',
+            'size' => 'nullable',
+            'discount_price' => 'nullable',
+            'short_description' => 'required',
+            'long_description' => 'nullable',
+            'hot_deals' => 'nullable',
+            'featured' => 'nullable',
+            'special_offer' => 'nullable',
+            'special_deals' => 'nullable',
+            'status' => 'nullable',
+        ]);
+
+        $product->product_thumbnail ? $request->validate(['product_thumbnail' => 'nullable|image|max:1024']) : $request->validate(['product_thumbnail' => 'required|image|max:1024']);
+
+        $product->name = $request->name;
+        $product->brand_id = $request->brand_id;
+        $product->category_id = $request->category_id;
+        $product->sub_category_id = $request->sub_category_id;
+        $product->sub_subcategory_id = $request->sub_subcategory_id;
+        $product->code = $request->code;
+        $product->qty = $request->qty;
+        $product->tags = $request->tags;
+        $product->price = $request->price;
+        $product->discount_price = $request->discount_price;
+        $product->color = $request->color;
+        $product->size = $request->size;
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->hot_deals = request('hot_deals', 0);
+        $product->featured = request('featured', 0);
+        $product->special_offer = request('special_offer', 0);
+        $product->special_deals = request('special_deals', 0);
+        $product->status = request('status', 0);
+
+        if($request->hasFile('product_thumbnail')){
+            deleteImage($product->product_thumbnail);
+            $url = updateImage($request->file('product_thumbnail'), 'product/thumbnails');
+            $product->product_thumbnail = $url;
+        }
+        $product->save();
+
+        if($product){
+            flashSuccess('Product updated successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
     }
 
     /**
@@ -123,7 +201,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if(!userCan('product.delete')){
+            flashError('Your don\'t have permission for this action!');
+            return back();
+        }
+        if($product->product_thumbnail !== null){
+            deleteImage($product->product_thumbnail);
+        }
+
+        $product->delete();
+        flashSuccess('Product Deleted successfully!');
+        return redirect()->route('admin.product.index');
     }
 
     public function getSubcategories(Request $request)

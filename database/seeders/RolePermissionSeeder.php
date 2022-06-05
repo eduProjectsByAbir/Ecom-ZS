@@ -94,6 +94,19 @@ class RolePermissionSeeder extends Seeder
                     'subsubcategory.delete',
                 ]
             ],
+            [
+                'group_name' => 'product',
+                'permissions' => [
+                    // product permission
+                    'product.view',
+                    'product.show',
+                    'product.create',
+                    'product.store',
+                    'product.edit',
+                    'product.update',
+                    'product.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission
