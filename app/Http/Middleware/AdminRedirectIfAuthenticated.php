@@ -21,7 +21,10 @@ class AdminRedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect($guard.'/dashboard');
+                if(Auth::user()->type == 'admin'){
+                    return redirect($guard.'/admin/dashboard');
+                }
+                return redirect($guard.'/user/dashboard');
             }
         }
 
