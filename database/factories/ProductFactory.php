@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\SubSubcategory;
@@ -22,6 +23,7 @@ class ProductFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
+            'brand_id' => Brand::inRandomOrder()->value('id'),
             'category_id' => Category::inRandomOrder()->value('id'),
             'sub_category_id' => SubCategory::inRandomOrder()->value('id'),
             'sub_subcategory_id' => SubSubcategory::inRandomOrder()->value('id'),

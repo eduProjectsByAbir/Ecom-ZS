@@ -162,7 +162,6 @@ Sub Subcategory
 @endsection
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('backend/js/dropify/css/dropify.min.css') }}">
 <style>
     .close-button {
         padding-right: 5px;

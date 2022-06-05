@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\SubSubcategory;
@@ -20,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug');
+            $table->foreignIdFor(Brand::class, 'brand_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class, 'category_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(SubCategory::class, 'sub_category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(SubSubcategory::class, 'sub_subcategory_id')->nullable()->constrained()->cascadeOnDelete();

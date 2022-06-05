@@ -24,6 +24,12 @@
                 </a>
             </li>
             <li class="header nav-small-cap">eCommarce</li>
+            <li class="{{  Request::is('admin/product*') ? 'active' : '' }}">
+                <a href="{{ route('admin.product.index') }}">
+                    <i class="fa fa-pinterest-p {{  Request::is('admin/product*') ? 'text-white' : '' }}"></i>
+                    <span>Product</span>
+                </a>
+            </li>
             <li class="{{  Request::is('admin/brand*') ? 'active' : '' }}">
                 <a href="{{ route('admin.brand.index') }}">
                     <i class="fa fa-bandcamp {{  Request::is('admin/brand*') ? 'text-white' : '' }}"></i>
