@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubcategoryController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,5 +57,14 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::get('/edit/{subSubcategory:slug}', 'edit')->name('edit');
         Route::put('/update/{subSubcategory:slug}', 'update')->name('update');
         Route::delete('/delete/{subSubcategory:slug}', 'destroy')->name('delete');
+    });
+
+    Route::controller(Product::class)->prefix('product')->name('product.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{product:slug}', 'edit')->name('edit');
+        Route::put('/update/{product:slug}', 'update')->name('update');
+        Route::delete('/delete/{product:slug}', 'destroy')->name('delete');
     });
 });
