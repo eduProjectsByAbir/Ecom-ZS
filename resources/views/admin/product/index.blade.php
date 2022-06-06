@@ -19,7 +19,7 @@ Product List
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="">
-                        <table class="table mb-0">
+                        <table class="table mb-0 table-responsive">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col" width="2%">#</th>
