@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\SubCategory;
 use App\Models\SubSubcategory;
 use Illuminate\Http\Request;
@@ -84,7 +85,7 @@ class ProductController extends Controller
 
         if($product){
             flashSuccess('Product added successfully!');
-            return back();
+            return redirect()->route('admin.product.create.multiple.image', $product->id);
         }
 
         flashError('Something went wrong...');
@@ -224,5 +225,30 @@ class ProductController extends Controller
     {
         $subcategories = SubSubcategory::where('sub_category_id', $request->sub_category_id)->get();
         return response()->json($subcategories);
+    }
+
+    public function createMultipleImage($id){
+        $productImages = ProductImage::where('product_id', $id)->latest()->get();
+        return view('admin.product.multiple-image', compact('productImages', 'id'));
+    }
+
+    public function storeMultipleImage(Request $request, $id){
+
+        foreach ($request->file as $image) {
+            if ($image) {
+                $url = updateImage($image, 'product/images/');
+                ProductImage::create([
+                    'product_id' => $id,
+                    'image' => $url,
+                ]);
+            }
+        }
+
+        flashSuccess('Product Images Uploaded successfully!');
+
+        return response()->json([
+            'message' => 'Product Images Saved Successfully',
+            'url' => route('admin.product.create.multiple.image', $id)
+        ]);
     }
 }

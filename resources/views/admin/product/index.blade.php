@@ -46,6 +46,9 @@ Product List
                                     <td>{{ $product->full_status }}</td>
                                     <td>
                                         <div class="btn-group">
+                                            <a class="btn btn-success" style="margin-right: 5px; border-radius: 4px !important;"
+                                                href="{{ route('admin.product.create.multiple.image', $product->id) }}"><i
+                                                    class="fa fa-picture-o" aria-hidden="true"></i></a>
                                             <a class="btn btn-warning" style="margin-right: 3px; border-radius: 4px !important;"
                                                 href="{{ route('admin.product.edit', $product->slug) }}"><i
                                                     class="fa fa-pencil" aria-hidden="true"></i></a>
