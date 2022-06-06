@@ -16,7 +16,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:admin', 'auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->prefix('admin')->name('admin.')->group(function () {
     // Admin Profile Routes
     Route::controller(AdminProfileController::class)->prefix('profile')->name('profile.')->group(function () {
     Route::get('/', 'show')->name('show');

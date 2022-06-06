@@ -17,9 +17,9 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <li class="{{ request()->routeIs('admin.dashboard') || request()->routeIs('admin.home') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">
-                    <i class="fa fa-tachometer {{ request()->routeIs('admin.dashboard') ? 'text-white' : '' }}"></i>
+                    <i class="fa fa-tachometer {{ request()->routeIs('admin.dashboard') || request()->routeIs('admin.home') ? 'text-white' : '' }}"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
