@@ -104,11 +104,13 @@ Add Product
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group @error('tags') has-error @enderror">
                             <label>Product Tags <span class="color-red">*</span></label>
-                            <input type="text" class="form-control bootstrap-tagsinput" placeholder="Product Tags" name="tags"
+                            <div class="controls">
+                                <input type="text" class="form-control" placeholder="Product Tags" name="tags"
                                 value="{{ old('tags') }}" data-role="tagsinput">
                             @error('tags')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -167,7 +169,7 @@ Add Product
                     <div class="col-md-4 col-sm-12">
                         <div class="row mt-4">
                             <div class="col-12 pt-2 m-2">
-                                <input type="checkbox" value="1" name="hot_deals" id="hot_deals" class="filled-in chk-col-success" {{ old('hot_deals') ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="hot_deals" id="hot_deals" class="filled-in chk-col-primary" {{ old('hot_deals') ? 'checked' : '' }} />
                                 <label for="hot_deals">Hot Deals</label>
                             </div>
                             <div class="col-12 m-2">
@@ -175,11 +177,11 @@ Add Product
                                 <label for="featured">Featured</label>
                             </div>
                             <div class="col-12 m-2">
-                                <input type="checkbox" value="1" id="special_offer" name="special_offer" class="filled-in chk-col-success" {{ old('special_offer') ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" id="special_offer" name="special_offer" class="filled-in chk-col-info" {{ old('special_offer') ? 'checked' : '' }} />
                                 <label for="special_offer">Special Offer</label>
                             </div>
                             <div class="col-12 m-2">
-                                <input type="checkbox" value="1" id="special_deals" name="special_deals" class="filled-in chk-col-success" {{ old('special_deals') ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" id="special_deals" name="special_deals" class="filled-in chk-col-warning" {{ old('special_deals') ? 'checked' : '' }} />
                                 <label for="special_deals">Special Deals</label>
                             </div>
                         </div>
@@ -197,6 +199,7 @@ Add Product
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('backend/js/dropify/css/dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 <style>
     .close-button {
         padding-right: 5px;
@@ -209,13 +212,22 @@ Add Product
 
     .ck-editor__editable_inline {
         min-height: 170px;
+        background-color: inherit !important;
     }
-
+    .bootstrap-tagsinput {
+        background-color: initial !important;
+        min-width: 100% !important;
+    }
+    .dropify-wrapper input{
+        background-color: inherit !important;
+    }
 </style>
 @endsection
 @section('scripts')
 <script src="{{ asset('backend/js/dropify/js/dropify.min.js') }}"></script>
 <script src="{{ asset('backend/js/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js.map') }}"></script>
 
 <script>
     $('.dropify').dropify();
