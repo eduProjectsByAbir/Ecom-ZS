@@ -228,7 +228,6 @@ Add Product
 <script src="{{ asset('backend/js/ckeditor.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js.map') }}"></script>
-
 <script>
     $('.dropify').dropify();
     ClassicEditor
@@ -240,6 +239,10 @@ Add Product
         $(document).ready(function() {
             $('#category').on('change', function() {
                 var category = this.value;
+                $("#subcategory").empty();
+                $('#subcategory').append(`<option value="">Select Subcategory</option>`);
+                $("#sub_subcategory").empty();
+                $('#sub_subcategory').append(`<option value="">Select Sub Subcategory</option>`);
                 Subcategory(category);
             });
         });

@@ -276,6 +276,10 @@ Edit Product
         $(document).ready(function() {
             $('#category').on('change', function() {
                 var category = this.value;
+                $("#subcategory").empty();
+                $('#subcategory').append(`<option value="">Select Subcategory</option>`);
+                $("#sub_subcategory").empty();
+                $('#sub_subcategory').append(`<option value="">Select Sub Subcategory</option>`);
                 Subcategory(category);
             });
         });

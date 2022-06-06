@@ -107,6 +107,18 @@ class RolePermissionSeeder extends Seeder
                     'product.delete',
                 ]
             ],
+            [
+                'group_name' => 'product_image',
+                'permissions' => [
+                    //image product permission
+                    'product_image.show',
+                    'product_image.create',
+                    'product_image.store',
+                    'product_image.edit',
+                    'product_image.update',
+                    'product_image.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission
