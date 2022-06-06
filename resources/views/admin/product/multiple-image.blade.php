@@ -47,10 +47,7 @@ Add Multiple Image For Product
                             <td><img src="{{ $image->image_url }}" alt="" height="100px" width="100px"></td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-warning" style="margin-right: 3px; border-radius: 4px !important;"
-                                        href=""><i
-                                            class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <form action=""
+                                    <form action="{{ route('admin.product.delete.image', $image->id) }}"
                                         method="post"> @method('delete') @csrf
                                         <button type="submit" class="btn btn-danger delete-confirm"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></button>

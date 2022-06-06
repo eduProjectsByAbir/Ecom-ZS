@@ -251,4 +251,21 @@ class ProductController extends Controller
             'url' => route('admin.product.create.multiple.image', $id)
         ]);
     }
+
+    public function destroyImage($id)
+    {
+        if(!userCan('product.delete')){
+            flashError('Your don\'t have permission for this action!');
+            return back();
+        }
+        
+        $productImage = ProductImage::findOrFail($id);
+        if($productImage->image !== null){
+            deleteImage($productImage->image);
+        }
+
+        $productImage->delete();
+        flashSuccess('Product Image Deleted successfully!');
+        return back();
+    }
 }
