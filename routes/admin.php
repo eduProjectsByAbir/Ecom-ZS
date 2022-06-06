@@ -81,5 +81,6 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('delete');
+        Route::get('/status/change', 'status_change')->name('toggle.status');
     });
 });

@@ -130,4 +130,17 @@ class SliderController extends Controller
         flashSuccess('Slider Deleted successfully!');
         return back();
     }
+
+    public function status_change(Request $request)
+    {
+        $slider = Slider::findOrFail($request->id);
+        $slider->status = $request->status;
+        $slider->save();
+
+        if ($request->status == 1) {
+            return responseSuccess('Slider Activated Successfully');
+        } else {
+            return responseSuccess('Slider Inactivated Successfully');
+        }
+    }
 }

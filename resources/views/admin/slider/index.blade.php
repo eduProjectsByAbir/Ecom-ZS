@@ -22,6 +22,8 @@ Slider List
                                     <th scope="col" width="2%">#</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col" width="5%">Actions</th>
                                 </tr>
                             </thead>
@@ -31,15 +33,25 @@ Slider List
                                     <th scope="row">{{ $slider->id }}</th>
                                     <td><img src="{{ $slider->image_url }}" alt="" height="50px" width="50px"></td>
                                     <td>{{ $slider->title }}</td>
+                                    <td>{{ $slider->description }}</td>
+                                    <td class="text-center">
+                                        <input onclick="changeStatus({{ $slider->id }})" type="checkbox"
+                                            id="status-{{ $slider->id }}"
+                                            class="filled-in {{ $slider->status == 1 ? 'chk-col-success' : 'chk-col-danger' }}"
+                                            {{ $slider->status == 1 ? 'checked' : '' }}>
+                                        <label for="status-{{ $slider->id }}"><span id="label-{{ $slider->id }}"
+                                                class="badge {{ $slider->status == 1 ? 'badge-success' : 'badge-danger' }}">{{ $slider->status == 1 ? 'Active' : 'Inactive' }}</span></label>
+                                    </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-warning" style="margin-right: 3px; border-radius: 4px !important;"
+                                            <a class="btn btn-warning"
+                                                style="margin-right: 3px; border-radius: 4px !important;"
                                                 href="{{ route('admin.slider.edit', $slider->id) }}"><i
                                                     class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <form action="{{ route('admin.slider.delete', $slider->id) }}"
                                                 method="post"> @method('delete') @csrf
-                                                <button type="submit" class="btn btn-danger delete-confirm"><i class="fa fa-trash"
-                                                        aria-hidden="true"></i></button>
+                                                <button type="submit" class="btn btn-danger delete-confirm"><i
+                                                        class="fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -81,8 +93,8 @@ Slider List
                             <div class="col-md-12">
                                 <div class="form-group @error('description') has-error @enderror">
                                     <label>Description </label>
-                                    <input type="text" class="form-control" placeholder="Slider description" name="description"
-                                        value="{{ old('description') }}">
+                                    <input type="text" class="form-control" placeholder="Slider description"
+                                        name="description" value="{{ old('description') }}">
                                     @error('description')
                                     <span class="help-block">{{ $message }}</span>
                                     @enderror
@@ -142,8 +154,8 @@ Slider List
                             <div class="col-md-12">
                                 <div class="form-group @error('description') has-error @enderror">
                                     <label>Description </label>
-                                    <input type="text" class="form-control" placeholder="Slider description" name="description"
-                                        value="{{ old('description', $sliderData->description) }}">
+                                    <input type="text" class="form-control" placeholder="Slider description"
+                                        name="description" value="{{ old('description', $sliderData->description) }}">
                                     @error('description')
                                     <span class="help-block">{{ $message }}</span>
                                     @enderror
@@ -201,19 +213,53 @@ Slider List
 <script>
     $('.dropify').dropify();
     $('.delete-confirm').on('click', function (event) {
-    event.preventDefault();
-    const form = event.target.form;
-    swal({
-        title: 'Are you sure?',
-        text: 'This record and it`s details will be permanantly deleted!',
-        icon: 'warning',
-        buttons: ["Cancel", "Delete!"],
-        dangerMode: true,
-    }).then(function(value) {
-        if (value) {
-            form.submit();
-        }
+        event.preventDefault();
+        const form = event.target.form;
+        swal({
+            title: 'Are you sure?',
+            text: 'This record and it`s details will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Delete!"],
+            dangerMode: true,
+        }).then(function (value) {
+            if (value) {
+                form.submit();
+            }
+        });
+
     });
-});
+
+    function changeStatus(sliderId) {
+        var checkbox = $('#status-' + sliderId);
+        var label = $('#label-' + sliderId);
+        var status = checkbox.prop('checked') == true ? 1 : 0;
+        if(status == 1){
+            checkbox.removeClass('chk-col-danger');
+            label.removeClass('badge-danger');
+            checkbox.addClass('chk-col-success');
+            label.addClass('badge-success');
+            label.html('Active');
+        } else {
+            checkbox.removeClass('chk-col-success');
+            label.removeClass('badge-success');
+            checkbox.addClass('chk-col-danger');
+            label.addClass('badge-danger');
+            label.html('Inactive');
+        }
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '{{ route('admin.slider.toggle.status') }}',
+            data: {
+                'status': status,
+                'id': sliderId
+            },
+            success: function (response) {
+                toastr.success(response.message, 'Success');
+            }
+        });
+    }
+
 </script>
 @endsection
