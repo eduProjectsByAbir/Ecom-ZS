@@ -111,12 +111,21 @@ class RolePermissionSeeder extends Seeder
                 'group_name' => 'product_image',
                 'permissions' => [
                     //image product permission
-                    'product_image.show',
                     'product_image.create',
                     'product_image.store',
-                    'product_image.edit',
-                    'product_image.update',
                     'product_image.delete',
+                ]
+            ],
+            [
+                'group_name' => 'slider',
+                'permissions' => [
+                    // slider permission
+                    'slider.view',
+                    'slider.create',
+                    'slider.store',
+                    'slider.edit',
+                    'slider.update',
+                    'slider.delete',
                 ]
             ],
         ];

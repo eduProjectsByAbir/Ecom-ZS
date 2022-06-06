@@ -67,6 +67,13 @@
                 </ul>
             </li>
 
+            <li class="{{  Request::is('admin/slider*') ? 'active' : '' }}">
+                <a href="{{ route('admin.slider.index') }}">
+                    <i class="fa fa-sliders {{  Request::is('admin/slider*') ? 'text-white' : '' }}"></i>
+                    <span>Slider</span>
+                </a>
+            </li>
+
             <li class="header nav-small-cap">EXTRA</li>
             <li>
                 <a href="{{ route('home') }}">

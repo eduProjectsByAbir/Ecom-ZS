@@ -37,7 +37,7 @@ class BrandController extends Controller
             'image' => 'nullable|image|max:1024',
         ]);
 
-        $brand = Brand::create($request->except('csrf_token'));
+        $brand = Brand::create($request->except('csrf_token', 'image'));
 
         if($request->hasFile('image')){
             $url = updateImage($request->file('image'), 'brands');

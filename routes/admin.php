@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubcategoryController;
 use Illuminate\Support\Facades\Route;
@@ -68,9 +69,17 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::delete('/delete/{product:slug}', 'destroy')->name('delete');
         Route::post('/get/subcategory', 'getSubcategories')->name('getSubcategories');
         Route::post('/get/sub/subcategory', 'getSub_Subcategories')->name('getSub_subcategories');
-        
+
         Route::get('/multiple/image/{id}', 'createMultipleImage')->name('create.multiple.image');
         Route::post('/store//multiple/image/{id}', 'storeMultipleImage')->name('store.multiple.image');
         Route::delete('/delete/image/{id}', 'destroyImage')->name('delete.image');
+    });
+
+    Route::controller(SliderController::class)->prefix('slider')->name('slider.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/delete/{id}', 'destroy')->name('delete');
     });
 });
