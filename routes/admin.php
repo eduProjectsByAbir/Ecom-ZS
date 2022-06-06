@@ -69,6 +69,7 @@ Route::middleware(['is_admin', 'auth:sanctum,admin', config('jetstream.auth_sess
         Route::delete('/delete/{product:slug}', 'destroy')->name('delete');
         Route::post('/get/subcategory', 'getSubcategories')->name('getSubcategories');
         Route::post('/get/sub/subcategory', 'getSub_Subcategories')->name('getSub_subcategories');
+        Route::get('/status/change', 'status_change')->name('toggle.status');
 
         Route::get('/multiple/image/{id}', 'createMultipleImage')->name('create.multiple.image');
         Route::post('/store//multiple/image/{id}', 'storeMultipleImage')->name('store.multiple.image');

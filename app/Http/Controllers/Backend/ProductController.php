@@ -268,4 +268,17 @@ class ProductController extends Controller
         flashSuccess('Product Image Deleted successfully!');
         return back();
     }
+    
+    public function status_change(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->status = $request->status;
+        $product->save();
+
+        if ($request->status == 1) {
+            return responseSuccess('Product Activated Successfully');
+        } else {
+            return responseSuccess('Product Inactivated Successfully');
+        }
+    }
 }

@@ -34,7 +34,7 @@ Slider List
                                     <td><img src="{{ $slider->image_url }}" alt="" height="50px" width="50px"></td>
                                     <td>{{ $slider->title }}</td>
                                     <td>{{ $slider->description }}</td>
-                                    <td class="text-center">
+                                    <td>
                                         <input onclick="changeStatus({{ $slider->id }})" type="checkbox"
                                             id="status-{{ $slider->id }}"
                                             class="filled-in {{ $slider->status == 1 ? 'chk-col-success' : 'chk-col-danger' }}"
@@ -233,19 +233,6 @@ Slider List
         var checkbox = $('#status-' + sliderId);
         var label = $('#label-' + sliderId);
         var status = checkbox.prop('checked') == true ? 1 : 0;
-        if(status == 1){
-            checkbox.removeClass('chk-col-danger');
-            label.removeClass('badge-danger');
-            checkbox.addClass('chk-col-success');
-            label.addClass('badge-success');
-            label.html('Active');
-        } else {
-            checkbox.removeClass('chk-col-success');
-            label.removeClass('badge-success');
-            checkbox.addClass('chk-col-danger');
-            label.addClass('badge-danger');
-            label.html('Inactive');
-        }
 
         $.ajax({
             type: "GET",
@@ -256,6 +243,19 @@ Slider List
                 'id': sliderId
             },
             success: function (response) {
+                if(status == 1){
+                    checkbox.removeClass('chk-col-danger');
+                    label.removeClass('badge-danger');
+                    checkbox.addClass('chk-col-success');
+                    label.addClass('badge-success');
+                    label.html('Active');
+                } else {
+                    checkbox.removeClass('chk-col-success');
+                    label.removeClass('badge-success');
+                    checkbox.addClass('chk-col-danger');
+                    label.addClass('badge-danger');
+                    label.html('Inactive');
+                }
                 toastr.success(response.message, 'Success');
             }
         });
