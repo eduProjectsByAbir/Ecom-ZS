@@ -13,10 +13,13 @@ class SliderFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->unique()->word();
+        $name = $this->faker->unique()->word(4);
         return [
             'title' => $name,
+            'subtitle' => $this->faker->unique()->word(3),
             'description' => $this->faker->unique()->sentence,
+            'button_text' => 'Shop Now',
+            'button_link' => 'https://asliabir.github.io',
             'image' => $this->faker->imageUrl,
             'status' => true
         ];
