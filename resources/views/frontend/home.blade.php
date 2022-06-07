@@ -952,8 +952,17 @@
                                                                 src="{{ $product->product_thumbnail_url }}"
                                                                 alt=""></a> </div>
                                                     <!-- /.image -->
-
-                                                    <div class="tag new"><span>new</span></div>
+                                                    @if($product->discount_price !== null)
+                                                    <div class="tag hot"><span>{{ round(($product->discount_price/$product->price)*100) }}%</span></div>
+                                                    @else
+                                                        @if($product->hot_deals == 1)
+                                                        <div class="tag hot"><span>hot</span></div>
+                                                        @elseif($product->featured == 1)
+                                                        <div class="tag sale"><span>Sale</span></div>
+                                                        @else
+                                                        <div class="tag new"><span>new</span></div>
+                                                        @endif
+                                                    @endif
                                                 </div>
                                                 <!-- /.product-image -->
 
@@ -962,7 +971,7 @@
                                                     </h3>
                                                     <div class="rating rateit-small"></div>
                                                     <div class="description"></div>
-                                                    <div class="product-price"> <span class="price"> ${{ $product->discount_price ?? $product->price }} </span>
+                                                    <div class="product-price"> <span class="price"> ${{ $product->discount_price !== null ? ($product->price - $product->discount_price) :$product->price  ?? $product->price }} </span>
                                                         @if($product->discount_price !== null)
                                                         <span class="price-before-discount">$ {{ $product->price }}</span>
                                                         @endif </div>
@@ -1012,9 +1021,6 @@
                         <div class="tab-pane" id="catid{{ $cat_product->id }}">
                             <div class="product-slider">
                                 <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
-                                    @php
-                                        
-                                    @endphp
                                     @forelse ($cat_product->productsLimit as $product)
                                     <div class="item item-carousel">
                                         <div class="products">
@@ -1024,8 +1030,17 @@
                                                                 src="{{ $product->product_thumbnail_url }}"
                                                                 alt=""></a> </div>
                                                     <!-- /.image -->
-
+                                                    @if($product->discount_price !== null)
+                                                    <div class="tag hot"><span>{{ round(($product->discount_price/$product->price)*100) }}%</span></div>
+                                                    @else
+                                                    @if($product->hot_deals == 1)
+                                                    <div class="tag hot"><span>hot</span></div>
+                                                    @elseif($product->featured == 1)
+                                                    <div class="tag sale"><span>Sale</span></div>
+                                                    @else
                                                     <div class="tag new"><span>new</span></div>
+                                                    @endif
+                                                    @endif
                                                 </div>
                                                 <!-- /.product-image -->
 
@@ -1034,7 +1049,7 @@
                                                     </h3>
                                                     <div class="rating rateit-small"></div>
                                                     <div class="description"></div>
-                                                    <div class="product-price"> <span class="price"> ${{ $product->discount_price ?? $product->price }} </span>
+                                                    <div class="product-price"> <span class="price"> ${{ $product->discount_price !== null ? ($product->price - $product->discount_price) :$product->price  ?? $product->price }} </span>
                                                         @if($product->discount_price !== null)
                                                         <span class="price-before-discount">$ {{ $product->price }}</span>
                                                         @endif </div>
