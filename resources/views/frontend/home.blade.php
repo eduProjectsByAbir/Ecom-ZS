@@ -1015,7 +1015,7 @@
                                     @php
                                         
                                     @endphp
-                                    @foreach ($cat_product->productsLimit as $product)
+                                    @forelse ($cat_product->productsLimit as $product)
                                     <div class="item item-carousel">
                                         <div class="products">
                                             <div class="product">
@@ -1073,7 +1073,9 @@
                                         <!-- /.products -->
                                     </div>
                                     <!-- /.item -->
-                                    @endforeach
+                                    @empty
+                                    <h4 class="text-danger">  No Product Found...</h4>
+                                    @endforelse
                                 </div>
                                 <!-- /.home-owl-carousel -->
                             </div>
