@@ -49,4 +49,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
+
+    public function productsLimit()
+    {
+        return $this->hasMany(Product::class, 'category_id')->where('status', 1)->take(6);
+    }
 }

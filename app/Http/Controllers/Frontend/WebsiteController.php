@@ -15,6 +15,15 @@ class WebsiteController extends Controller
         $date = Carbon::now()->subDays(7);
         $sliders = Slider::where('status', 1)->take(3)->get();
         $latest_products = Product::where('status', 1)->where('created_at', '>=', $date)->latest('id')->limit(6)->get();
-        return view('frontend.home', compact('sliders', 'latest_products'));
+
+        // $cat_products = Category::with('productsLimit')->latest('id')->get();
+        $cat_products = Category::latest('id')->get();
+        // $cat_products = Category::with(['products' => function($query){
+        //                         $query->where('status', 1)->limit(10);
+        //                     }])->latest('id')->get();
+        // $cat_products = Product::with(['category.products' => function($query){
+        //                         $query->where('products.status', 1)->limit(10);
+        //                     }])->get();
+        return view('frontend.home', compact('sliders', 'latest_products', 'cat_products'));
     }
 }

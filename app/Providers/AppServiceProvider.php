@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categories = Category::with('subcategories', 'subcategories.subSubcategories')->latest()->get();
+        $categories = Category::with('subcategories', 'subcategories.subSubcategories')->latest('id')->get();
         view()->share('categories', $categories);
     }
 }
