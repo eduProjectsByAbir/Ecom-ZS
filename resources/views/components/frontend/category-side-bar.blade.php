@@ -11,10 +11,10 @@
                         <div class="row">
                             @foreach($category->subcategories as $subcategory)
                             <div class="col-sm-12 col-md-3">
-                                <h2 class="title">{{ $subcategory->name }}</h2>
+                                <a href="{{ route('showProducts', 'subcategory='.$subcategory->id) }}"><h2 class="title active-success">{{ $subcategory->name }}</h2></a>
                                 <ul class="links list-unstyled">
                                     @foreach ($subcategory->subSubcategories as $subSubcategory)
-                                    <li><a href="#">{{ $subSubcategory->name }}</a></li>
+                                    <li><a href="{{ route('showProducts', 'subsubcat='.$subSubcategory->id) }}">{{ $subSubcategory->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

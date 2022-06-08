@@ -32,4 +32,26 @@ class WebsiteController extends Controller
         $productDetails = Product::whereSlug($product)->with('brand','category', 'subcategory', 'sub_subcategory', 'product_images')->firstOrFail();
         return view('frontend.pages.product-details', compact('productDetails'));
     }
+
+    public function showProducts(Request $request){
+        $query = Product::with('brand','category', 'subcategory', 'sub_subcategory', 'product_images');
+
+        if($request->has('category') && request('category') != null && request('category') != '0'){
+            $id = $request->category;
+                $query->where('category_id', $id);
+        }
+
+        if($request->has('subcategory') && request('subcategory') != null && request('subcategory') != '0'){
+            $id = $request->subcategory;
+                $query->where('sub_category_id', $id);
+        }
+
+        if($request->has('subsubcat') && request('subsubcat') != null && request('subsubcat') != '0'){
+            $id = $request->subsubcat;
+                $query->where('sub_subcategory_id', $id);
+        }
+
+        $products = $query->latest()->paginate(12)->onEachSide(1)->appends($request->all());
+        return view('frontend.pages.products', compact('products'));
+    }
 }

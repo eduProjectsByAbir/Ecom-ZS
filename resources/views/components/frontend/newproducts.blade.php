@@ -119,8 +119,8 @@
                                     </div>
                                     <!-- /.image -->
                                     @if($product->discount_price !== null)
-                                    <div class="sale-offer-tag">
-                                        <span>{{ round(($product->discount_price/$product->price)*100) }}% <br>OFF</span>
+                                    <div class="tag-sale">
+                                        <span>{{ round(($product->discount_price/$product->price)*100) }}%</span>
                                     </div>
                                     @else
                                     @if($product->hot_deals == 1)
