@@ -14,7 +14,7 @@
                             <div class="row product-micro-row">
                                 <div class="col col-xs-5">
                                     <div class="product-image">
-                                        <div class="image"> <a href="{{ route('showProduct', $product->slug)  }}"> <img
+                                        <div class="image"> <a href="{{ route('showProduct', $hot_product->slug)  }}"> <img
                                                     src="{{ $hot_product->product_thumbnail_url }}"
                                                     alt=""> </a> </div>
                                         <!-- /.image -->
@@ -25,7 +25,7 @@
                                 <!-- /.col -->
                                 <div class="col2 col-xs-7">
                                     <div class="product-info">
-                                        <h3 class="name"><a href="{{ route('showProduct', $product->slug)  }}">{{ $hot_product->name }}</a></h3>
+                                        <h3 class="name"><a href="{{ route('showProduct', $hot_product->slug)  }}">{{ $hot_product->name }}</a></h3>
                                         <div class="rating rateit-small"></div>
                                         <div class="product-price"> <span class="price"> ${{ $hot_product->discount_price !== null ? ($hot_product->price - $hot_product->discount_price) : $hot_product->price  ?? $hot_product->price }} </span>
                                             @if($hot_product->discount_price !== null)
