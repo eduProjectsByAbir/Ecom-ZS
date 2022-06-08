@@ -15,9 +15,8 @@ class WebsiteController extends Controller
         $date = Carbon::now()->subDays(7);
         $sliders = Slider::where('status', 1)->latest()->take(3)->get();
         $latestproducts = Product::where('status', 1)->where('created_at', '>=', $date)->latest('id')->limit(6)->get();
-
-        $hotproducts = Product::where('status', 1)->where('hot_deals', 1)->latest('id')->limit(6)->get();
-
+        $specialoffers = Product::where('status', 1)->where('special_offer', 1)->latest('id')->limit(3)->get();
+        $specialdeals = Product::where('status', 1)->where('special_deals', 1)->latest('id')->limit(3)->get();
         // $cat_products = Category::with('productsLimit')->latest('id')->get();
         $catproducts = Category::latest('id')->get();
         // $cat_products = Category::with(['products' => function($query){
@@ -26,7 +25,7 @@ class WebsiteController extends Controller
         // $cat_products = Product::with(['category.products' => function($query){
         //                         $query->where('products.status', 1)->limit(10);
         //                     }])->get();
-        return view('frontend.home', compact('sliders', 'latestproducts', 'catproducts', 'hotproducts'));
+        return view('frontend.home', compact('sliders', 'latestproducts', 'catproducts', 'specialoffers', 'specialdeals'));
     }
 
     public function showProduct($product){

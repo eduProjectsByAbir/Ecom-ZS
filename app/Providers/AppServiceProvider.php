@@ -29,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
         view()->share('categories', $categories);
         $featuredproducts = Product::where('status', 1)->where('featured', 1)->latest('id')->limit(6)->get();
         view()->share('featuredproducts', $featuredproducts);
+        $hotproducts = Product::where('status', 1)->where('hot_deals', 1)->latest('id')->limit(6)->get();
+        view()->share('hotproducts', $hotproducts);
     }
 }
