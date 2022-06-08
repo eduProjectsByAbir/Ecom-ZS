@@ -91,6 +91,16 @@ Slider List
                                 </div>
                             </div>
                             <div class="col-md-12">
+                                <div class="form-group @error('subtitle') has-error @enderror">
+                                    <label>Subtitle </label>
+                                    <input type="text" class="form-control" placeholder="Slider subtitle"
+                                        name="subtitle" value="{{ old('subtitle') }}">
+                                    @error('subtitle')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group @error('description') has-error @enderror">
                                     <label>Description </label>
                                     <input type="text" class="form-control" placeholder="Slider description"
@@ -100,14 +110,36 @@ Slider List
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group @error('image') has-error @enderror">
-                            <label>Slider Image <span class="color-red">*</span></label>
-                            <input name="image" type="file" data-show-errors="true" data-width="50%" class="dropify"
-                                data-default-file="">
-                            @error('image')
-                            <span class="help-block">{{ $message }}</span>
-                            @enderror
+                            <div class="col-md-12">
+                                <div class="form-group @error('image') has-error @enderror">
+                                    <label>Slider Image <span class="color-red">*</span></label>
+                                    <input name="image" type="file" data-show-errors="true" data-width="50%"
+                                        class="dropify" data-default-file="">
+                                    @error('image')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group @error('button_text') has-error @enderror">
+                                    <label>Button Text </label>
+                                    <input type="text" class="form-control" placeholder="Slider button text"
+                                        name="button_text" value="{{ old('button_text') }}">
+                                    @error('button_text')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group @error('button_link') has-error @enderror">
+                                    <label>Button Link </label>
+                                    <input type="text" class="form-control" placeholder="Slider button link"
+                                        name="button_link" value="{{ old('button_link') }}">
+                                    @error('button_link')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -152,11 +184,41 @@ Slider List
                                 </div>
                             </div>
                             <div class="col-md-12">
+                                <div class="form-group @error('subtitle') has-error @enderror">
+                                    <label>Subtitle </label>
+                                    <input type="text" class="form-control" placeholder="Slider subtitle"
+                                        name="subtitle" value="{{ old('subtitle', $sliderData->subtitle) }}">
+                                    @error('subtitle')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group @error('description') has-error @enderror">
                                     <label>Description </label>
                                     <input type="text" class="form-control" placeholder="Slider description"
                                         name="description" value="{{ old('description', $sliderData->description) }}">
                                     @error('description')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group @error('button_text') has-error @enderror">
+                                    <label>Button Text </label>
+                                    <input type="text" class="form-control" placeholder="Slider button text"
+                                        name="button_text" value="{{ old('button_text', $sliderData->button_text) }}">
+                                    @error('button_text')
+                                    <span class="help-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group @error('button_link') has-error @enderror">
+                                    <label>Button Link </label>
+                                    <input type="text" class="form-control" placeholder="Slider button link"
+                                        name="button_link" value="{{ old('button_link', $sliderData->button_link) }}">
+                                    @error('button_link')
                                     <span class="help-block">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -243,7 +305,7 @@ Slider List
                 'id': sliderId
             },
             success: function (response) {
-                if(status == 1){
+                if (status == 1) {
                     checkbox.removeClass('chk-col-danger');
                     label.removeClass('badge-danger');
                     checkbox.addClass('chk-col-success');

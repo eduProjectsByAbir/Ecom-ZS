@@ -32,7 +32,10 @@ class SliderController extends Controller
         }
         $request->validate([
             'title' => 'required|string|max:40',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:255',
+            'button_text' => 'nullable|string|max:255',
+            'button_link' => 'nullable|url',
             'image' => 'required|image|max:1024',
         ]);
 
@@ -83,12 +86,18 @@ class SliderController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:40',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:255',
+            'button_text' => 'nullable|string|max:255',
+            'button_link' => 'nullable|url',
         ]);
 
         $slider->image !== null ? $request->validate(['image' => 'nullable|image|max:1024']) : $request->validate(['image' => 'required|image|max:1024']);
 
         $slider->title = $request->title;
+        $slider->subtitle = $request->subtitle;
+        $slider->button_text = $request->button_text;
+        $slider->button_link = $request->button_link;
         $slider->description = $request->description;
 
         if($request->hasFile('image')){

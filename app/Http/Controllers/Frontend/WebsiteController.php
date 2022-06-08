@@ -13,7 +13,7 @@ class WebsiteController extends Controller
 {
     public function index(){
         $date = Carbon::now()->subDays(7);
-        $sliders = Slider::where('status', 1)->take(3)->get();
+        $sliders = Slider::where('status', 1)->latest()->take(3)->get();
         $latestproducts = Product::where('status', 1)->where('created_at', '>=', $date)->latest('id')->limit(6)->get();
         $featuredproducts = Product::where('status', 1)->where('featured', 1)->latest('id')->limit(6)->get();
         $hotproducts = Product::where('status', 1)->where('hot_deals', 1)->latest('id')->limit(6)->get();
