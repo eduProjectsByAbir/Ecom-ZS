@@ -31,7 +31,7 @@
                         <div class="products">
                             <div class="product">
                                 <div class="product-image">
-                                    <div class="image"> <a href="detail.html"><img
+                                    <div class="image"> <a href="{{ route('showProduct', $product->slug)  }}"><img
                                                 src="{{ $product->product_thumbnail_url }}" alt=""></a>
                                     </div>
                                     <!-- /.image -->
@@ -52,7 +52,7 @@
                                 <!-- /.product-image -->
 
                                 <div class="product-info text-left">
-                                    <h3 class="name"><a href="detail.html">{{ $product->name }}</a>
+                                    <h3 class="name"><a href="{{ route('showProduct', $product->slug)  }}">{{ $product->name }}</a>
                                     </h3>
                                     <div class="rating rateit-small"></div>
                                     <div class="description"></div>
@@ -79,11 +79,11 @@
                                                     type="button">Add to cart</button>
                                             </li>
                                             <li class="lnk wishlist"> <a data-toggle="tooltip"
-                                                    class="add-to-cart" href="detail.html"
+                                                    class="add-to-cart" href="{{ route('showProduct', $product->slug)  }}"
                                                     title="Wishlist"> <i class="icon fa fa-heart"></i>
                                                 </a> </li>
                                             <li class="lnk"> <a data-toggle="tooltip"
-                                                    class="add-to-cart" href="detail.html"
+                                                    class="add-to-cart" href="{{ route('showProduct', $product->slug)  }}"
                                                     title="Compare"> <i class="fa fa-signal"
                                                         aria-hidden="true"></i> </a> </li>
                                         </ul>
@@ -114,7 +114,7 @@
                         <div class="products">
                             <div class="product">
                                 <div class="product-image">
-                                    <div class="image"> <a href="detail.html"><img
+                                    <div class="image"> <a href="{{ route('showProduct', $product->slug)  }}"><img
                                                 src="{{ $product->product_thumbnail_url }}" alt=""></a>
                                     </div>
                                     <!-- /.image -->
@@ -135,7 +135,7 @@
                                 <!-- /.product-image -->
 
                                 <div class="product-info text-left">
-                                    <h3 class="name"><a href="detail.html">{{ $product->name }}</a>
+                                    <h3 class="name"><a href="{{ route('showProduct', $product->slug)  }}">{{ $product->name }}</a>
                                     </h3>
                                     <div class="rating rateit-small"></div>
                                     <div class="description"></div>
@@ -162,11 +162,11 @@
                                                     type="button">Add to cart</button>
                                             </li>
                                             <li class="lnk wishlist"> <a data-toggle="tooltip"
-                                                    class="add-to-cart" href="detail.html"
+                                                    class="add-to-cart" href="{{ route('showProduct', $product->slug)  }}"
                                                     title="Wishlist"> <i class="icon fa fa-heart"></i>
                                                 </a> </li>
                                             <li class="lnk"> <a data-toggle="tooltip"
-                                                    class="add-to-cart" href="detail.html"
+                                                    class="add-to-cart" href="{{ route('showProduct', $product->slug)  }}"
                                                     title="Compare"> <i class="fa fa-signal"
                                                         aria-hidden="true"></i> </a> </li>
                                         </ul>
@@ -198,3 +198,4 @@
     </div>
     <!-- /.tab-content -->
 </div>
+

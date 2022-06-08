@@ -28,4 +28,10 @@ class WebsiteController extends Controller
         //                     }])->get();
         return view('frontend.home', compact('sliders', 'latestproducts', 'catproducts', 'featuredproducts', 'hotproducts'));
     }
+
+    public function showProduct($product){
+        $productDetails = Product::whereSlug($product)->with('brand','category', 'subcategory', 'sub_subcategory', 'product_images')->firstOrFail();
+        $featuredproducts = Product::where('status', 1)->where('featured', 1)->latest('id')->limit(6)->get();
+        return view('frontend.pages.product-details', compact('productDetails', 'featuredproducts'));
+    }
 }
