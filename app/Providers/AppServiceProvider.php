@@ -27,9 +27,15 @@ class AppServiceProvider extends ServiceProvider
     {
         $categories = Category::with('subcategories', 'subcategories.subSubcategories')->latest('id')->get();
         view()->share('categories', $categories);
+
         $featuredproducts = Product::where('status', 1)->where('featured', 1)->latest('id')->limit(6)->get();
         view()->share('featuredproducts', $featuredproducts);
+
         $hotproducts = Product::where('status', 1)->where('hot_deals', 1)->latest('id')->limit(6)->get();
         view()->share('hotproducts', $hotproducts);
+
+        $tags = Product::groupBy('tags')->pluck('tags')->implode(', ');
+        $tags = array_unique(explode(', ', $tags));
+        view()->share('tags', $tags);
     }
 }

@@ -51,7 +51,19 @@ class WebsiteController extends Controller
                 $query->where('sub_subcategory_id', $id);
         }
 
+        // tag search
+        if ($request->has('tags') && $request->tags != null) {
+            $query->where('tags', 'LIKE', "%$request->tags%");
+        }
+        // color search
+        if ($request->has('color') && $request->color != null) {
+            $query->where('color', 'LIKE', "%$request->color%");
+        }
+
+        $colors = Product::groupBy('color')->pluck('color')->implode(', ');
+        $colors = array_unique(explode(', ', $colors));
+
         $products = $query->latest()->paginate(12)->onEachSide(1)->appends($request->all());
-        return view('frontend.pages.products', compact('products'));
+        return view('frontend.pages.products', compact('products', 'colors'));
     }
 }
