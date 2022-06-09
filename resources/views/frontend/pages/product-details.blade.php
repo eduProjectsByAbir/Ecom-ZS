@@ -269,7 +269,7 @@
 
                                 <div id="description" class="tab-pane in active">
                                     <div class="product-tab">
-                                        <p class="text">{{ $productDetails->long_description ?? $productDetails->short_description }}</p>
+                                        <p class="text">{!! nl2br($productDetails->long_description) ?? $productDetails->short_description !!}</p>
                                     </div>
                                 </div><!-- /.tab-pane -->
 
