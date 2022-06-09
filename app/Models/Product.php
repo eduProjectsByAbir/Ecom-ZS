@@ -15,7 +15,7 @@ class Product extends Model
     protected $guarded = [];
 
     protected $appends = [
-        'product_thumbnail_url', 'full_status'
+        'product_thumbnail_url', 'full_status', 'all_colors', 'all_tags', 'all_sizes'
     ];
 
     protected static function boot()
@@ -81,5 +81,32 @@ class Product extends Model
         }
 
         return 'Active';
+    }
+
+    public function getAllColorsAttribute()
+    {
+        if($this->color !== null){
+            return (array_map('trim', array_unique(explode(',', $this->color))));
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllTagsAttribute()
+    {
+        if($this->tags !== null){
+            return (array_map('trim', array_unique(explode(',', $this->tags))));
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllSizesAttribute()
+    {
+        if($this->size !== null){
+            return (array_map('trim', array_unique(explode(',', $this->size))));
+        } else {
+            return false;
+        }
     }
 }

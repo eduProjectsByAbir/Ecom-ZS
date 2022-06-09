@@ -184,6 +184,30 @@
                                         </div>
 
                                     </div><!-- /.row -->
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="info-title control-label">Choose Color</label><br>
+                                                <select name="color" id="color" class="from-control unicase-form-control selectpicker">
+                                                    <option value="" disabled>Select Color</option>
+                                                    @foreach ($productDetails->all_colors as $color)
+                                                    <option value="{{ $color }}">{{ ucfirst($color) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="info-title control-label">Choose Size</label><br>
+                                                <select name="size" id="size" class="from-control unicase-form-control selectpicker">
+                                                    <option value="" disabled>Select Size</option>
+                                                    @foreach ($productDetails->all_sizes as $size)
+                                                    <option value="{{ $size }}">{{ strtoupper($size) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div><!-- /.price-container -->
 
                                 <div class="quantity-container info-container">

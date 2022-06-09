@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         view()->share('hotproducts', $hotproducts);
 
         $tags = Product::groupBy('tags')->pluck('tags')->implode(', ');
-        $tags = array_unique(explode(', ', $tags));
+        $tags = (array_map('trim', array_unique(explode(',', $tags))));
         view()->share('tags', $tags);
     }
 }

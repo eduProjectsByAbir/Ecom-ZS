@@ -61,7 +61,7 @@ class WebsiteController extends Controller
         }
 
         $colors = Product::groupBy('color')->pluck('color')->implode(', ');
-        $colors = array_unique(explode(', ', $colors));
+        $colors = (array_map('trim', array_unique(explode(',', $colors))));
 
         $products = $query->latest()->paginate(12)->onEachSide(1)->appends($request->all());
         return view('frontend.pages.products', compact('products', 'colors'));
