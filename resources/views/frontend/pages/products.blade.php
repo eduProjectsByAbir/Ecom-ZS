@@ -226,7 +226,7 @@ All Products
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== COMPARE: END ============================================== -->
                         <!-- ============================================== PRODUCT TAGS ============================================== -->
-                        <x-frontend.sidebar.tags  :tags=$tags />
+                        <x-frontend.sidebar.tags :tags=$tags />
                         <!-- /.sidebar-widget -->
                         <!----------- Testimonials------------->
                         <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
@@ -411,8 +411,9 @@ All Products
                                         <div class="action">
                                             <ul class="list-unstyled">
                                                 <li class="add-cart-button btn-group">
-                                                    <button class="btn btn-primary icon" data-toggle="dropdown"
-                                                        type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                    <button class="btn btn-primary icon" type="button" title="Add Cart"
+                                                        data-toggle="modal" data-target="#addToCart" id="{{ $product->id }}" onclick="productView({{ $product->id }})"> <i
+                                                            class="fa fa-shopping-cart"></i> </button>
                                                     <button class="btn btn-primary cart-btn" type="button">Add to
                                                         cart</button>
                                                 </li>
@@ -478,9 +479,10 @@ All Products
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown"
-                                                                type="button"> <i class="fa fa-shopping-cart"></i>
-                                                            </button>
+                                                            <button class="btn btn-primary icon" type="button"
+                                                                title="Add Cart" data-toggle="modal"
+                                                                data-target="#addToCart" id="{{ $product->id }}" onclick="productView({{ $product->id }})"> <i
+                                                                    class="fa fa-shopping-cart"></i> </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add
                                                                 to cart</button>
                                                         </li>

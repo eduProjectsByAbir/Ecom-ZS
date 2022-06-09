@@ -66,4 +66,9 @@ class WebsiteController extends Controller
         $products = $query->latest()->paginate(12)->onEachSide(1)->appends($request->all());
         return view('frontend.pages.products', compact('products', 'colors'));
     }
+
+    public function getProductJson($id){
+        $productData = Product::with('category', 'brand')->findOrFail($id);
+        return response()->json($productData);
+    }
 }
