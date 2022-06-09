@@ -88,7 +88,7 @@ class Product extends Model
         if($this->color !== null){
             return (array_map('trim', array_unique(explode(',', $this->color))));
         } else {
-            return false;
+            return array();
         }
     }
 
@@ -97,7 +97,7 @@ class Product extends Model
         if($this->tags !== null){
             return (array_map('trim', array_unique(explode(',', $this->tags))));
         } else {
-            return false;
+            return array();
         }
     }
 
@@ -106,7 +106,7 @@ class Product extends Model
         if($this->size !== null){
             return (array_map('trim', array_unique(explode(',', $this->size))));
         } else {
-            return false;
+            return array();
         }
     }
 }

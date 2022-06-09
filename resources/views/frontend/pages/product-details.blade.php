@@ -185,17 +185,20 @@
 
                                     </div><!-- /.row -->
                                     <div class="row">
+                                        @if(count($productDetails->all_colors) !== 0)
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="info-title control-label">Choose Color</label><br>
                                                 <select name="color" id="color" class="from-control unicase-form-control selectpicker">
-                                                    <option value="" disabled>Select Color</option>
+                                                    <option value="" disabled>Select Color {{ count($productDetails->all_colors) }}</option>
                                                     @foreach ($productDetails->all_colors as $color)
                                                     <option value="{{ $color }}">{{ ucfirst($color) }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
+                                        @endif
+                                        @if(count($productDetails->all_sizes) !== 0)
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="info-title control-label">Choose Size</label><br>
@@ -207,6 +210,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div><!-- /.price-container -->
 
