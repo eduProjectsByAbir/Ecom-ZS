@@ -375,7 +375,7 @@ All Products
                                                     src="{{ $product->product_thumbnail_url }}" alt=""></a> </div>
                                         <!-- /.image -->
                                         @if($product->discount_price !== null)
-                                        <div class="tag-sale">
+                                        <div class="tag sale">
                                             <span>{{ round(($product->discount_price/$product->price)*100) }}%</span>
                                         </div>
                                         @else
@@ -504,7 +504,7 @@ All Products
                                 </div>
                                 <!-- /.product-list-row -->
                                 @if($product->discount_price !== null)
-                                <div class="tag-sale">
+                                <div class="tag sale">
                                     <span>{{ round(($product->discount_price/$product->price)*100) }}%</span>
                                 </div>
                                 @else

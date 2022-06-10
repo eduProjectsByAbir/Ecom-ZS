@@ -85,28 +85,16 @@ class Product extends Model
 
     public function getAllColorsAttribute()
     {
-        if($this->color !== null){
-            return (array_map('trim', array_unique(explode(',', $this->color))));
-        } else {
-            return array();
-        }
+        return (array_map('trim', array_unique(explode(',', $this->color))));
     }
 
     public function getAllTagsAttribute()
     {
-        if($this->tags !== null){
-            return (array_map('trim', array_unique(explode(',', $this->tags))));
-        } else {
-            return array();
-        }
+        return (array_map('trim', array_unique(explode(',', $this->tags))));
     }
 
     public function getAllSizesAttribute()
     {
-        if($this->size !== null){
-            return (array_map('trim', array_unique(explode(',', $this->size))));
-        } else {
-            return array();
-        }
+        return (array_map('trim', array_unique(explode(',', $this->size))));
     }
 }

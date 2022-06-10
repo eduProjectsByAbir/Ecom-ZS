@@ -45,9 +45,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="m_name">title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
+                </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -66,15 +66,14 @@
                             </ul>
                         </div><!-- // end col md -->
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="form-group" id="m_color_form">
                                 <label for="m_color">Choose Color</label>
                                 <select class="form-control" id="m_color">
                                     <option value="">Select Color</option>
                                 </select>
                             </div> <!-- // end form group -->
 
-
-                            <div class="form-group">
+                            <div class="form-group" id="m_size_form">
                                 <label for="m_size">Choose Size</label>
                                 <select class="form-control" id="m_size">
                                     <option value="">Select Size</option>
@@ -83,8 +82,7 @@
 
                             <div class="form-group">
                                 <label for="m_qty">Quantity</label>
-                                <input type="number" class="form-control" id="m_qty" value="1"
-                                    min="1">
+                                <input type="number" class="form-control" id="m_qty" value="1" min="1">
                             </div> <!-- // end form group -->
 
                             <button type="submit" class="btn btn-primary mb-2">Add to Cart</button>
@@ -99,20 +97,28 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
         // product view function
-        function productView(id){
+        function productView(id) {
             $.ajax({
                 type: 'GET',
-                url: '/product/json/'+id,
+                url: '/product/json/' + id,
                 dataType: 'json',
-                success: function(data){
-                    $('#m_image').attr('src',data.product_thumbnail_url).attr('width', '150px');
+                success: function (data) {
+                    $('#m_image').attr('src', data.product_thumbnail_url).attr('width', '150px');
                     $('#m_name').text(data.name);
-                    $('#m_price').text(data.price);
+                    if(data.discount_price){
+                        var price = data.price-data.discount_price;
+                        $('#m_price').text('$ ' +price);
+                    } else {
+                        $('#m_price').text('$ ' + data.price);
+                    }
                     $('#m_code').text(data.code);
                     $('#m_category').text(data.category.name);
                     $('#m_brand').text(data.brand.name);
@@ -121,18 +127,31 @@
                     $('#m_size').empty();
                     $('#m_size').append("<option value=''>Select Size</option>");
                     $('#m_color').empty();
-                    $('#m_color').append("<option value=''>Select Size</option>");
+                    $('#m_color').append("<option value=''>Select Color</option>");
 
-                    $.each(data.all_sizes, function(key, value) {
-                        $('#m_size').append("<option value='"+value+"'>"+value+"</option>");
-                    });
+                    if (data.all_sizes == "") {
+                        $('#m_size_form').hide();
+                    } else {
+                        $('#m_size_form').show();
+                        $.each(data.all_sizes, function (key, value) {
+                            $('#m_size').append("<option value='" + value + "'>" + value.toUpperCase() +
+                                "</option>");
+                        });
+                    }
 
-                    $.each(data.all_colors, function(key, value) {
-                        $('#m_color').append("<option value='"+value+"'>"+value+"</option>");
-                    });
+                    if (data.all_colors == "") {
+                        $('#m_color_form').hide();
+                    } else {
+                        $('#m_color_form').show();
+                        $.each(data.all_colors, function (key, value) {
+                            $('#m_color').append("<option value='" + value + "'>" + capitalizeFirstLetter(value) +
+                                "</option>");
+                        });
+                    }
                 }
             });
         }
+
     </script>
 </body>
 
