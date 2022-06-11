@@ -179,7 +179,12 @@
                 url: '{{ route('addToCart') }}',
                 success: function (data){
                     $('#closeModal').click();
-                    console.log(data);
+                    if(data.success){
+                        $('#headerCartCount').empty().text(data.cartCount);
+                        toastr.success(data.success, 'Success!');
+                    } else {
+                        toastr.error(data.error, 'Error!');
+                    }
                 }
             })
         }

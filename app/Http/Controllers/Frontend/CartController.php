@@ -12,7 +12,7 @@ class CartController extends Controller
     public function addToCart(Request $request){
         $product = Product::findOrFail($request->id);
         $price = $product->price_discount == null ? $product->price :  $product->price-$product->price_discount;
-        Cart::add([
+        $cart = Cart::add([
             'id' => $request->id,
             'name' => $request->name,
             'qty' => $request->qty,
@@ -25,8 +25,12 @@ class CartController extends Controller
             ],
         ]);
 
-        return response()->json([
+        return $cart ? response()->json([
             'success' => 'Successfully added to cart',
+            'cartCount' => Cart::count(),
+        ]): response()->json([
+            'error' => 'Something went wrong!',
+            'cartCount' => Cart::count(),
         ]);
     }
 }
