@@ -14,6 +14,5 @@ Route::controller(WebsiteController::class)->group(function () {
 Route::controller(CartController::class)->group(function () {
     Route::post('/product/addtocart', 'addToCart')->name('addToCart');
     Route::get('/cart/navcart', 'navCart')->name('navCart');
-    
-    
+    Route::get('/cart/remove/product', 'cartRemoveProduct')->name('cartRemoveProduct');
 });

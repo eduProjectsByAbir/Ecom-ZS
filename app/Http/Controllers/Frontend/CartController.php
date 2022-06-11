@@ -46,7 +46,16 @@ class CartController extends Controller
         $data['carts'] = Cart::content();
         $data['cartQty'] = Cart::count();
         $data['cartsTotal'] = Cart::total();
+        $data['cartsTax'] = Cart::tax();
 
         return response()->json($data);
+    }
+
+    public function cartRemoveProduct(Request $request){
+        $cart = Cart::remove(request('id'));
+        return  response()->json([
+            'success' => 'Product Removed!',
+            'cartCount' => Cart::count(),
+        ]);
     }
 }

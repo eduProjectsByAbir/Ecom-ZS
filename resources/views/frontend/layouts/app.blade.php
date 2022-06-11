@@ -200,7 +200,6 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function (data) {
-                    console.log(data);
                     var product = "";
                     $.each(data.carts, function(key, value){
                         product += `
@@ -215,7 +214,7 @@
                                     <h3 class="name"><a href="/product/${value.options.slug}">${value.name}</a></h3>
                                     <div class="price">$${value.price} * ${value.qty}</div>
                                 </div>
-                                <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a>
+                                <div class="col-xs-1 action"> <a id="${value.rowId}" class="removeProductButton" onclick="cartRemoveProduct(this.id);"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -223,8 +222,39 @@
                         $('#headerCartList').html(product);
                         product += `<hr>`;
                     });
-                    $('#headerCartTotal').text(data.cartsTotal);
+                    $('#headerCartTotal').empty().text(data.cartsTotal);
+                    $('#headerCartTotalShow').empty().text(data.cartsTotal);
                     $('#headerCartCount').empty().text(data.cartQty);
+                    $('#headerCartTotalTax').empty().text(data.cartsTax);
+                    if(data.cartQty == 0){
+                        $('#headerCartList').empty().text('No Product in cart!');
+                        $('#navCheckoutButton').attr('disabled', true);
+                    }
+                }
+            });
+    }
+    </script>
+    <script type="text/javascript">
+    function cartRemoveProduct(id){
+        $.ajax({
+                type: 'GET',
+                url: '{{ route('cartRemoveProduct') }}',
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id":id
+                },
+                success: function (data) {
+                    console.log(data);
+                    if(data.success){
+                        navCartShow();
+                        toastr.success(data.success, 'Success!');
+                    } else {
+                        toastr.error(data.error, 'Error!');
+                    }
+                    if(data.cartCount == 0){
+                        $('#headerCartList').empty().text('No Product in cart!');
+                    }
                 }
             });
     }
