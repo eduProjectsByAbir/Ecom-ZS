@@ -245,7 +245,6 @@
                     "id":id
                 },
                 success: function (data) {
-                    console.log(data);
                     if(data.success){
                         navCartShow();
                         toastr.success(data.success, 'Success!');
@@ -258,6 +257,26 @@
                 }
             });
     }
+    </script>
+    <script>
+        function addToWishList(id){
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id:id,
+                },
+                url: '{{ route('addToWishlist') }}',
+                success: function (data){
+                    if(data.success){
+                        toastr.success(data.success, 'Success!');
+                    } else {
+                        toastr.error(data.error, 'Error!');
+                    }
+                }
+            })
+        }
     </script>
 </body>
 

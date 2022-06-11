@@ -41,7 +41,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function navCart(Request $request){
+    public function navCart(){
         $data = [];
         $data['carts'] = Cart::content();
         $data['cartQty'] = Cart::count();

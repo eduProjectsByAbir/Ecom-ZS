@@ -99,7 +99,6 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-
                     <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart"
                             data-toggle="dropdown" onclick="navCartShow()">
                             <div class="items-cart-inner">

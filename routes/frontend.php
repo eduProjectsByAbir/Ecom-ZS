@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\WebsiteController;
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(WebsiteController::class)->group(function () {
@@ -15,4 +16,8 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/product/addtocart', 'addToCart')->name('addToCart');
     Route::get('/cart/navcart', 'navCart')->name('navCart');
     Route::get('/cart/remove/product', 'cartRemoveProduct')->name('cartRemoveProduct');
+});
+
+Route::controller(WishlistController::class)->group(function () {
+    Route::post('/product/add-to-wishlist', 'addToWishlist')->name('addToWishlist');
 });
