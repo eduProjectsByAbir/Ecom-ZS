@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
@@ -44,7 +44,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="m_name">title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -84,8 +84,8 @@
                                 <label for="m_qty">Quantity</label>
                                 <input type="number" class="form-control" id="m_qty" value="1" min="1">
                             </div> <!-- // end form group -->
-
-                            <button type="submit" class="btn btn-primary mb-2">Add to Cart</button>
+                            <input type="hidden" id="m_product_id">
+                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">Add to Cart</button>
                         </div><!-- // end col md -->
                     </div> <!-- // end row -->
                 </div> <!-- // end modal Body -->
@@ -95,11 +95,11 @@
     <!-- End Add to Cart Product Modal -->
 
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -110,6 +110,10 @@
                 type: 'GET',
                 url: '/product/json/' + id,
                 dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": id
+                },
                 success: function (data) {
                     $('#m_image').attr('src', data.product_thumbnail_url).attr('width', '150px');
                     $('#m_name').text(data.name);
@@ -123,6 +127,7 @@
                     $('#m_category').text(data.category.name);
                     $('#m_brand').text(data.brand.name);
                     $('#m_stock').text(data.qty);
+                    $('#m_product_id').val(data.id);
                     $('#m_stock').attr('max', data.qty);
                     $('#m_size').empty();
                     $('#m_size').append("<option value=''>Select Size</option>");
@@ -150,6 +155,33 @@
                     }
                 }
             });
+        }
+
+        // cart add
+        function addToCart(){
+            var id = $('#m_product_id').val();
+            var name = $('#m_name').text();
+            var color = $('#m_color option:selected').val();
+            var size = $('#m_size option:selected').val();
+            var qty = $('#m_qty').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id:id,
+                    name:name,
+                    color:color,
+                    size:size,
+                    qty:qty,
+                },
+                url: '{{ route('addToCart') }}',
+                success: function (data){
+                    $('#closeModal').click();
+                    console.log(data);
+                }
+            })
         }
 
     </script>

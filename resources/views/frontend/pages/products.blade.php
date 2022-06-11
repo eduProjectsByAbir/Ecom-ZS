@@ -496,7 +496,6 @@ All Products
                                                 <!-- /.action -->
                                             </div>
                                             <!-- /.cart -->
-
                                         </div>
                                         <!-- /.product-info -->
                                     </div>
