@@ -9,7 +9,9 @@
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('showProducts', 'category='.$productDetails->category_id) }}">{{ $productDetails->category->name }}</a></li>
+                <li><a
+                        href="{{ route('showProducts', 'category='.$productDetails->category_id) }}">{{ $productDetails->category->name }}</a>
+                </li>
                 <li class='active'>{{ $productDetails->name }}</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
@@ -20,15 +22,13 @@
         <div class='row single-product'>
             <div class='col-md-3 sidebar'>
                 <div class="sidebar-module-container">
-                    <!-- ============================================== HOT DEALS ============================================== -->
+                    <!-- ============================================== HOT DEALS ========================================== -->
                     <x-frontend.sidebar.hotdeals />
                     <!-- ============================================== HOT DEALS: END ============================================== -->
-
                     <!-- ============================================== NEWSLETTER ============================================== -->
                     <x-frontend.sidebar.newsletter />
-                    <!-- ============================================== NEWSLETTER: END ============================================== -->
-
-                    <!-- ============================================== Testimonials============================================== -->
+                    <!-- ==================================== NEWSLETTER: END =============================== -->
+                    <!-- ===================================== Testimonials=============================== -->
                     <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
                         <div id="advertisement" class="advertisement">
                             <div class="item">
@@ -39,7 +39,6 @@
                                 <div class="clients_author">John Doe <span>Abc Company</span> </div>
                                 <!-- /.container-fluid -->
                             </div><!-- /.item -->
-
                             <div class="item">
                                 <div class="avatar"><img src="assets/images/testimonials/member3.png" alt="Image">
                                 </div>
@@ -47,7 +46,6 @@
                                     mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
                                 <div class="clients_author">Stephen Doe <span>Xperia Designs</span> </div>
                             </div><!-- /.item -->
-
                             <div class="item">
                                 <div class="avatar"><img src="assets/images/testimonials/member2.png" alt="Image">
                                 </div>
@@ -56,12 +54,9 @@
                                 <div class="clients_author">Saraha Smith <span>Datsun &amp; Co</span> </div>
                                 <!-- /.container-fluid -->
                             </div><!-- /.item -->
-
                         </div><!-- /.owl-carousel -->
                     </div>
-
                     <!-- ============================================== Testimonials: END ============================================== -->
-
                 </div>
             </div><!-- /.sidebar -->
             <div class='col-md-9'>
@@ -89,7 +84,6 @@
                                     </div><!-- /.single-product-gallery-item -->
                                     @endforeach
                                 </div><!-- /.single-product-slider -->
-
                                 <div class="single-product-gallery-thumbs gallery-thumbs">
                                     <div id="owl-single-product-thumbnails">
                                         <div class="item">
@@ -102,8 +96,8 @@
                                         </div>
                                         @foreach ($productDetails->product_images as $product_image)
                                         <div class="item">
-                                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="{{ $loop->index+1 }}"
-                                                href="#slide{{ $loop->index+1 }}">
+                                            <a class="horizontal-thumb" data-target="#owl-single-product"
+                                                data-slide="{{ $loop->index+1 }}" href="#slide{{ $loop->index+1 }}">
                                                 <img class="img-responsive" width="85" alt=""
                                                     src="{{ asset('frontend') }}/images/blank.gif"
                                                     data-echo="{{ $product_image->image_url }}" />
@@ -111,146 +105,141 @@
                                         </div>
                                         @endforeach
                                     </div><!-- /#owl-single-product-thumbnails -->
-
-
-
                                 </div><!-- /.gallery-thumbs -->
-
                             </div><!-- /.single-product-gallery -->
                         </div><!-- /.gallery-holder -->
-                        <div class='col-sm-6 col-md-7 product-info-block'>
-                            <div class="product-info">
-                                <h1 class="name">{{ $productDetails->name }}</h1>
-
-                                <div class="rating-reviews m-t-20">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="rating rateit-small"></div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="reviews">
-                                                <a href="#" class="lnk">(13 Reviews)</a>
+                        <form action="{{ route('addToCart') }}" method="post">
+                            @csrf
+                            <div class='col-sm-6 col-md-7 product-info-block'>
+                                <div class="product-info">
+                                    <h1 class="name">{{ $productDetails->name }}</h1>
+                                    <input type="hidden" name="name" value="{{ $productDetails->name }}">
+                                    <div class="rating-reviews m-t-20">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="rating rateit-small"></div>
                                             </div>
-                                        </div>
-                                    </div><!-- /.row -->
-                                </div><!-- /.rating-reviews -->
-
-                                <div class="stock-container info-container m-t-10">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                            <div class="stock-box">
-                                                <span class="label">Availability :</span>
+                                            <div class="col-sm-8">
+                                                <div class="reviews">
+                                                    <a href="#" class="lnk">(13 Reviews)</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="stock-box">
-                                                <span class="value">{{ $productDetails->qty !== '0' ? 'In Stock ('.$productDetails->qty.')' : 'Out of Stock' }} </span>
+                                        </div><!-- /.row -->
+                                    </div><!-- /.rating-reviews -->
+                                    <div class="stock-container info-container m-t-10">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <div class="stock-box">
+                                                    <span class="label">Availability :</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div><!-- /.row -->
-                                </div><!-- /.stock-container -->
-
-                                <div class="description-container m-t-20">
-                                    {{ $productDetails->short_description }}
-                                </div><!-- /.description-container -->
-
-                                <div class="price-container info-container m-t-20">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="price-box">
-                                                <span class="price">${{ $productDetails->discount_price !== null ? ($productDetails->price - $productDetails->discount_price) : $productDetails->price  ?? $productDetails->price }}</span>
-                                                @if($productDetails->discount_price !== null)
-                                                <span class="price-strike">$
-                                                    {{ $productDetails->price }}</span>
-                                                @endif
+                                            <div class="col-sm-9">
+                                                <div class="stock-box">
+                                                    <span
+                                                        class="value">{{ $productDetails->qty !== '0' ? 'In Stock ('.$productDetails->qty.')' : 'Out of Stock' }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="favorite-button m-t-10">
-                                                <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
-                                                    title="Wishlist" href="#">
-                                                    <i class="fa fa-heart"></i>
-                                                </a>
-                                                <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
-                                                    title="Add to Compare" href="#">
-                                                    <i class="fa fa-signal"></i>
-                                                </a>
-                                                <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
-                                                    title="E-mail" href="#">
-                                                    <i class="fa fa-envelope"></i>
-                                                </a>
+                                        </div><!-- /.row -->
+                                    </div><!-- /.stock-container -->
+                                    <div class="description-container m-t-20">
+                                        {{ $productDetails->short_description }}
+                                    </div><!-- /.description-container -->
+                                    <div class="price-container info-container m-t-20">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="price-box">
+                                                    <span
+                                                        class="price">${{ $productDetails->discount_price !== null ? ($productDetails->price - $productDetails->discount_price) : $productDetails->price  ?? $productDetails->price }}</span>
+                                                    @if($productDetails->discount_price !== null)
+                                                    <span class="price-strike">$
+                                                        {{ $productDetails->price }}</span>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
-
-                                    </div><!-- /.row -->
-                                    <div class="row">
-                                        @if(count($productDetails->all_colors) !== 0)
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label for="info-title control-label">Choose Color</label><br>
-                                                <select name="color" id="color" class="from-control unicase-form-control selectpicker">
-                                                    <option value="" disabled>Select Color {{ count($productDetails->all_colors) }}</option>
-                                                    @foreach ($productDetails->all_colors as $color)
-                                                    <option value="{{ $color }}">{{ ucfirst($color) }}</option>
-                                                    @endforeach
-                                                </select>
+                                            <div class="col-sm-6">
+                                                <div class="favorite-button m-t-10">
+                                                    <a class="btn btn-primary" data-toggle="tooltip"
+                                                        data-placement="right" title="Wishlist" href="#">
+                                                        <i class="fa fa-heart"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary" data-toggle="tooltip"
+                                                        data-placement="right" title="Add to Compare" href="#">
+                                                        <i class="fa fa-signal"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary" data-toggle="tooltip"
+                                                        data-placement="right" title="E-mail" href="#">
+                                                        <i class="fa fa-envelope"></i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @endif
-                                        @if(count($productDetails->all_sizes) !== 0)
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label for="info-title control-label">Choose Size</label><br>
-                                                <select name="size" id="size" class="from-control unicase-form-control selectpicker">
-                                                    <option value="" disabled>Select Size</option>
-                                                    @foreach ($productDetails->all_sizes as $size)
-                                                    <option value="{{ $size }}">{{ strtoupper($size) }}</option>
-                                                    @endforeach
-                                                </select>
+                                        </div><!-- /.row -->
+                                        <div class="row">
+                                            @if(count($productDetails->all_colors) !== 0)
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="info-title control-label">Choose Color</label><br>
+                                                    <select name="color" id="color"
+                                                        class="from-control unicase-form-control selectpicker">
+                                                        <option value="" disabled>Select Color
+                                                            {{ count($productDetails->all_colors) }}</option>
+                                                        @foreach ($productDetails->all_colors as $color)
+                                                        <option value="{{ $color }}">{{ ucfirst($color) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
+                                            @endif
+                                            @if(count($productDetails->all_sizes) !== 0)
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="info-title control-label">Choose Size</label><br>
+                                                    <select name="size" id="size"
+                                                        class="from-control unicase-form-control selectpicker">
+                                                        <option value="" disabled>Select Size</option>
+                                                        @foreach ($productDetails->all_sizes as $size)
+                                                        <option value="{{ $size }}">{{ strtoupper($size) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
-                                        @endif
-                                    </div>
-                                </div><!-- /.price-container -->
-
-                                <div class="quantity-container info-container">
-                                    <div class="row">
-
-                                        <div class="col-sm-2">
-                                            <span class="label">Qty :</span>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <div class="cart-quantity">
-                                                <div class="quant-input">
-                                                    {{-- <div class="arrows">
+                                    </div><!-- /.price-container -->
+                                    <div class="quantity-container info-container">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <span class="label">Qty :</span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="cart-quantity">
+                                                    <div class="quant-input">
+                                                        {{-- <div class="arrows">
                                                         <div class="arrow plus gradient"><span class="ir"><i
                                                                     class="icon fa fa-sort-asc"></i></span></div>
                                                         <div class="arrow minus gradient"><span class="ir"><i
                                                                     class="icon fa fa-sort-desc"></i></span></div>
                                                     </div> --}}
-                                                    <input type="number" value="{{ $productDetails->qty !== '0' ? '1' : '0' }}" max="{{ $productDetails->qty }}" min="1" {{ $productDetails->qty == '0' ? 'disabled' : '' }}>
+                                                        <input type="number" name="qty"
+                                                            value="{{ $productDetails->qty !== '0' ? '1' : '0' }}"
+                                                            max="{{ $productDetails->qty }}" min="1"
+                                                            {{ $productDetails->qty == '0' ? 'disabled' : '' }}>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <button class="btn btn-primary" {{ $productDetails->qty == '0' ? 'disabled' : '' }}>
-                                                <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART
-                                            </button>
-                                        </div>
-
-
-                                    </div><!-- /.row -->
-                                </div><!-- /.quantity-container -->
-
-
-
-
-
-
-                            </div><!-- /.product-info -->
-                        </div><!-- /.col-sm-7 -->
+                                            <input type="hidden" name="id" value="{{ $productDetails->id }}">
+                                            <input type="hidden" name="page" value="details">
+                                            <div class="col-sm-7">
+                                                <button type="submit" class="btn btn-primary"
+                                                    {{ $productDetails->qty == '0' ? 'disabled' : '' }}>
+                                                    <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART
+                                                </button>
+                                            </div>
+                                        </div><!-- /.row -->
+                                    </div><!-- /.quantity-container -->
+                                </div><!-- /.product-info -->
+                            </div><!-- /.col-sm-7 -->
+                        </form>
                     </div><!-- /.row -->
                 </div>
 
@@ -269,7 +258,8 @@
 
                                 <div id="description" class="tab-pane in active">
                                     <div class="product-tab">
-                                        <p class="text">{!! nl2br($productDetails->long_description) ?? $productDetails->short_description !!}</p>
+                                        <p class="text">{!! nl2br($productDetails->long_description) ??
+                                            $productDetails->short_description !!}</p>
                                     </div>
                                 </div><!-- /.tab-pane -->
 
@@ -435,7 +425,7 @@
                 </div><!-- /.product-tabs -->
 
                 <!-- ============================================== UPSELL PRODUCTS ============================================== -->
-                <x-frontend.featuredproducts :featuredproducts=$featuredproducts  />
+                <x-frontend.featuredproducts :featuredproducts=$featuredproducts />
                 <!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
 
             </div><!-- /.col -->

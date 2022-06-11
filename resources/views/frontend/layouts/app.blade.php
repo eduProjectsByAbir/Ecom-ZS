@@ -180,7 +180,8 @@
                 success: function (data){
                     $('#closeModal').click();
                     if(data.success){
-                        $('#headerCartCount').empty().text(data.cartCount);
+                        navCartShow();
+                        // $('#headerCartCount').empty().text(data.cartCount);
                         toastr.success(data.success, 'Success!');
                     } else {
                         toastr.error(data.error, 'Error!');
@@ -188,7 +189,45 @@
                 }
             })
         }
-
+    </script>
+    <script type="text/javascript">
+    function navCartShow(){
+        $.ajax({
+                type: 'GET',
+                url: '{{ route('navCart') }}',
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function (data) {
+                    console.log(data);
+                    var product = "";
+                    $.each(data.carts, function(key, value){
+                        product += `
+                        <div class="cart-item product-summary">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="image"> <a href="/product/${value.options.slug}"><img
+                                                src="${value.options.image}" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-7">
+                                    <h3 class="name"><a href="/product/${value.options.slug}">${value.name}</a></h3>
+                                    <div class="price">$${value.price} * ${value.qty}</div>
+                                </div>
+                                <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        $('#headerCartList').html(product);
+                        product += `<hr>`;
+                    });
+                    $('#headerCartTotal').text(data.cartsTotal);
+                    $('#headerCartCount').empty().text(data.cartQty);
+                }
+            });
+    }
     </script>
 </body>
 

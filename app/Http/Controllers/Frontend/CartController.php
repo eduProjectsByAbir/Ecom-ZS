@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function addToCart(Request $request){
+
         $product = Product::findOrFail($request->id);
         $price = $product->price_discount == null ? $product->price :  $product->price-$product->price_discount;
         $cart = Cart::add([
@@ -20,10 +21,16 @@ class CartController extends Controller
             'weight' => 1,
             'options' => [
                 'image' => $product->product_thumbnail_url,
+                'slug' => $product->slug,
                 'color' => $request->color,
                 'size' => $request->size
             ],
         ]);
+
+        if($cart && $request->page !== null && request()->has('page') && request('page') == 'details'){
+            flashSuccess('Product added to cart!');
+            return back();
+        }
 
         return $cart ? response()->json([
             'success' => 'Successfully added to cart',
@@ -32,5 +39,14 @@ class CartController extends Controller
             'error' => 'Something went wrong!',
             'cartCount' => Cart::count(),
         ]);
+    }
+
+    public function navCart(Request $request){
+        $data = [];
+        $data['carts'] = Cart::content();
+        $data['cartQty'] = Cart::count();
+        $data['cartsTotal'] = Cart::total();
+
+        return response()->json($data);
     }
 }
