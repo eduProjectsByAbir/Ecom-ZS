@@ -11,4 +11,6 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'), 'verifi
     Route::get('/change/password', [UserController::class, 'editPassword'])->name('profile.password');
     Route::put('/update/password', [UserController::class, 'updatePassword'])->name('profile.password.update');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+    Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
 });

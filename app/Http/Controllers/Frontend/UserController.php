@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -83,5 +84,10 @@ class UserController extends Controller
         Auth::guard('web')->logout();
         flashSuccess('Successfully Logout!');
         return redirect()->route('login');
+    }
+
+    public function wishlist(){
+        $wishlists = Wishlist::with('product')->where('user_id', auth('web')->user()->id)->get();
+        return view('frontend.pages.wishlist', compact('wishlists'));
     }
 }

@@ -20,4 +20,5 @@ Route::controller(CartController::class)->group(function () {
 
 Route::controller(WishlistController::class)->group(function () {
     Route::post('/product/add-to-wishlist', 'addToWishlist')->name('addToWishlist');
+    Route::get('/product/remove/wishlist/{id}', 'removeFromWishlist')->name('remove.wishlist');
 });
