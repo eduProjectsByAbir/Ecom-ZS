@@ -67,7 +67,7 @@ My Cart
                                         <h4 class='cart-product-description'><a
                                                 href="{{ route('showProduct', $cart->options->slug) }}">{{ $cart->name }}</a>
                                         </h4>
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="rating rateit-small"></div>
                                             </div>
@@ -76,7 +76,7 @@ My Cart
                                                     (06 Reviews)
                                                 </div>
                                             </div>
-                                        </div><!-- /.row -->
+                                        </div><!-- /.row --> --}}
                                         @if($cart->options->size && $cart->options->size !== null)
                                         <div class="cart-product-info">
                                             <span
@@ -119,7 +119,7 @@ My Cart
                     </div>
                 </div><!-- /.shopping-cart-table -->
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-                    <table class="table">
+                    {{-- <table class="table">
                         <thead>
                             <tr>
                                 <th>
@@ -164,11 +164,11 @@ My Cart
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> --}}
                 </div><!-- /.estimate-ship-tax -->
 
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-                    <table class="table">
+                    {{-- <table class="table">
                         <thead>
                             <tr>
                                 <th>
@@ -190,7 +190,7 @@ My Cart
                                 </td>
                             </tr>
                         </tbody><!-- /tbody -->
-                    </table><!-- /table -->
+                    </table><!-- /table --> --}}
                 </div><!-- /.estimate-ship-tax -->
 
                 <div class="col-md-4 col-sm-12 cart-shopping-total">
