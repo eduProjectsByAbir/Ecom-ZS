@@ -74,6 +74,13 @@
                 </a>
             </li>
 
+            <li class="{{  Request::is('admin/coupon*') ? 'active' : '' }}">
+                <a href="{{ route('admin.coupon.index') }}">
+                    <i class="fa fa-gift {{  Request::is('admin/coupon*') ? 'text-white' : '' }}"></i>
+                    <span>Coupon</span>
+                </a>
+            </li>
+
             <li class="header nav-small-cap">EXTRA</li>
             <li>
                 <a href="{{ route('home') }}">
