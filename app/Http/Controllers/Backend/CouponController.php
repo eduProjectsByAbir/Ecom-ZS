@@ -41,6 +41,8 @@ class CouponController extends Controller
         ]);
 
         $coupon = Coupon::create($request->except('csrf_token'));
+        $coupon->coupon_code = strtoupper($request->coupon_code);
+        $coupon->save();
 
         if($coupon){
             flashSuccess('Coupon created successfully!');
@@ -88,7 +90,7 @@ class CouponController extends Controller
         ]);
 
         $coupon = Coupon::findOrFail($id);
-        $coupon->coupon_code = $request->coupon_code;
+        $coupon->coupon_code = strtoupper($request->coupon_code);
         $coupon->coupon_discount = $request->coupon_discount;
         $coupon->coupon_expire = $request->coupon_expire;
         $coupon->coupon_limit = $request->coupon_limit;
