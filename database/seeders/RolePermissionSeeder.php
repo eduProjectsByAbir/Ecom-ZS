@@ -128,6 +128,18 @@ class RolePermissionSeeder extends Seeder
                     'slider.delete',
                 ]
             ],
+            [
+                'group_name' => 'coupon',
+                'permissions' => [
+                    // coupon permission
+                    'coupon.view',
+                    'coupon.create',
+                    'coupon.store',
+                    'coupon.edit',
+                    'coupon.update',
+                    'coupon.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission
