@@ -13,4 +13,5 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'), 'verifi
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
+    Route::get('/cart', [UserController::class, 'myCart'])->name('mycart');
 });

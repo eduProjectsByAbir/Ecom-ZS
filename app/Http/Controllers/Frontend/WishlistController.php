@@ -32,15 +32,22 @@ class WishlistController extends Controller
             ]);
         }
     }
-    
-    public function removeFromWishlist($id){
-        $removed = Wishlist::findOrFail($id)->delete();
-        if($removed){
-            flashSuccess('Product Removed from Wishlist.');
-            return back();
+
+    public function removeFromWishlist($id)
+    {
+        if (auth('web')->check()) {
+            $removed = Wishlist::findOrFail($id)->delete();
+            if ($removed) {
+                flashSuccess('Product Removed from Wishlist.');
+                return back();
+            } else {
+                flashError('Something went wrong!');
+                return back();
+            }
         } else {
-            flashError('Something went wrong!');
-            return back();
+            return response()->json([
+                'error' => 'Please login first, then try again!'
+            ]);
         }
     }
 }

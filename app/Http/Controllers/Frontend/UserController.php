@@ -90,4 +90,8 @@ class UserController extends Controller
         $wishlists = Wishlist::with('product')->where('user_id', auth('web')->user()->id)->get();
         return view('frontend.pages.wishlist', compact('wishlists'));
     }
+
+    public function myCart(){
+        return view('frontend.pages.my-cart');
+    }
 }
