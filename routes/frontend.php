@@ -13,7 +13,9 @@ Route::controller(WebsiteController::class)->group(function () {
 });
 
 Route::controller(CartController::class)->group(function () {
+    Route::get('/cart', 'myCart')->name('myCart');
     Route::post('/product/addtocart', 'addToCart')->name('addToCart');
+    Route::post('/cart/update', 'updateCart')->name('updateCart');
     Route::get('/cart/navcart', 'navCart')->name('navCart');
     Route::get('/cart/remove/product', 'cartRemoveProduct')->name('cartRemoveProduct');
 });

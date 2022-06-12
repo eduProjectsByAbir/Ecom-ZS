@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Wishlist;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -92,6 +93,15 @@ class UserController extends Controller
     }
 
     public function myCart(){
-        return view('frontend.pages.my-cart');
+        $data = [];
+        $data['carts'] = Cart::content();
+        $data['cartQty'] = Cart::count();
+        $data['cartsTotal'] = Cart::total();
+        $data['cartsTax'] = Cart::tax();
+        $data['cartsPriceTotal'] = Cart::priceTotal();
+        $data['cartsSubTotal'] = Cart::subtotal();
+        $data['cartsDiscount'] = Cart::discount();
+        // return $data;
+        return view('frontend.pages.my-cart', $data);
     }
 }

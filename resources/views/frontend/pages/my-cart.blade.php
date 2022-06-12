@@ -40,7 +40,8 @@ My Cart
                                     <td colspan="7">
                                         <div class="shopping-cart-btn">
                                             <span class="">
-                                                <a href="#" class="btn btn-upper btn-primary outer-left-xs">Continue
+                                                <a href="{{ route('showProducts') }}"
+                                                    class="btn btn-upper btn-primary outer-left-xs">Continue
                                                     Shopping</a>
                                                 <a href="#"
                                                     class="btn btn-upper btn-primary pull-right outer-right-xs">Update
@@ -51,17 +52,22 @@ My Cart
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td class="romove-item"><a href="#" title="cancel" class="icon"><i
-                                                class="fa fa-trash-o"></i></a></td>
+                                @forelse ($carts as $cart)
+                                <tr id="tr_{{ $cart->rowId }}">
+                                    <td class="romove-item"><a
+                                            href="{{ auth()->check() ? route('user.mycart') : route('myCart') }}"
+                                            onclick="cartRemoveProduct(this.id);" id="{{ $cart->rowId }}" title="remove"
+                                            class="icon"><i class="fa fa-trash-o"></i></a></td>
                                     <td class="cart-image">
-                                        <a class="entry-thumbnail" href="detail.html">
-                                            <img src="assets/images/products/p1.jpg" alt="">
+                                        <a class="entry-thumbnail"
+                                            href="{{ route('showProduct', $cart->options->slug) }}">
+                                            <img src="{{ $cart->options->image }}" alt="">
                                         </a>
                                     </td>
                                     <td class="cart-product-name-info">
-                                        <h4 class='cart-product-description'><a href="detail.html">Floral Print
-                                                Buttoned</a></h4>
+                                        <h4 class='cart-product-description'><a
+                                                href="{{ route('showProduct', $cart->options->slug) }}">{{ $cart->name }}</a>
+                                        </h4>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="rating rateit-small"></div>
@@ -72,71 +78,44 @@ My Cart
                                                 </div>
                                             </div>
                                         </div><!-- /.row -->
+                                        @if($cart->options->size && $cart->options->size !== null)
                                         <div class="cart-product-info">
-                                            <span class="product-color">COLOR:<span>Blue</span></span>
+                                            <span
+                                                class="product-color">Size:<span>{{ $cart->options->size }}</span></span>
                                         </div>
+                                        @endif
+                                        @if($cart->options->color && $cart->options->color !== null)
+                                        <div class="cart-product-info">
+                                            <span
+                                                class="product-color">COLOR:<span>{{ $cart->options->color }}</span></span>
+                                        </div>
+                                        @endif
                                     </td>
                                     <td class="cart-product-edit"><a href="#" class="product-edit">Edit</a></td>
                                     <td class="cart-product-quantity">
                                         <div class="quant-input">
                                             <div class="arrows">
-                                                <div class="arrow plus gradient"><span class="ir"><i
+                                                <div class="arrow plus gradient" onclick="updateCartPlus(this.id)" id="{{ $cart->rowId }}"><span class="ir"><i
                                                             class="icon fa fa-sort-asc"></i></span></div>
-                                                <div class="arrow minus gradient"><span class="ir"><i
+                                                <div class="arrow minus gradient" onclick="updateCartMinus(this.id)" id="{{ $cart->rowId }}"><span class="ir"><i
                                                             class="icon fa fa-sort-desc"></i></span></div>
                                             </div>
-                                            <input type="text" value="1">
+                                            <input type="text" value="{{ $cart->qty }}" class="qty">
                                         </div>
                                     </td>
-                                    <td class="cart-product-sub-total"><span class="cart-sub-total-price">$300.00</span>
+                                    <td class="cart-product-sub-total"><span
+                                            class="cart-sub-total-price">${{ $cart->price }}</span>
                                     </td>
                                     <td class="cart-product-grand-total"><span
-                                            class="cart-grand-total-price">$300.00</span></td>
+                                            class="cart-grand-total-price">${{ $cart->price*$cart->qty }}</span></td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td class="romove-item"><a href="#" title="cancel" class="icon"><i
-                                                class="fa fa-trash-o"></i></a></td>
-                                    <td class="cart-image">
-                                        <a class="entry-thumbnail" href="detail.html">
-                                            <img src="assets/images/products/p2.jpg" alt="">
-                                        </a>
+                                    <td colspan="7">
+                                        <h1 class="text-center">No Product in cart</h1>
                                     </td>
-                                    <td class="cart-product-name-info">
-                                        <h4 class='cart-product-description'><a href="detail.html">Floral Print
-                                                Buttoned</a></h4>
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="rating rateit-small"></div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="reviews">
-                                                    (06 Reviews)
-                                                </div>
-                                            </div>
-                                        </div><!-- /.row -->
-                                        <div class="cart-product-info">
-                                            <span class="product-color">COLOR:<span>Pink</span></span>
-                                        </div>
-                                    </td>
-                                    <td class="cart-product-edit"><a href="#" class="product-edit">Edit</a></td>
-                                    <td class="cart-product-quantity">
-                                        <div class="cart-quantity">
-                                            <div class="quant-input">
-                                                <div class="arrows">
-                                                    <div class="arrow plus gradient"><span class="ir"><i
-                                                                class="icon fa fa-sort-asc"></i></span></div>
-                                                    <div class="arrow minus gradient"><span class="ir"><i
-                                                                class="icon fa fa-sort-desc"></i></span></div>
-                                                </div>
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart-product-sub-total"><span class="cart-sub-total-price">$300.00</span>
-                                    </td>
-                                    <td class="cart-product-grand-total"><span
-                                            class="cart-grand-total-price">$300.00</span></td>
                                 </tr>
+                                @endforelse
                             </tbody><!-- /tbody -->
                         </table><!-- /table -->
                     </div>
@@ -222,10 +201,16 @@ My Cart
                             <tr>
                                 <th>
                                     <div class="cart-sub-total">
-                                        Subtotal<span class="inner-left-md">$600.00</span>
+                                        Total Tax<span class="inner-left-md" id="cartTax">${{ $cartsTax }}</span>
+                                    </div>
+                                    <div class="cart-sub-total">
+                                        Discount<span class="inner-left-md" id="cartDiscount">${{ $cartsDiscount }}</span>
+                                    </div>
+                                    <div class="cart-sub-total">
+                                        Subtotal<span class="inner-left-md" id="cartSubTotal">${{ $cartsSubTotal }}</span>
                                     </div>
                                     <div class="cart-grand-total">
-                                        Grand Total<span class="inner-left-md">$600.00</span>
+                                        Grand Total<span class="inner-left-md" id="cartTotal">${{ $cartsTotal }}</span>
                                     </div>
                                 </th>
                             </tr>
@@ -332,4 +317,54 @@ My Cart
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div><!-- /.container -->
 </div><!-- /.body-content -->
+@endsection
+
+@section('jsscript')
+<script>
+    function updateCartMinus(id){
+        var id = id;
+        var IDType = 'minus';
+        updateCart(id, IDType);
+    }
+
+    function updateCartPlus(id){
+        var id = id;
+        var IDType = 'plus';
+        updateCart(id, IDType);
+    }
+
+    function updateCart(id,type) {
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: id,
+                do: type,
+            },
+            url: '{{ route('updateCart') }}',
+            success: function (data) {
+                var qty = $('#tr_'+id).children('td.cart-product-quantity').children('div.quant-input').children('input.qty');
+                var total = $('#tr_'+id).children('td.cart-product-grand-total').children('span.cart-grand-total-price');
+                var cartTax = $('#cartTax');
+                var cartDiscount = $('#cartDiscount');
+                var cartSubTotal = $('#cartSubTotal');
+                var cartTotal = $('#cartTotal');
+                if (data.success) {
+                    navCartShow();
+                    qty.val(data.cartData.qty);
+                    total.text('$'+data.cartData.price*data.cartData.qty);
+                    cartTax.text('$'+data.cartTax);
+                    cartDiscount.text('$'+data.cartDiscount);
+                    cartSubTotal.text('$'+data.cartsSubTotal);
+                    cartTotal.text('$'+data.cartsTotal);
+                    toastr.success(data.success, 'Success!');
+                } else {
+                    toastr.error(data.error, 'Error!');
+                }
+            }
+        });
+    }
+
+</script>
 @endsection
