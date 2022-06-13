@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AddressController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -93,5 +94,44 @@ Route::middleware(['auth:admin', 'auth:sanctum,admin', config('jetstream.auth_se
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('delete');
         Route::get('/status/change/{id}', 'status_change')->name('toggle.status');
+    });
+
+    Route::controller(AddressController::class)->prefix('address')->name('address.')->group(function () {
+        // country
+        Route::prefix('country')->name('country.')->group(function () {
+            Route::get('/', 'indexCountry')->name('index');
+            Route::post('/create', 'storeCountry')->name('store');
+            Route::get('/edit/{id}', 'editCountry')->name('edit');
+            Route::put('/update/{id}', 'updateCountry')->name('update');
+            Route::delete('/delete/{id}', 'destroyCountry')->name('delete');
+        });
+
+        // division
+        Route::prefix('division')->name('division.')->group(function () {
+            Route::get('/', 'indexDivision')->name('index');
+            Route::post('/create', 'storeDivision')->name('store');
+            Route::get('/edit/{id}', 'editDivision')->name('edit');
+            Route::put('/update/{id}', 'updateDivision')->name('update');
+            Route::delete('/delete/{id}', 'destroyDivision')->name('delete');
+        });
+
+        // disitrict
+        Route::prefix('district')->name('district.')->group(function () {
+            Route::get('/', 'indexDistrict')->name('index');
+            Route::post('/create', 'storeDistrict')->name('store');
+            Route::get('/edit/{id}', 'editDistrict')->name('edit');
+            Route::put('/update/{id}', 'updateDistrict')->name('update');
+            Route::delete('/delete/{id}', 'destroyDistrict')->name('delete');
+        });
+
+        // city
+        Route::prefix('city')->name('city.')->group(function () {
+            Route::get('/', 'indexCity')->name('index');
+            Route::post('/create', 'storeCity')->name('store');
+            Route::get('/edit/{id}', 'editCity')->name('edit');
+            Route::put('/update/{id}', 'updateCity')->name('update');
+            Route::delete('/delete/{id}', 'destroyCity')->name('delete');
+        });
+
     });
 });

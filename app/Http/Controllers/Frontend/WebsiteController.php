@@ -51,6 +51,7 @@ class WebsiteController extends Controller
             $id = $request->subsubcat;
                 $query->where('sub_subcategory_id', $id);
         }
+
         // brand search
         if($request->has('brand') && request('brand') != null && request('brand') != '0'){
             $id = $request->brand;
