@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
@@ -50,6 +51,11 @@ class WebsiteController extends Controller
             $id = $request->subsubcat;
                 $query->where('sub_subcategory_id', $id);
         }
+        // brand search
+        if($request->has('brand') && request('brand') != null && request('brand') != '0'){
+            $id = $request->brand;
+                $query->where('brand_id', $id);
+        }
 
         // tag search
         if ($request->has('tags') && $request->tags != null) {
@@ -62,9 +68,10 @@ class WebsiteController extends Controller
 
         $colors = Product::groupBy('color')->pluck('color')->implode(', ');
         $colors = (array_map('trim', array_unique(explode(',', $colors))));
+        $brands = Brand::latest()->get();
 
         $products = $query->latest()->paginate(12)->onEachSide(1)->appends($request->all());
-        return view('frontend.pages.products', compact('products', 'colors'));
+        return view('frontend.pages.products', compact('products', 'colors', 'brands'));
     }
 
     public function getProductJson($id){

@@ -20,7 +20,7 @@
                             </div>
                             @endforeach
                             <!-- /.col -->
-                            {{-- <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="{{ $category->image_url }}" /></a> </div> --}}
+                            <div class="banner-image"> <a href="{{ route('showProducts', 'category='.$category->id) }}"><img alt="" width="100px" height="100px" src="{{ $category->image_url }}" /></a> </div>
                         </div>
                         <!-- /.row -->
                     </li>

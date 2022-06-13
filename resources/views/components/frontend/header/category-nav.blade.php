@@ -15,7 +15,8 @@
                                     class="dropdown-toggle" data-toggle="dropdown">Home</a>
                             </li>
                             @foreach ($categories as $category)
-                            <li class="dropdown yamm mega-menu"> <a href="{{ route('showProducts', 'category='.$category->id) }}" data-hover="dropdown"
+                            <li class="dropdown yamm mega-menu"> <a
+                                    href="{{ route('showProducts', 'category='.$category->id) }}" data-hover="dropdown"
                                     class="dropdown-toggle" data-toggle="dropdown">{{ $category->name }}</a>
                                 <ul class="dropdown-menu container">
                                     <li>
@@ -23,20 +24,24 @@
                                             <div class="row">
                                                 @foreach ($category->subcategories as $subcategory)
                                                 <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                    <a href="{{ route('showProducts', 'subcategory='.$subcategory->id) }}">
-                                                    <h2 class="title">{{ $subcategory->name }}</h2>
-                                                </a>
+                                                    <a
+                                                        href="{{ route('showProducts', 'subcategory='.$subcategory->id) }}">
+                                                        <h2 class="title">{{ $subcategory->name }}</h2>
+                                                    </a>
                                                     <ul class="links">
                                                         @foreach ($subcategory->subSubcategories as $subSubcategory)
-                                                        <li><a href="{{ route('showProducts', 'subsubcat='.$subSubcategory->id) }}">{{ $subSubcategory->name }}</a></li>
+                                                        <li><a
+                                                                href="{{ route('showProducts', 'subsubcat='.$subSubcategory->id) }}">{{ $subSubcategory->name }}</a>
+                                                        </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                                 @endforeach
                                                 <!-- /.col -->
                                                 <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
-                                                    <img class="img-responsive" src="{{ $category->image_url }}"
-                                                        alt="">
+                                                    <a href="{{ route('showProducts', 'category='.$category->id) }}">
+                                                        <img class="img-responsive" src="{{ $category->image_url }}"
+                                                            alt=""></a>
                                                 </div>
                                                 <!-- /.yamm-content -->
                                             </div>
@@ -45,7 +50,7 @@
                                 </ul>
                             </li>
                             @if($loop->index == 5)
-                                @break;
+                            @break;
                             @endif
                             @endforeach
                             <li class="dropdown"> <a href="#" class="dropdown-toggle" data-hover="dropdown"

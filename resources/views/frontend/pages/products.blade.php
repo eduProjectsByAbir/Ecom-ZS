@@ -174,26 +174,23 @@ All Products
                         </div>
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== PRICE SILDER : END ============================================== -->
-                        <!-- ============================================== MANUFACTURES============================================== -->
+                        <!-- ============================================== Brands ============================================== -->
                         <div class="sidebar-widget wow fadeInUp">
                             <div class="widget-header">
-                                <h4 class="widget-title">Manufactures</h4>
+                                <h4 class="widget-title">Brands</h4>
                             </div>
                             <div class="sidebar-widget-body">
                                 <ul class="list">
-                                    <li><a href="#">Forever 18</a></li>
-                                    <li><a href="#">Nike</a></li>
-                                    <li><a href="#">Dolce & Gabbana</a></li>
-                                    <li><a href="#">Alluare</a></li>
-                                    <li><a href="#">Chanel</a></li>
-                                    <li><a href="#">Other Brand</a></li>
+                                    @foreach ($brands as $brand)
+                                    <li><a href="{{ route('showProducts', 'brand='.$brand->id) }}">{{ $brand->name }}</a></li>
+                                    @endforeach
                                 </ul>
                                 <!--<a href="#" class="lnk btn btn-primary">Show Now</a>-->
                             </div>
                             <!-- /.sidebar-widget-body -->
                         </div>
                         <!-- /.sidebar-widget -->
-                        <!-- ============================================== MANUFACTURES: END ============================================== -->
+                        <!-- ============================================== Brands : END ============================================== -->
                         <!-- ============================================== COLOR============================================== -->
                         @if(count($colors) !== 0)
                         <div class="sidebar-widget wow fadeInUp">
