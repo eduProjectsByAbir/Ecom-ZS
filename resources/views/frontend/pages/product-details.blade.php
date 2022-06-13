@@ -159,7 +159,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="favorite-button m-t-10">
-                                                    <a class="btn btn-primary" data-toggle="tooltip"
+                                                    <a class="btn btn-primary wishlist" onclick="event.preventDefault()" data-val="{{ $productDetails->id }}" data-toggle="tooltip"
                                                         data-placement="right" title="Wishlist" href="#">
                                                         <i class="fa fa-heart"></i>
                                                     </a>

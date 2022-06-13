@@ -252,6 +252,11 @@
     }
     </script>
     <script>
+        $('.wishlist').click(function(e){
+            e.preventDefault();
+            var id = $(this).data('val');
+            addToWishList(id);
+        });
         function addToWishList(id){
             $.ajax({
                 type: "POST",

@@ -46,7 +46,7 @@ Coupon
                                             <a class="btn btn-warning" title="Edit"
                                                 style="margin-right: 3px; border-radius: 4px !important;"
                                                 href="{{ route('admin.coupon.edit', $coupon->id) }}"><i
-                                                    class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                    class="fa fa-pencil" aria-hidxden="true"></i></a>
                                             <form action="{{ route('admin.coupon.delete', $coupon->id) }}"
                                                 method="post"> @method('delete') @csrf
                                                 <button type="submit" class="btn btn-danger delete-confirm"><i

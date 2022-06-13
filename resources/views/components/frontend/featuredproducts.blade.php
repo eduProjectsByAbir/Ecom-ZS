@@ -53,7 +53,7 @@
                                     <button class="btn btn-primary cart-btn" type="button">Add to
                                         cart</button>
                                 </li>
-                                <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart"
+                                <li class="lnk wishlist" data-val="{{ $featured_product->id }}"> <a data-toggle="tooltip" class="add-to-cart" onclick="event.preventDefault()"
                                         href="{{ route('showProduct', $featured_product->slug)  }}" title="Wishlist"> <i
                                             class="icon fa fa-heart"></i>
                                     </a> </li>

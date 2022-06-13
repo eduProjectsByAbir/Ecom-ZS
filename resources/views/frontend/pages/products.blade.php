@@ -417,9 +417,9 @@ All Products
                                                     <button class="btn btn-primary cart-btn" type="button">Add to
                                                         cart</button>
                                                 </li>
-                                                <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"
+                                                <li class="lnk wishlist" data-val="{{ $product->id }}"> <a class="add-to-cart" onclick="event.preventDefault()" href=""
                                                         title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                                                <li class="lnk"> <a class="add-to-cart" href="detail.html"
+                                                <li class="lnk"> <a class="add-to-cart" href=""
                                                         title="Compare"> <i class="fa fa-signal"></i> </a>
                                                 </li>
                                             </ul>
@@ -486,10 +486,10 @@ All Products
                                                             <button class="btn btn-primary cart-btn" type="button">Add
                                                                 to cart</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart"
-                                                                href="detail.html" title="Wishlist"> <i
+                                                        <li class="lnk wishlist" data-val="{{ $product->id }}"> <a class="add-to-cart"
+                                                            onclick="event.preventDefault()" href="" title="Wishlist"> <i
                                                                     class="icon fa fa-heart"></i> </a> </li>
-                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html"
+                                                        <li class="lnk"> <a class="add-to-cart" href=""
                                                                 title="Compare"> <i class="fa fa-signal"></i> </a> </li>
                                                     </ul>
                                                 </div>
