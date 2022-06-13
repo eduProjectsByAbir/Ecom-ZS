@@ -1,19 +1,19 @@
 @extends('admin.layouts.app')
 
 @section('title')
-Division
+District
 @endsection
 
 @section('content')
 
-<x-admin.partials.breadcumb name="Division" />
+<x-admin.partials.breadcumb name="District" />
 
 <section class="content">
     <div class="row">
         <div class="col-md-8 col-sm-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Division List ({{ $divisions->total() ?? '0' }}) </h4>
+                    <h4 class="box-title">District List ({{ $districts->total() ?? '0' }}) </h4>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -23,22 +23,24 @@ Division
                                 <tr>
                                     <th scope="col" width="2%">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Division</th>
                                     <th scope="col">Country</th>
                                     <th scope="col" width="5%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($divisions as $division)
+                                @forelse ($districts as $district)
                                 <tr>
-                                    <th scope="row">{{ $division->id }}</th>
-                                    <td>{{ $division->name }}</td>
-                                    <td>{{ $division->country->name }}</td>
+                                    <th scope="row">{{ $district->id }}</th>
+                                    <td>{{ $district->name }}</td>
+                                    <td>{{ $district->division->name }}</td>
+                                    <td>{{ $district->division->country->name }}</td>
                                     <td>
                                         <div class="btn-group">
                                             <a class="btn btn-warning" style="margin-right: 3px; border-radius: 4px !important;"
-                                                href="{{ route('admin.address.division.edit', $division->id) }}"><i
+                                                href="{{ route('admin.address.district.edit', $district->id) }}"><i
                                                     class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <form action="{{ route('admin.address.division.delete', $division->id) }}"
+                                            <form action="{{ route('admin.address.district.delete', $district->id) }}"
                                                 method="post"> @method('delete') @csrf
                                                 <button type="submit" class="btn btn-danger delete-confirm"><i class="fa fa-trash"
                                                         aria-hidden="true"></i></button>
@@ -54,7 +56,7 @@ Division
                             </tbody>
                         </table>
                         <div class="row justify-content-center align-items-center pt-10">
-                            {{ $divisions->links('vendor.pagination.custom') }}
+                            {{ $districts->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </div>
@@ -62,32 +64,32 @@ Division
             </div>
         </div>
         <div class="col-md-4 col-sm-12">
-            @if (empty($divisionData) && userCan('address.create'))
+            @if (empty($districtData) && userCan('address.create'))
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Add Division</h4>
+                    <h4 class="box-title">Add District</h4>
                 </div>
                 <!-- /.box-header -->
-                <form class="form" method="post" action="{{ route('admin.address.division.store') }}">
+                <form class="form" method="post" action="{{ route('admin.address.district.store') }}">
                     @csrf
                     <div class="box-body">
                         <div class="form-group @error('name') has-error @enderror">
                             <label>Name <span class="color-red">*</span></label>
-                            <input type="text" class="form-control" placeholder="Division Name" name="name"
+                            <input type="text" class="form-control" placeholder="District Name" name="name"
                                 value="{{ old('name') }}">
                             @error('name')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group @error('address_country_id') has-error @enderror">
-                            <label>Country <span class="color-red">*</span></label>
-                            <select name="address_country_id" id="countries" class="form-control">
-                                <option value="">Select Country</option>
-                                @foreach ($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        <div class="form-group @error('address_division_id') has-error @enderror">
+                            <label>Division <span class="color-red">*</span></label>
+                            <select name="address_division_id" id="countries" class="form-control">
+                                <option value="">Select Division</option>
+                                @foreach ($divisions as $division)
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @endforeach
                             </select>
-                            @error('address_country_id')
+                            @error('address_division_id')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
@@ -108,36 +110,36 @@ Division
             </div>
             @endif
             <!-- /.box-body -->
-            @if (!empty($divisionData) && userCan('address.edit'))
+            @if (!empty($districtData) && userCan('address.edit'))
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title" style="line-height: 36px;">Update Division</h4>
-                    <a href="{{ route('admin.address.division.index') }}"
+                    <h4 class="box-title" style="line-height: 36px;">Update District</h4>
+                    <a href="{{ route('admin.address.district.index') }}"
                         class="btn btn-rounded btn-warning btn-outline float-right d-flex align-items-center justify-content-center"><i
                             class="fa fa-chevron-circle-left close-button" aria-hidden="true"></i> Back</a>
                 </div>
                 <!-- /.box-header -->
-                <form class="form" method="post" action="{{ route('admin.address.division.update', $divisionData->id) }}">
+                <form class="form" method="post" action="{{ route('admin.address.district.update', $districtData->id) }}">
                     @method('put')
                     @csrf
                     <div class="box-body">
                         <div class="form-group @error('name') has-error @enderror">
                             <label>Name <span class="color-red">*</span></label>
-                            <input type="text" class="form-control" placeholder="Division Name" name="name"
-                                value="{{ old('name', $divisionData->name) }}">
+                            <input type="text" class="form-control" placeholder="District Name" name="name"
+                                value="{{ old('name', $districtData->name) }}">
                             @error('name')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group @error('address_country_id') has-error @enderror">
-                            <label>Country <span class="color-red">*</span></label>
-                            <select name="address_country_id" id="countries" class="form-control">
-                                <option value="">Select Country</option>
-                                @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ $divisionData->address_country_id == $country->id ? 'selected' : ''}}>{{ $country->name }}</option>
+                        <div class="form-group @error('address_division_id') has-error @enderror">
+                            <label>Division <span class="color-red">*</span></label>
+                            <select name="address_division_id" id="countries" class="form-control">
+                                <option value="">Select Division</option>
+                                @foreach ($divisions as $division)
+                                <option value="{{ $division->id }}" {{ $districtData->address_division_id == $division->id ? 'selected' : ''}}>{{ $division->name }}</option>
                                 @endforeach
                             </select>
-                            @error('address_country_id')
+                            @error('address_division_id')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>

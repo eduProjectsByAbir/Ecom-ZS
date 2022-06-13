@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             AdminSeeder::class,
             AddressCountrySeeder::class,
-            AddressDivisionSeeder::class
+            AddressDivisionSeeder::class,
+            AddressDistrictSeeder::class,
         ]);
     }
 }
