@@ -140,6 +140,18 @@ class RolePermissionSeeder extends Seeder
                     'coupon.delete',
                 ]
             ],
+            [
+                'group_name' => 'address',
+                'permissions' => [
+                    // address permission
+                    'address.view',
+                    'address.create',
+                    'address.store',
+                    'address.edit',
+                    'address.update',
+                    'address.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission

@@ -61,6 +61,7 @@ class WebsiteController extends Controller
         if ($request->has('tags') && $request->tags != null) {
             $query->where('tags', 'LIKE', "%$request->tags%");
         }
+
         // color search
         if ($request->has('color') && $request->color != null) {
             $query->where('color', 'LIKE', "%$request->color%");
