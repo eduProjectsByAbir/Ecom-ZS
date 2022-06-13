@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\AddressCity;
 use App\Models\AddressCountry;
+use App\Models\AddressDivision;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -17,6 +18,17 @@ class AddressController extends Controller
 
         $countries = AddressCountry::oldest('name')->paginate(12);
         return view('admin.address.country.index', compact('countries'));
+    }
+
+    public function indexDivision()
+    {
+        if(!userCan('address.view')){
+            abort('403');
+        }
+
+        $countries = AddressCountry::all();
+        $divisions = AddressDivision::oldest('name')->paginate(12);
+        return view('admin.address.division.index', compact('divisions', 'countries'));
     }
 
     public function storeCountry(Request $request)
@@ -40,6 +52,28 @@ class AddressController extends Controller
         return back();
     }
 
+    public function storeDivision(Request $request)
+    {
+        if(!userCan('address.store')){
+            abort('403');
+        }
+
+       $request->validate([
+            'name' => 'required|string',
+            'address_country_id' => 'required'
+        ]);
+
+        $divisions = AddressDivision::create($request->except('_token'));
+
+        if($divisions){
+            flashSuccess('Division added successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
+    }
+
     public function editCountry($id)
     {
         if(!userCan('address.edit')){
@@ -48,6 +82,16 @@ class AddressController extends Controller
         $countryData = AddressCountry::findOrFail($id);
         $countries = AddressCountry::oldest('name')->paginate(12);
         return view('admin.address.country.index', compact('countries', 'countryData'));
+    }
+    public function editDivision($id)
+    {
+        if(!userCan('address.edit')){
+            abort('403');
+        }
+        $divisionData = AddressDivision::findOrFail($id);
+        $countries = AddressCountry::all();
+        $divisions = AddressDivision::oldest('name')->paginate(12);
+        return view('admin.address.division.index', compact('countries', 'divisionData', 'divisions'));
     }
 
     public function updateCountry(Request $request, $id)
@@ -72,6 +116,30 @@ class AddressController extends Controller
         return back();
     }
 
+    public function updateDivision(Request $request, $id)
+    {
+        if(!userCan('address.update')){
+            abort('403');
+        }
+        $request->validate([
+            'name' => 'required|string',
+            'address_country_id' => 'required'
+        ]);
+
+        $division = AddressDivision::findOrFail($id);
+        $division->name = $request->name;
+        $division->address_country_id = $request->address_country_id;
+        $division->save();
+
+        if($division){
+            flashSuccess('Division Updated successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -89,5 +157,17 @@ class AddressController extends Controller
         AddressCountry::findOrFail($id)->delete();
         flashSuccess('Country Deleted successfully!');
         return redirect()->route('admin.address.country.index');
+    }
+
+    public function destroyDivision($id)
+    {
+        if(!userCan('address.delete')){
+            flashError('Your Don\'t Have Permission to Deleted!');
+            return back();
+        }
+
+        AddressDivision::findOrFail($id)->delete();
+        flashSuccess('Division Deleted successfully!');
+        return redirect()->route('admin.address.division.index');
     }
 }

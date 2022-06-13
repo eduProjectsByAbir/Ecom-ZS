@@ -10,4 +10,9 @@ class AddressCountry extends Model
     use HasFactory;
     
     protected $guarded = [];
+    
+    public function divisions()
+    {
+        return $this->hasMany(AddressDivision::class, 'address_country_id', 'id');
+    }
 }
