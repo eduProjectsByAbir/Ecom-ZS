@@ -41,6 +41,16 @@ class AddressController extends Controller
         $districts = AddressDistrict::oldest('name')->paginate(12);
         return view('admin.address.district.index', compact('districts', 'divisions'));
     }
+    public function indexCity()
+    {
+        if(!userCan('address.view')){
+            abort('403');
+        }
+
+        $districts = AddressDistrict::all();
+        $cities = AddressCity::oldest('name')->paginate(12);
+        return view('admin.address.city.index', compact('districts', 'cities'));
+    }
 
     public function storeCountry(Request $request)
     {
@@ -78,6 +88,27 @@ class AddressController extends Controller
 
         if($divisions){
             flashSuccess('Division added successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
+    }
+    public function storeCity(Request $request)
+    {
+        if(!userCan('address.store')){
+            abort('403');
+        }
+
+       $request->validate([
+            'name' => 'required|string',
+            'address_district_id' => 'required'
+        ]);
+
+        $city = AddressCity::create($request->except('_token'));
+
+        if($city){
+            flashSuccess('City added successfully!');
             return back();
         }
 
@@ -134,6 +165,16 @@ class AddressController extends Controller
         $divisions = AddressDivision::all();
         $districts = AddressDistrict::oldest('name')->paginate(12);
         return view('admin.address.district.index', compact('districtData', 'districts', 'divisions'));
+    }
+    public function editCity($id)
+    {
+        if(!userCan('address.edit')){
+            abort('403');
+        }
+        $cityData = AddressCity::findOrFail($id);
+        $districts = AddressDistrict::all();
+        $cities = AddressCity::oldest('name')->paginate(12);
+        return view('admin.address.city.index', compact('cityData', 'districts', 'cities'));
     }
 
     public function updateCountry(Request $request, $id)
@@ -204,6 +245,29 @@ class AddressController extends Controller
         flashError('Something went wrong...');
         return back();
     }
+    public function updateCity(Request $request, $id)
+    {
+        if(!userCan('address.update')){
+            abort('403');
+        }
+        $request->validate([
+            'name' => 'required|string',
+            'address_district_id' => 'required'
+        ]);
+
+        $city = AddressCity::findOrFail($id);
+        $city->name = $request->name;
+        $city->address_district_id = $request->address_district_id;
+        $city->save();
+
+        if($city){
+            flashSuccess('City Updated successfully!');
+            return back();
+        }
+
+        flashError('Something went wrong...');
+        return back();
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -235,7 +299,7 @@ class AddressController extends Controller
         flashSuccess('Division Deleted successfully!');
         return redirect()->route('admin.address.division.index');
     }
-    
+
     public function destroyDistrict($id)
     {
         if(!userCan('address.delete')){
@@ -246,5 +310,17 @@ class AddressController extends Controller
         AddressDistrict::findOrFail($id)->delete();
         flashSuccess('District Deleted successfully!');
         return redirect()->route('admin.address.district.index');
+    }
+
+    public function destroyCity($id)
+    {
+        if(!userCan('address.delete')){
+            flashError('Your Don\'t Have Permission to Deleted!');
+            return back();
+        }
+
+        AddressCity::findOrFail($id)->delete();
+        flashSuccess('City Deleted successfully!');
+        return redirect()->route('admin.address.city.index');
     }
 }
