@@ -80,6 +80,41 @@
                     <span>Coupon</span>
                 </a>
             </li>
+            <li class="treeview {{  Request::is('admin/address*') ? 'active menu-open' : '' }}">
+                <a href="">
+                    <i class="fa fa-th-large"></i>
+                    <span>Shipping Address</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{  Request::is('admin/address/country*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.address.country.index') }}">
+                            <i class="ti-more {{  Request::is('admin/address/country*') ? 'text-white' : '' }}"></i>
+                            <span>Country</span>
+                        </a>
+                    </li>
+                    <li class="{{  Request::is('admin/address/division*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.address.division.index') }}">
+                            <i class="ti-more {{  Request::is('admin/address/division*') ? 'text-white' : '' }}"></i>
+                            <span>Division</span>
+                        </a>
+                    </li>
+                    <li class="{{  Request::is('admin/address/district*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.address.district.index') }}">
+                            <i class="ti-more {{  Request::is('admin/address/district*') ? 'text-white' : '' }}"></i>
+                            <span>District</span>
+                        </a>
+                    </li>
+                    <li class="{{  Request::is('admin/address/city*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.address.city.index') }}">
+                            <i class="ti-more {{  Request::is('admin/address/city*') ? 'text-white' : '' }}"></i>
+                            <span>City</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="header nav-small-cap">EXTRA</li>
             <li>
