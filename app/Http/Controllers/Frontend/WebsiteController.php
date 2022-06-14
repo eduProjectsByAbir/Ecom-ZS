@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddressCity;
+use App\Models\AddressDistrict;
+use App\Models\AddressDivision;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -79,5 +82,20 @@ class WebsiteController extends Controller
     public function getProductJson($id){
         $productData = Product::with('category', 'brand')->findOrFail($id);
         return response()->json($productData);
+    }
+
+    public function divisionListJson(Request $request){
+        $divisions = AddressDivision::where('address_country_id', $request->id)->get();
+        return response()->json($divisions);
+    }
+
+    public function districtListJson(Request $request){
+        $districts = AddressDistrict::where('address_division_id', $request->id)->get();
+        return response()->json($districts);
+    }
+
+    public function cityListJson(Request $request){
+        $cities = AddressCity::where('address_district_id', $request->id)->get();
+        return response()->json($cities);
     }
 }

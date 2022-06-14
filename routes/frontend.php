@@ -11,6 +11,9 @@ Route::controller(WebsiteController::class)->group(function () {
     Route::get('/product/{product:slug}', 'showProduct')->name('showProduct');
     Route::get('/products', 'showProducts')->name('showProducts');
     Route::get('/product/json/{id}', 'getProductJson')->name('fe.getProductJson');
+    Route::post('division/list/json', 'divisionListJson')->name('divisionListJson');
+    Route::post('district/list/json', 'districtListJson')->name('districtListJson');
+    Route::post('city/list/json', 'cityListJson')->name('cityListJson');
 });
 
 Route::controller(CartController::class)->group(function () {
