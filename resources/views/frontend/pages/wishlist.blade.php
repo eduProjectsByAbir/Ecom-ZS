@@ -65,6 +65,7 @@ Wishlist
             </div><!-- /.row -->
         </div><!-- /.sigin-in-->
         <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+        @include('frontend.layouts.partials.partner-brands')
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div><!-- /.container -->
 </div><!-- /.body-content -->

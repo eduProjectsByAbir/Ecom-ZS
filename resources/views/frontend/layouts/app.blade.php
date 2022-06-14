@@ -123,9 +123,9 @@
                     $('#m_product_id').val(data.id);
                     $('#m_stock').attr('max', data.qty);
                     $('#m_size').empty();
-                    $('#m_size').append("<option value=''>Select Size</option>");
+                    $('#m_size').append("<option value='' disabled>Select Size</option>");
                     $('#m_color').empty();
-                    $('#m_color').append("<option value=''>Select Color</option>");
+                    $('#m_color').append("<option value='' disabled>Select Color</option>");
 
                     if (data.all_sizes == "") {
                         $('#m_size_form').hide();

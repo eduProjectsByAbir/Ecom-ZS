@@ -7,7 +7,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('user.wishlist') }}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{ auth()->check() ? route('user.mycart') : route('myCart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="{{ route('checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @auth('web')
                         <li><a href="{{ route('user.dashboard') }}"><i class="icon fa fa-user"></i>My Account</a></li>
                         <li><a href="{{ route('logout') }}" id="logoutButton"><i
@@ -115,7 +115,7 @@
                                     <div class="pull-right"> <span class="text">Sub Total :</span>$<span class='price'
                                             id="headerCartTotal">00</span> </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html"
+                                    <a href="{{ route('myCart') }}"
                                         class="btn btn-upper btn-primary btn-block m-t-20" id="navCheckoutButton">Checkout</a>
                                 </div>
                                 <!-- /.cart-total-->

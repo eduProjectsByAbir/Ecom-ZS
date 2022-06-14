@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WebsiteController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,8 @@ Route::controller(CartController::class)->group(function () {
 Route::controller(WishlistController::class)->group(function () {
     Route::post('/product/add-to-wishlist', 'addToWishlist')->name('addToWishlist');
     Route::get('/product/remove/wishlist/{id}', 'removeFromWishlist')->name('remove.wishlist');
+});
+
+Route::controller(CheckoutController::class)->group(function () {
+    Route::get('/checkout', 'checkout')->name('checkout');
 });
