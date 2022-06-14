@@ -48,7 +48,7 @@ class CartController extends Controller
         $data = [];
         $data['carts'] = Cart::content();
         $data['cartQty'] = Cart::count();
-        $data['cartsTotal'] = Cart::total();
+        $data['cartsTotal'] = round(Cart::total());
         $data['cartsTax'] = Cart::tax();
 
         return response()->json($data);
@@ -68,11 +68,11 @@ class CartController extends Controller
         $data = [];
         $data['carts'] = Cart::content();
         $data['cartQty'] = Cart::count();
-        $data['cartsTotal'] = Cart::total();
-        $data['cartsTax'] = Cart::tax();
-        $data['cartsPriceTotal'] = Cart::priceTotal();
-        $data['cartsSubTotal'] = Cart::subtotal();
-        $data['cartsDiscount'] = Cart::discount();
+        $data['cartsTotal'] = round(Cart::total());
+        $data['cartsTax'] = round(Cart::tax());
+        $data['cartsPriceTotal'] = round(Cart::priceTotal());
+        $data['cartsSubTotal'] = round(Cart::subtotal());
+        $data['cartsDiscount'] = round(Cart::discount());
         // return $data;
         return view('frontend.pages.my-cart', $data);
     }
