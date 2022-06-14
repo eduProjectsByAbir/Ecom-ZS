@@ -92,10 +92,10 @@ class CartController extends Controller
             return  response()->json([
                 'success' => 'Product Updated!',
                 'cartData' => $product = Cart::get($request->id),
-                'cartTax' => Cart::tax(),
-                'cartDiscount' => Cart::discount(),
-                'cartsSubTotal' => Cart::subtotal(),
-                'cartsTotal' => Cart::total(),
+                'cartTax' => round(Cart::tax()),
+                'cartDiscount' => round(Cart::discount()),
+                'cartsSubTotal' => round(Cart::subtotal()),
+                'cartsTotal' => round(Cart::total()),
             ]);
         }
 
@@ -150,7 +150,7 @@ class CartController extends Controller
             'error' => 'Coupon not found!',
         ]);
     }
-    
+
     public function removeCoupon(){
         Session::forget('coupon');
         flashSuccess('Coupon Removed!');
