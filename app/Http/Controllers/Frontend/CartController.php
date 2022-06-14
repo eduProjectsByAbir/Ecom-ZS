@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Product;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request){
-
+        Session::forget('coupon');
         $product = Product::findOrFail($request->id);
         $price = $product->price_discount == null ? $product->price :  $product->price-$product->price_discount;
         $cart = Cart::add([
@@ -52,6 +55,7 @@ class CartController extends Controller
     }
 
     public function cartRemoveProduct(Request $request){
+        Session::forget('coupon');
         $cart = Cart::remove(request('id'));
         flashSuccess('Product Removed.');
         return  response()->json([
@@ -74,6 +78,7 @@ class CartController extends Controller
     }
 
     public function updateCart(Request $request){
+        Session::forget('coupon');
         $product = Cart::get($request->id);
         if($request->do == 'plus'){
             $cartUpdate = Cart::update($request->id, $product->qty+1);
@@ -99,4 +104,74 @@ class CartController extends Controller
             'cartCount' => Cart::count(),
         ]);
     }
+
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where('coupon_code',strtoupper($request->code))->first();
+
+        If($coupon->expired){
+            return  response()->json([
+                'error' => 'Coupon Expired!',
+            ]);
+        }
+
+        If(!$coupon->has_limit){
+            return  response()->json([
+                'error' => 'Coupon Limit Over!',
+            ]);
+        }
+
+        If(!$coupon->validity){
+            return  response()->json([
+                'error' => 'Invalid Coupon!',
+            ]);
+        }
+
+        if($coupon){
+            Session::forget('coupon');
+            Session::put('coupon',[
+                'coupon_code' => $coupon->coupon_code,
+                'coupon_discount' => $coupon->coupon_discount,
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100)
+            ]);
+
+            return response()->json([
+                'success' => 'Coupon Applied!',
+                'validity' => true,
+                'subtotal' => Cart::total(),
+                'coupon_code' => session()->get('coupon')['coupon_code'],
+                'coupon_discount' => session()->get('coupon')['coupon_discount'],
+                'discount_amount' => session()->get('coupon')['discount_amount'],
+                'total_amount' => session()->get('coupon')['total_amount'],
+            ]);
+        }
+
+        return  response()->json([
+            'error' => 'Coupon not found!',
+        ]);
+    }
+    
+    public function removeCoupon(){
+        Session::forget('coupon');
+        flashSuccess('Coupon Removed!');
+        return back();
+    }
+
+    // public function CouponCalculation(){
+
+    //     if (Session::has('coupon')) {
+    //         return response()->json(array(
+    //             'subtotal' => Cart::total(),
+    //             'coupon_code' => session()->get('coupon')['coupon_code'],
+    //             'coupon_discount' => session()->get('coupon')['coupon_discount'],
+    //             'discount_amount' => session()->get('coupon')['discount_amount'],
+    //             'total_amount' => session()->get('coupon')['total_amount'],
+    //         ));
+    //     }else{
+    //         return response()->json(array(
+    //             'total' => Cart::total(),
+    //         ));
+
+    //     }
+    // } // end method 
 }

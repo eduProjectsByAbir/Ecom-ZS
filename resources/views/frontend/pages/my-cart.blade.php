@@ -168,7 +168,7 @@ My Cart
                 </div><!-- /.estimate-ship-tax -->
 
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-                    {{-- <table class="table">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>
@@ -182,15 +182,19 @@ My Cart
                                 <td>
                                     <div class="form-group">
                                         <input type="text" class="form-control unicase-form-control text-input"
-                                            placeholder="You Coupon..">
+                                            placeholder="Enter You Coupon Code.." id="coupon_code" value="{{ Session::has('coupon') ? session()->get('coupon')['coupon_code'] : old('coupon_code') }}" {{ Session::has('coupon') ? 'disabled' : '' }}>
                                     </div>
-                                    <div class="clearfix pull-right">
-                                        <button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
+                                    <div class="clearfix pull-right" id="coupon_submit_button">
+                                        @if(Session::has('coupon'))
+                                        <a href="{{ route('removeCoupon') }}" class="btn-upper btn btn-warning">Remove Coupon</a>
+                                        @else
+                                        <button type="submit" class="btn-upper btn btn-primary" onclick="applyCoupon()">APPLY COUPON</button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
                         </tbody><!-- /tbody -->
-                    </table><!-- /table --> --}}
+                    </table><!-- /table -->
                 </div><!-- /.estimate-ship-tax -->
 
                 <div class="col-md-4 col-sm-12 cart-shopping-total">
@@ -202,13 +206,13 @@ My Cart
                                         Total Tax<span class="inner-left-md" id="cartTax">${{ $cartsTax }}</span>
                                     </div>
                                     <div class="cart-sub-total">
-                                        Discount<span class="inner-left-md" id="cartDiscount">${{ $cartsDiscount }}</span>
-                                    </div>
-                                    <div class="cart-sub-total">
                                         Subtotal<span class="inner-left-md" id="cartSubTotal">${{ $cartsSubTotal }}</span>
                                     </div>
+                                    <div class="cart-sub-total">
+                                        Discount<span class="inner-left-md" id="cartDiscount">${{ Session::has('coupon') ? session()->get('coupon')['discount_amount'] : $cartsDiscount }}</span>
+                                    </div>
                                     <div class="cart-grand-total">
-                                        Grand Total<span class="inner-left-md" id="cartTotal">${{ $cartsTotal }}</span>
+                                        Grand Total<span class="inner-left-md" id="cartTotal">${{ Session::has('coupon') ? session()->get('coupon')['total_amount'] : $cartsTotal }}</span>
                                     </div>
                                 </th>
                             </tr>
@@ -348,6 +352,8 @@ My Cart
                 var cartDiscount = $('#cartDiscount');
                 var cartSubTotal = $('#cartSubTotal');
                 var cartTotal = $('#cartTotal');
+                var couponCodeInput = $('#coupon_code');
+                var couponCodeButton = $('#coupon_submit_button');
                 if (data.success) {
                     navCartShow();
                     qty.val(data.cartData.qty);
@@ -356,6 +362,9 @@ My Cart
                     cartDiscount.text('$'+data.cartDiscount);
                     cartSubTotal.text('$'+data.cartsSubTotal);
                     cartTotal.text('$'+data.cartsTotal);
+                    couponCodeInput.removeAttr('disabled');
+                    couponCodeInput.val();
+                    couponCodeButton.empty().html(`<button type="submit" class="btn-upper btn btn-primary" onclick="applyCoupon()">APPLY COUPON</button>`);
                     toastr.success(data.success, 'Success!');
                 } else {
                     toastr.error(data.error, 'Error!');
@@ -363,6 +372,39 @@ My Cart
             }
         });
     }
+</script>
 
+<script>
+    function applyCoupon(){
+        var coupon = $('#coupon_code').val();
+        console.log(coupon);
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "code": coupon,
+            },
+            url: '{{ route('applyCoupon') }}',
+            success: function(data){
+                var cartDiscount = $('#cartDiscount');
+                var cartSubTotal = $('#cartSubTotal');
+                var cartTotal = $('#cartTotal');
+                var couponCodeInput = $('#coupon_code');
+                var couponCodeButton = $('#coupon_submit_button');
+                console.log(coupon_submit_button);
+                if(data.success){
+                    cartDiscount.text('$'+data.discount_amount);
+                    cartSubTotal.text('$'+data.subtotal);
+                    cartTotal.text('$'+data.total_amount);
+                    couponCodeInput.attr('disabled', 'disabled');
+                    couponCodeButton.empty().html(`<a href="{{ route("removeCoupon") }}" class="btn-upper btn btn-warning">Remove Coupon</a>`);
+                    toastr.success(data.success, 'Success!');
+                }
+
+                data.error ? toastr.error(data.error, 'Error!') : '';
+            }
+        });
+    }
 </script>
 @endsection

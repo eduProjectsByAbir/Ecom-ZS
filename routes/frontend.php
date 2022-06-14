@@ -18,6 +18,8 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/cart/update', 'updateCart')->name('updateCart');
     Route::get('/cart/navcart', 'navCart')->name('navCart');
     Route::get('/cart/remove/product', 'cartRemoveProduct')->name('cartRemoveProduct');
+    Route::post('/cart/apply/coupon', 'applyCoupon')->name('applyCoupon');
+    Route::get('/cart/remove/coupon', 'removeCoupon')->name('removeCoupon');
 });
 
 Route::controller(WishlistController::class)->group(function () {
