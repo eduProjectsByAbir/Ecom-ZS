@@ -108,25 +108,25 @@ class CartController extends Controller
     public function applyCoupon(Request $request){
         $coupon = Coupon::where('coupon_code',strtoupper($request->code))->first();
 
-        If($coupon->expired){
-            return  response()->json([
-                'error' => 'Coupon Expired!',
-            ]);
-        }
-
-        If(!$coupon->has_limit){
-            return  response()->json([
-                'error' => 'Coupon Limit Over!',
-            ]);
-        }
-
-        If(!$coupon->validity){
-            return  response()->json([
-                'error' => 'Invalid Coupon!',
-            ]);
-        }
-
         if($coupon){
+            If($coupon->expired){
+                return  response()->json([
+                    'error' => 'Coupon Expired!',
+                ]);
+            }
+    
+            If(!$coupon->has_limit){
+                return  response()->json([
+                    'error' => 'Coupon Limit Over!',
+                ]);
+            }
+    
+            If(!$coupon->validity){
+                return  response()->json([
+                    'error' => 'Invalid Coupon!',
+                ]);
+            }
+
             Session::forget('coupon');
             Session::put('coupon',[
                 'coupon_code' => $coupon->coupon_code,
