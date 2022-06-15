@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\UserController;
 
@@ -14,4 +15,8 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'), 'verifi
 
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
     Route::get('/cart', [UserController::class, 'myCart'])->name('mycart');
+
+    Route::controller(CheckoutController::class)->group(function () {
+        Route::post('/checkout', 'OrderStore')->name('checkout');
+    });
 });

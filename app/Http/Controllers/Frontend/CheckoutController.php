@@ -32,4 +32,8 @@ class CheckoutController extends Controller
         flashWarning('Please login or register to checkout...');
         return redirect(route('login'));
     }
+    
+    public function OrderStore(Request $request){
+        return $request;
+    }
 }

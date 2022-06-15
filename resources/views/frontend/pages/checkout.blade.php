@@ -19,7 +19,7 @@ Checkout
     <div class="container">
         <div class="checkout-box ">
             <div class="row">
-                <form class="register-form" action="" method="POST">
+                <form class="register-form" action="{{ route('user.checkout') }}" method="POST">
                     @csrf
                     <div class="col-md-8">
                         <div class="panel-group checkout-steps" id="accordion">
@@ -130,6 +130,30 @@ Checkout
                                                     <textarea class="form-control" cols="30" rows="5"
                                                         placeholder="Notes" name="notes"></textarea>
                                                 </div> <!-- // end form group  -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <h3 style="padding-bottom: 10px;">Payment Methods</h3>
+                                            <div class="col-md-4 col-sm-12 form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                    id="payment_method_1" value="stripe">
+                                                <label class="form-check-label" for="payment_method_1">
+                                                    Stripe
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                    id="payment_method_2" value="card">
+                                                <label class="form-check-label" for="payment_method_2">
+                                                    Card
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                    id="payment_method_3" value="cod">
+                                                <label class="form-check-label" for="payment_method_3">
+                                                    Cash on Delivary
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -260,15 +284,16 @@ Checkout
                     url: "{{ route('divisionListJson') }}",
                     type: "POST",
                     data: {
-                        "_token" : "{{ csrf_token() }}",
-                        "id" : country_id,
+                        "_token": "{{ csrf_token() }}",
+                        "id": country_id,
                     },
                     dataType: "json",
                     success: function (data) {
                         var division = $('select[name="division_id"]');
                         division.empty();
                         $('select[name="city_id"]').empty();
-                        division.append('<option value="" selected>Select Division</option>');
+                        division.append(
+                            '<option value="" selected>Select Division</option>');
                         $.each(data, function (key, value) {
                             division.append(
                                 '<option value="' + value.id + '">' + value
@@ -286,14 +311,15 @@ Checkout
                     url: "{{ route('districtListJson') }}",
                     type: "POST",
                     data: {
-                        "_token" : "{{ csrf_token() }}",
-                        "id" : division_id,
+                        "_token": "{{ csrf_token() }}",
+                        "id": division_id,
                     },
                     dataType: "json",
                     success: function (data) {
                         var district = $('select[name="district_id"]');
                         district.empty();
-                        district.append('<option value="" selected>Select District</option>');
+                        district.append(
+                            '<option value="" selected>Select District</option>');
                         $.each(data, function (key, value) {
                             district.append(
                                 '<option value="' + value.id + '">' + value
@@ -311,8 +337,8 @@ Checkout
                     url: "{{ route('cityListJson') }}",
                     type: "POST",
                     data: {
-                        "_token" : "{{ csrf_token() }}",
-                        "id" : district_id,
+                        "_token": "{{ csrf_token() }}",
+                        "id": district_id,
                     },
                     dataType: "json",
                     success: function (data) {
