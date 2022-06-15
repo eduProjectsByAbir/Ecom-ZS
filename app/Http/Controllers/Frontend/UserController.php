@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\Wishlist;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -103,5 +105,19 @@ class UserController extends Controller
         $data['cartsDiscount'] = Cart::discount();
         // return $data;
         return view('frontend.pages.my-cart', $data);
+    }
+    
+    public function myOrders(){
+        $orders = Order::where('user_id', auth('web')->user()->id)->latest('id')->get();
+        return view('frontend.user.orders', compact('orders'));
+    }
+    
+    public function myOrderDetails($id){
+        $orderDetails = Order::where([
+            'id' => $id,
+            'user_id' => auth()->user()->id
+        ])->first();
+        $orderItems = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+        return view('frontend.user.order-details', compact('orderDetails', 'orderItems'));
     }
 }

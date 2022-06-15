@@ -156,22 +156,4 @@ class CartController extends Controller
         flashSuccess('Coupon Removed!');
         return back();
     }
-
-    // public function CouponCalculation(){
-
-    //     if (Session::has('coupon')) {
-    //         return response()->json(array(
-    //             'subtotal' => Cart::total(),
-    //             'coupon_code' => session()->get('coupon')['coupon_code'],
-    //             'coupon_discount' => session()->get('coupon')['coupon_discount'],
-    //             'discount_amount' => session()->get('coupon')['discount_amount'],
-    //             'total_amount' => session()->get('coupon')['total_amount'],
-    //         ));
-    //     }else{
-    //         return response()->json(array(
-    //             'total' => Cart::total(),
-    //         ));
-
-    //     }
-    // } // end method 
 }
