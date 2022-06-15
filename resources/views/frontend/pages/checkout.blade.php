@@ -250,8 +250,7 @@ Checkout
                                                     <td>
                                                         <div class="cart-checkout-btn text-center">
                                                             <button type="submit" href="{{ route('checkout') }}"
-                                                                class="btn btn-primary checkout-btn">Submit
-                                                                Order</button>
+                                                                class="btn btn-primary checkout-btn">Process Payment</button>
                                                         </div>
                                                     </td>
                                                 </tr>

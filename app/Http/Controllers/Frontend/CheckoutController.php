@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Models\AddressCountry;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -123,19 +124,15 @@ class CheckoutController extends Controller
 
         ]);
 
-        // // Start Send Email 
-        // $invoice = Order::findOrFail($order_id);
-        // $data = [
-        //     'invoice_no' => $invoice->invoice_no,
-        //     'amount' => $total_amount,
-        //     'name' => $invoice->name,
-        //     'email' => $invoice->email,
-        // ];
+        $invoice = Order::findOrFail($order_id);
+        $data = [
+            'invoice_no' => $invoice->invoice_no,
+            'amount' => $total_amount,
+            'name' => $invoice->name,
+            'email' => $invoice->email,
+        ];
 
-        // Mail::to($request->email)->send(new OrderMail($data));
-
-        // // End Send Email 
-
+        Mail::to($request->email)->send(new OrderMail($data));
 
         $carts = Cart::content();
         foreach ($carts as $cart) {
