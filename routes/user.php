@@ -18,5 +18,6 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'), 'verifi
 
     Route::controller(CheckoutController::class)->group(function () {
         Route::post('/checkout', 'OrderStore')->name('checkout');
+        Route::post('/checkout-stripe', 'OrderStoreStripe')->name('checkout.stripe');
     });
 });
