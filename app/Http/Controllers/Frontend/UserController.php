@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
+use App\Models\Wishlist;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -83,5 +88,49 @@ class UserController extends Controller
         Auth::guard('web')->logout();
         flashSuccess('Successfully Logout!');
         return redirect()->route('login');
+    }
+
+    public function wishlist(){
+        $wishlists = Wishlist::with('product')->where('user_id', auth('web')->user()->id)->get();
+        return view('frontend.pages.wishlist', compact('wishlists'));
+    }
+
+    public function myCart(){
+        $data = [];
+        $data['carts'] = Cart::content();
+        $data['cartQty'] = Cart::count();
+        $data['cartsTotal'] = Cart::total();
+        $data['cartsTax'] = Cart::tax();
+        $data['cartsPriceTotal'] = Cart::priceTotal();
+        $data['cartsSubTotal'] = Cart::subtotal();
+        $data['cartsDiscount'] = Cart::discount();
+        // return $data;
+        return view('frontend.pages.my-cart', $data);
+    }
+
+    public function myOrders(){
+        $orders = Order::where('user_id', auth('web')->user()->id)->latest('id')->get();
+        return view('frontend.user.orders', compact('orders'));
+    }
+
+    public function myOrderDetails($id){
+        $orderDetails = Order::where([
+            'id' => $id,
+            'user_id' => auth()->user()->id
+        ])->first();
+        $orderItems = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+        return view('frontend.user.order-details', compact('orderDetails', 'orderItems'));
+    }
+
+    public function myOrderInvoice($id){
+        $data = [];
+        $data['order'] = Order::where([
+            'id' => $id,
+            'user_id' => auth()->user()->id
+        ])->first();
+        $data['orderItem'] = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+
+        $pdf = PDF::loadView('frontend.template.invoice', $data);
+        return $pdf->download('invoice.pdf');
     }
 }

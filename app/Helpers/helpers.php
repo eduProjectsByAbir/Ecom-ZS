@@ -39,3 +39,20 @@ function flashError(string $msg)
     session()->flash('error', $msg);
 }
 
+function responseSuccess(string $msg = "Success")
+{
+    return response()->json([
+        'success' => true,
+        'message' => $msg,
+    ], 200);
+}
+
+function responseError(string $msg = 'Something went wrong, please try again', int $code = 404)
+{
+    return response()->json([
+        'success' => false,
+        'message' => $msg,
+    ], $code);
+}
+
+

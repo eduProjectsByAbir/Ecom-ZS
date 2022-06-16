@@ -12,7 +12,7 @@ class SubSubcategory extends Model
     
     protected $fillable = [
         'name',
-        'category_id'
+        'sub_category_id'
     ];
 
     protected static function boot()
@@ -29,6 +29,6 @@ class SubSubcategory extends Model
 
     public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class, 'subcategory_id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 }

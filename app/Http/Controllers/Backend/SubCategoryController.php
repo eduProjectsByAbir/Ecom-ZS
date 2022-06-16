@@ -15,7 +15,7 @@ class SubCategoryController extends Controller
             abort('403');
         }
         $categories = Category::all();
-        $subcategories = SubCategory::with('category:id,name')->latest('id')->paginate(10);
+        $subcategories = SubCategory::with('category:id,name')->withCount('subSubcategories')->latest('id')->paginate(10);
         return view('admin.subcategory.index', compact('categories', 'subcategories'));
     }
 
@@ -31,7 +31,7 @@ class SubCategoryController extends Controller
             abort('403');
         }
         $request->validate([
-            'name' => 'required|string|max:40|unique:brands,name',
+            'name' => 'required|string|max:40|unique:sub_categories,name',
             'category_id' => 'required|integer',
         ]);
 
@@ -76,11 +76,12 @@ class SubCategoryController extends Controller
             abort('403');
         }
         $request->validate([
-            'name' => 'required|string|max:40|unique:categories,name,'.$subCategory->id,
+            'name' => 'required|string|max:40|unique:sub_categories,name,'.$subCategory->id,
             'category_id' => 'required|integer',
         ]);
 
         $subCategory->name = $request->name;
+        $subCategory->category_id = $request->category_id;
         $subCategory->save();
 
         flashSuccess('Subcategory Updated successfully!');
@@ -96,7 +97,8 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory)
     {
         if(!userCan('subcategory.delete')){
-            abort('403');
+            flashError('Your Don\'t Have Permission to Deleted!');
+            return back();
         }
 
         $subCategory->delete();

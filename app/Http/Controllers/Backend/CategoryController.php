@@ -33,7 +33,7 @@ class CategoryController extends Controller
             abort('403');
         }
         $request->validate([
-            'name' => 'required|string|max:40|unique:brands,name',
+            'name' => 'required|string|max:40|unique:categories,name',
             'icon' => 'nullable|image|max:1024',
         ]);
 
@@ -115,7 +115,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if(!userCan('category.delete')){
-            abort('403');
+            flashError('Your Don\'t Have Permission to Deleted!');
+            return back();
         }
 
         if($category->icon !== null){

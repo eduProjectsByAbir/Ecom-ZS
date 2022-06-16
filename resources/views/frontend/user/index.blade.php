@@ -3,22 +3,25 @@
 @section('title', 'User Dashboard')
 
 @section('content')
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+                <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+            </ul>
+        </div><!-- /.breadcrumb-inner -->
+    </div><!-- /.container -->
+</div><!-- /.breadcrumb -->
 <div class="body-content">
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <img src="{{ asset($user->profile_photo_url) }}" alt="" class="card-img-top" id="userImage">
-                <ul class="list-group list-group-flush">
-                    <a href="{{ route('user.home') }}" class="btn btn-success btn-sm btn-block">Home</a>
-                    <a href="{{ route('user.profile') }}" class="btn btn-primary btn-sm btn-block">Profile Update</a>
-                    <a href="{{ route('user.profile.password') }}" class="btn btn-warning btn-sm btn-block">Change Password</a>
-                    <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>
-                </ul>
+                <x-frontend.user.sidebar  />
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="card">
-                    <h3 class="text-center"><span class="text-danger">Hi...</span><strong>{{ $user->name }}</strong> Welcome to e-commerce sh op</h3>
+                    <h3 class="text-center"><span class="text-danger">Hi...</span><strong>{{ auth('web')->user()->name }}</strong> Welcome to e-commerce sh op</h3>
                 </div>
             </div>
         </div>

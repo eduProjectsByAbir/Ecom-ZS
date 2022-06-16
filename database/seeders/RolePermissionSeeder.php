@@ -94,6 +94,77 @@ class RolePermissionSeeder extends Seeder
                     'subsubcategory.delete',
                 ]
             ],
+            [
+                'group_name' => 'product',
+                'permissions' => [
+                    // product permission
+                    'product.view',
+                    'product.show',
+                    'product.create',
+                    'product.store',
+                    'product.edit',
+                    'product.update',
+                    'product.delete',
+                ]
+            ],
+            [
+                'group_name' => 'product_image',
+                'permissions' => [
+                    //image product permission
+                    'product_image.create',
+                    'product_image.store',
+                    'product_image.delete',
+                ]
+            ],
+            [
+                'group_name' => 'slider',
+                'permissions' => [
+                    // slider permission
+                    'slider.view',
+                    'slider.create',
+                    'slider.store',
+                    'slider.edit',
+                    'slider.update',
+                    'slider.delete',
+                ]
+            ],
+            [
+                'group_name' => 'coupon',
+                'permissions' => [
+                    // coupon permission
+                    'coupon.view',
+                    'coupon.create',
+                    'coupon.store',
+                    'coupon.edit',
+                    'coupon.update',
+                    'coupon.delete',
+                ]
+            ],
+            [
+                'group_name' => 'address',
+                'permissions' => [
+                    // address permission
+                    'address.view',
+                    'address.create',
+                    'address.store',
+                    'address.edit',
+                    'address.update',
+                    'address.delete',
+                ]
+            ],
+            [
+                'group_name' => 'order',
+                'permissions' => [
+                    // order permission
+                    'order.view',
+                    'order.create',
+                    'order.store',
+                    'order.edit',
+                    'order.update',
+                    'order.status.change',
+                    'order.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission

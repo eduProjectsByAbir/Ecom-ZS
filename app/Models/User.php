@@ -67,4 +67,9 @@ class User extends Authenticatable
 
         return asset($this->profile_photo_path);
     }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'product_id', 'id');
+    }
 }
