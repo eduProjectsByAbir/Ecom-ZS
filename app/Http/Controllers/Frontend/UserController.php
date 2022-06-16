@@ -11,6 +11,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -119,5 +120,17 @@ class UserController extends Controller
         ])->first();
         $orderItems = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
         return view('frontend.user.order-details', compact('orderDetails', 'orderItems'));
+    }
+    
+    public function myOrderInvoice($id){
+        $data = [];
+        $data['order'] = Order::where([
+            'id' => $id,
+            'user_id' => auth()->user()->id
+        ])->first();
+        $data['orderItem'] = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+
+        $pdf = PDF::loadView('frontend.template.invoice', $data);
+        return $pdf->download('invoice.pdf');
     }
 }
