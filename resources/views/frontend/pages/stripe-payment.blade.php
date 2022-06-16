@@ -67,7 +67,7 @@ Stripe Payment
                             <!-- panel-heading -->
                             <div class="panel-heading">
                                 <h3 class="unicase-checkout-title">
-                                    Shipping Address
+                                    Payment
                                 </h3>
                             </div>
                             <!-- panel-heading -->

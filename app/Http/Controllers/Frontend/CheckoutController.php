@@ -67,11 +67,12 @@ class CheckoutController extends Controller
         }
 
         if ($request->payment_method == "card") {
-            return "card";
+            flashError('Sorry, no card payment available!');
+            return back();
         }
 
         if ($request->payment_method == "cod") {
-            return "Cash on Delivery";
+            return view('frontend.pages.cod-payment', $data);
         }
     }
 
@@ -156,6 +157,74 @@ class CheckoutController extends Controller
         Cart::destroy();
 
         flashSuccess('Order Placed Succesfully!');
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.myorders');
+    }
+
+    public function OrderStoreCOD(Request $request){
+        if (Session::has('coupon')) {
+            $total_amount = Session::get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
+
+        $order_id = Order::insertGetId([
+            'user_id' => Auth::id(),
+            'address_country_id' => $request->country_id,
+            'address_division_id' => $request->division_id,
+            'address_district_id' => $request->district_id,
+            'address_city_id' => $request->city_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'post_code' => $request->post_code,
+            'notes' => $request->notes,
+
+            'payment_type' => 'COD',
+            'payment_method' => 'COD',
+            'currency' => 'USD',
+            'amount' => $total_amount,
+            'order_number' => uniqid(),
+
+            'invoice_no' => 'AZEC' . mt_rand(10000000, 99999999),
+            'order_date' => Carbon::now()->format('d F Y'),
+            'order_month' => Carbon::now()->format('F'),
+            'order_year' => Carbon::now()->format('Y'),
+            'status' => 'pending',
+            'created_at' => Carbon::now(),
+
+        ]);
+
+        $invoice = Order::findOrFail($order_id);
+        $data = [
+            'invoice_no' => $invoice->invoice_no,
+            'amount' => $total_amount,
+            'name' => $invoice->name,
+            'email' => $invoice->email,
+        ];
+
+        Mail::to($request->email)->send(new OrderMail($data));
+
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            OrderItem::insert([
+                'order_id' => $order_id,
+                'product_id' => $cart->id,
+                'color' => $cart->options->color,
+                'size' => $cart->options->size,
+                'qty' => $cart->qty,
+                'price' => $cart->price,
+                'created_at' => Carbon::now(),
+
+            ]);
+        }
+
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
+        Cart::destroy();
+
+        flashSuccess('Order Placed Succesfully!');
+        return redirect()->route('user.myorders');
     }
 }

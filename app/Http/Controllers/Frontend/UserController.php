@@ -107,12 +107,12 @@ class UserController extends Controller
         // return $data;
         return view('frontend.pages.my-cart', $data);
     }
-    
+
     public function myOrders(){
         $orders = Order::where('user_id', auth('web')->user()->id)->latest('id')->get();
         return view('frontend.user.orders', compact('orders'));
     }
-    
+
     public function myOrderDetails($id){
         $orderDetails = Order::where([
             'id' => $id,
@@ -121,7 +121,7 @@ class UserController extends Controller
         $orderItems = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
         return view('frontend.user.order-details', compact('orderDetails', 'orderItems'));
     }
-    
+
     public function myOrderInvoice($id){
         $data = [];
         $data['order'] = Order::where([
