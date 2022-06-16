@@ -116,6 +116,13 @@
                 </ul>
             </li>
 
+            <li class="{{  Request::is('admin/order*') ? 'active' : '' }}">
+                <a href="{{ route('admin.order.index') }}">
+                    <i class="fa fa-gift {{  Request::is('admin/order*') ? 'text-white' : '' }}"></i>
+                    <span>Order</span>
+                </a>
+            </li>
+
             <li class="header nav-small-cap">EXTRA</li>
             <li>
                 <a href="{{ route('home') }}">

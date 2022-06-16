@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -14,28 +18,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $orders = Order::latest()->paginate(12);
+        return view('admin.order.index', compact('orders'));
     }
 
     /**
@@ -46,40 +30,82 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [];
+        $data['order'] = Order::where([
+            'id' => $id,
+        ])->first();
+        $data['orderItem'] = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+        return view('admin.order.show', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function invoice($id)
     {
-        //
+        $data = [];
+        $data['order'] = Order::where([
+            'id' => $id
+        ])->first();
+        $data['orderItem'] = OrderItem::with('product')->where('order_id', $id)->latest('id')->get();
+
+        $pdf = PDF::loadView('frontend.template.invoice', $data);
+        return $pdf->download('invoice.pdf');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id)->delete();
+
+        if($order){
+            flashSuccess('Order Deleted!');
+            return back();
+        }
+    }
+
+    public function statusChange(Request $request, $id){
+        $order = Order::findOrFail($id);
+
+        if($request->status == "confirmed"){
+            $order->status = "confirmed";
+            $order->confirmed_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order Confirmed!");
+        }
+
+        if($request->status == "processing"){
+            $order->status = "processing";
+            $order->processing_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order processing...!");
+        }
+
+        if($request->status == "picked"){
+            $order->status = "picked";
+            $order->picked_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order picked...!");
+        }
+
+        if($request->status == "shipped"){
+            $order->status = "shipped";
+            $order->shipped_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order shipped...!");
+        }
+
+        if($request->status == "delivered"){
+            $order->status = "delivered";
+            $order->delivered_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order delivered...!");
+        }
+
+        if($request->status == "cancel"){
+            $order->status = "cancel";
+            $order->cancel_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order cancel...!");
+        }
+
+        if($request->status == "return"){
+            $order->status = "return";
+            $order->return_date = Carbon::now()->format('d F Y');
+            flashSuccess("Order return...!");
+        }
+
+        $order->save();
+        return back();
     }
 }

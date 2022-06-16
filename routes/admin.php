@@ -138,10 +138,9 @@ Route::middleware(['auth:admin', 'auth:sanctum,admin', config('jetstream.auth_se
 
     Route::controller(OrderController::class)->prefix('order')->name('order.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/create', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/show/{id}', 'show')->name('show');
+        Route::get('/invoice/{id}', 'invoice')->name('invoice');
         Route::delete('/delete/{id}', 'destroy')->name('delete');
-        Route::get('/status/change/{id}', 'status_change')->name('toggle.status');
+        Route::get('/status/change/{id}', 'statusChange')->name('toggle.status');
     });
 });
