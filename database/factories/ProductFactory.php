@@ -38,6 +38,8 @@ class ProductFactory extends Factory
             'product_thumbnail' => $this->faker->imageUrl,
             'hot_deals' => rand(0,1),
             'featured' => rand(0,1),
+            'special_offer' => rand(0,1),
+            'special_deals' => rand(0,1),
         ];
     }
 }

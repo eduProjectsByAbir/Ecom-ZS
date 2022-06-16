@@ -23,7 +23,7 @@ class AddressDivisionSeeder extends Seeder
         foreach($divisions as $division){
             AddressDivision::create([
                 'name' => $division,
-                'address_country_id' => 18
+                'address_country_id' => 1
             ]);
         }
     }

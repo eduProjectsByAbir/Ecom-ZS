@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             AddressCountrySeeder::class,
             AddressDivisionSeeder::class,
             AddressDistrictSeeder::class,
+            AddressCitySeeder::class,
         ]);
     }
 }
