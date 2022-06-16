@@ -152,6 +152,19 @@ class RolePermissionSeeder extends Seeder
                     'address.delete',
                 ]
             ],
+            [
+                'group_name' => 'order',
+                'permissions' => [
+                    // order permission
+                    'order.view',
+                    'order.create',
+                    'order.store',
+                    'order.edit',
+                    'order.update',
+                    'order.status.change',
+                    'order.delete',
+                ]
+            ],
         ];
 
         // Assaign Permission

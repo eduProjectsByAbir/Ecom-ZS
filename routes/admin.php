@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -133,5 +134,14 @@ Route::middleware(['auth:admin', 'auth:sanctum,admin', config('jetstream.auth_se
             Route::delete('/delete/{id}', 'destroyCity')->name('delete');
         });
 
+    });
+
+    Route::controller(OrderController::class)->prefix('order')->name('order.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/delete/{id}', 'destroy')->name('delete');
+        Route::get('/status/change/{id}', 'status_change')->name('toggle.status');
     });
 });
